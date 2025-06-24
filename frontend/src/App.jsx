@@ -1,10 +1,18 @@
 import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DoctorDashboard from "./pages/DoctorDashboard";
+import PatientDashboard from "./pages/PatientDashboard";
+import PharmacistDashboard from "./pages/PharmacistDashboard";
 
 function App() {
   return (
-    <div className="flex flex-col items-center justify-center">
-      <p>Bruh</p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="doctor-dashboard" element={<DoctorDashboard />} />
+        <Route path="patient-dashboard" element={<PatientDashboard />} />
+        <Route path="pharmacist-dashboard" element={<PharmacistDashboard />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
