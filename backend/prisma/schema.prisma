@@ -1,0 +1,122 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                    Int              @id @default(autoincrement())
+  email                 String           @unique
+  name                  String
+  lastname              String
+  birthDate             DateTime
+  role                  Role             @default(PATIENT)
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @default(now())
+  doctorAppointments    Appointment[]    @relation("doctor_appointment")
+  patientAppointments   Appointment[]    @relation("patient_appointment")
+  curp                  String?
+  weight                Decimal?
+  height                Decimal?
+  gender                Gender?
+  doctorMedicalHistory  MedicalHistory[] @relation("doctor_medical_history")
+  patientMedicalHistory MedicalHistory[] @relation("patient_medical_history")
+  doctorPrescription    Prescription[]   @relation("doctor_prescription")
+  patientPrescription   Prescription[]   @relation("patient_prescription")
+}
+
+model Appointment {
+  id           Int               @id @default(autoincrement())
+  patient      User              @relation("patient_appointment", fields: [patientId], references: [id])
+  patientId    Int
+  doctor       User              @relation("doctor_appointment", fields: [doctorId], references: [id])
+  doctorId     Int
+  status       AppointmentStatus
+  reason       String?
+  scheduleDate DateTime
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @default(now())
+}
+
+model MedicalHistory {
+  id            Int            @id @default(autoincrement())
+  patient       User           @relation("patient_medical_history", fields: [patientId], references: [id])
+  patientId     Int
+  doctor        User           @relation("doctor_medical_history", fields: [doctorId], references: [id])
+  doctorId      Int
+  diagnosis     String
+  notes         String?
+  prescriptions Prescription[]
+  createdAt     DateTime       @default(now())
+}
+
+model Prescription {
+  id               Int                @id @default(autoincrement())
+  patient          User               @relation("patient_prescription", fields: [patientId], references: [id])
+  patientId        Int
+  doctor           User               @relation("doctor_prescription", fields: [doctorId], references: [id])
+  doctorId         Int
+  MedicalHistory   MedicalHistory?    @relation(fields: [medicalHistoryId], references: [id])
+  medicalHistoryId Int?
+  status           PrescriptionStatus @default(ISSUED)
+  medicineList     Json
+  /**
+   * MEDICINE LIST JSON EXAMPLE
+   * [{
+   * id: medicineId,
+   * dosage: string,
+   * frequency: string,
+   * duration: string,
+   * },
+   * {
+   * id: 4,
+   * dosage: 50mg,
+   * frequency: every 8 hours,
+   * duration: for 2 weeks,
+   * }]
+   */
+}
+
+model Medicine {
+  id                Int      @id @default(autoincrement())
+  name              String
+  quantity          Int
+  criticalThreshold Int
+  expiryDate        DateTime
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
+}
+
+enum PrescriptionStatus {
+  ISSUED
+  DISPENSED
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELED
+  RESCHEDULED
+  COMPLETED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Role {
+  PATIENT
+  DOCTOR
+  PHARMACIST
+}

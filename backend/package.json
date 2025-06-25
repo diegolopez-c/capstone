@@ -4,15 +4,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"nodemon index.js"
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@prisma/client": "^6.10.1",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "express-oauth2-jwt-bearer": "^1.6.1",
+    "express-openid-connect": "^2.18.1",
     "nodemon": "^3.1.10"
+  },
+  "devDependencies": {
+    "prisma": "^6.10.1"
   }
 }
