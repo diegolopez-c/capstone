@@ -1,5 +1,9 @@
 import React from "react";
 
 export default function DoctorDashboard() {
-  return <div>DoctorDashboard</div>;
+  return (
+    <div>
+      <h1>DoctorDashboard</h1>
+    </div>
+  );
 }
