@@ -1,9 +1,12 @@
 import React from "react";
+import DoctorSidebar from "../components/DoctorSidebar";
+import DoctorMain from "../components/DoctorMain";
 
 export default function DoctorDashboard() {
   return (
-    <div>
-      <h1>DoctorDashboard</h1>
+    <div className="border border-black min-h-screen flex">
+      <DoctorSidebar />
+      <DoctorMain />
     </div>
   );
 }
