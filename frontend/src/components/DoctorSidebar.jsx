@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Datetime from "./Datetime";
 import ProfileCard from "./ProfileCard";
+import SidebarLink from "./SidebarLink";
 
 export default function DoctorSidebar() {
   return (
@@ -9,11 +10,11 @@ export default function DoctorSidebar() {
       <div className="h-1/2">
         <Datetime />
         <div className="flex flex-col gap-3 p-4">
-          <Link>Search Pacient</Link>
-          <Link>List of Appointments</Link>
-          <Link>New Prescription</Link>
-          <Link>New Medical Report</Link>
-          <Link>New Appointment</Link>
+          <SidebarLink text="Search Patient" />
+          <SidebarLink text="List of Appointments" />
+          <SidebarLink text="New Prescription" />
+          <SidebarLink text="New Medical Report" />
+          <SidebarLink text="New Appointment" />
         </div>
       </div>
       <ProfileCard />
