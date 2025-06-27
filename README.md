@@ -1,4 +1,4 @@
-# Capstone
+# Clinic All
 Diego Lopez's Meta University 2025 capstone project repository
 
 ## Run steps
