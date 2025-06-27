@@ -5,16 +5,61 @@ import PatientDashboard from "./pages/PatientDashboard";
 import PharmacistDashboard from "./pages/PharmacistDashboard";
 import LandingPage from "./pages/LandingPage";
 import Profile from "./components/Profile";
+import NewAppointmentPage from "./pages/doctor/NewAppointmentPage";
+import NewMedicalReportPage from "./pages/doctor/NewMedicalReportPage";
+import PatientSeach from "./pages/doctor/PatientSearch";
+import NewPrescriptionPage from "./pages/doctor/NewPrescriptionPage";
+import ExpirationMedicine from "./pages/pharmacist/ExpirationMedicine";
+import MedicineInventory from "./pages/pharmacist/MedicineInventory";
+import PrescriptionHistory from "./pages/pharmacist/PrescriptionHistory";
+import Appointments from "./pages/doctor/Appointments";
+import DispatchPrescriptionPage from "./pages/pharmacist/DispatchPrescriptionPage";
+import PatientNewAppointmentPage from "./pages/patient/PatientNewAppointmentPage";
+import PatientAppointmentsPage from "./pages/patient/PatientAppointmentsPage";
+import PatientHistoryPage from "./pages/patient/PatientHistoryPage";
+import PatientPrescriptionsPage from "./pages/patient/PatientPrescriptionsPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Overall Routes */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="doctor-dashboard" element={<DoctorDashboard />} />
-        <Route path="patient-dashboard" element={<PatientDashboard />} />
-        <Route path="pharmacist-dashboard" element={<PharmacistDashboard />} />
+
+        {/* Doctor Routes */}
+        <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+        <Route path="/doctor-appointments" element={<Appointments />} />
+        <Route path="/new-appointment" element={<NewAppointmentPage />} />
+        <Route path="/new-medical-report" element={<NewMedicalReportPage />} />
+        <Route path="/new-prescription" element={<NewPrescriptionPage />} />
+        <Route path="/patient-search" element={<PatientSeach />} />
+
+        {/* Patient Routes */}
+        <Route path="/patient-dashboard" element={<PatientDashboard />} />
+        <Route
+          path="/patient-new-appointment"
+          element={<PatientNewAppointmentPage />}
+        />
+        <Route
+          path="/patient-appointments"
+          element={<PatientAppointmentsPage />}
+        />
+        <Route path="/patient-history" element={<PatientHistoryPage />} />
+        <Route
+          path="/patient-prescriptions"
+          element={<PatientPrescriptionsPage />}
+        />
+
+        {/* Pharmacist Routes */}
+        <Route path="/pharmacist-dashboard" element={<PharmacistDashboard />} />
+        <Route
+          path="/dispatch-prescription"
+          element={<DispatchPrescriptionPage />}
+        />
+        <Route path="/expiration-medicine" element={<ExpirationMedicine />} />
+        <Route path="/medicine-inventory" element={<MedicineInventory />} />
+        <Route path="/prescription-history" element={<PrescriptionHistory />} />
       </Routes>
     </BrowserRouter>
   );
