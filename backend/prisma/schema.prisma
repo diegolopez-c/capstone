@@ -41,7 +41,7 @@ model Appointment {
   patientId    Int
   doctor       User              @relation("doctor_appointment", fields: [doctorId], references: [id])
   doctorId     Int
-  status       AppointmentStatus
+  status       AppointmentStatus @default(PENDING)
   reason       String?
   scheduleDate DateTime
   createdAt    DateTime          @default(now())
@@ -105,7 +105,7 @@ enum PrescriptionStatus {
 enum AppointmentStatus {
   PENDING
   CONFIRMED
-  CANCELED
+  CANCELLED
   RESCHEDULED
   COMPLETED
 }

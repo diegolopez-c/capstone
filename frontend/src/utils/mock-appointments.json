@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "patientId": 101,
+    "doctorId": 201,
+    "status": "PENDING",
+    "reason": "Annual physical checkup",
+    "scheduleDate": "2025-07-01T09:00:00Z",
+    "createdAt": "2025-06-20T10:00:00Z",
+    "updatedAt": "2025-06-20T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "patientId": 102,
+    "doctorId": 202,
+    "status": "CONFIRMED",
+    "reason": "Consultation for back pain",
+    "scheduleDate": "2025-07-02T14:30:00Z",
+    "createdAt": "2025-06-21T11:15:00Z",
+    "updatedAt": "2025-06-22T08:00:00Z"
+  },
+  {
+    "id": 3,
+    "patientId": 103,
+    "doctorId": 203,
+    "status": "CANCELLED",
+    "reason": "Follow-up on blood test results",
+    "scheduleDate": "2025-07-03T16:00:00Z",
+    "createdAt": "2025-06-22T12:00:00Z",
+    "updatedAt": "2025-06-25T09:30:00Z"
+  },
+  {
+    "id": 4,
+    "patientId": 104,
+    "doctorId": 204,
+    "status": "COMPLETED",
+    "reason": null,
+    "scheduleDate": "2025-07-04T11:00:00Z",
+    "createdAt": "2025-06-23T13:45:00Z",
+    "updatedAt": "2025-06-23T13:45:00Z"
+  },
+  {
+    "id": 5,
+    "patientId": 105,
+    "doctorId": 205,
+    "status": "RESCHEDULED",
+    "reason": "Dermatology consultation",
+    "scheduleDate": "2025-07-05T10:15:00Z",
+    "createdAt": "2025-06-24T14:20:00Z",
+    "updatedAt": "2025-06-24T14:20:00Z"
+  }
+]
