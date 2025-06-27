@@ -1,6 +1,6 @@
 import React from "react";
-import DoctorSidebar from "../components/DoctorSidebar";
-import DoctorMain from "../components/DoctorMain";
+import DoctorSidebar from "../components/doctor/DoctorSidebar";
+import DoctorMain from "../components/doctor/DoctorMain";
 
 export default function DoctorDashboard() {
   return (

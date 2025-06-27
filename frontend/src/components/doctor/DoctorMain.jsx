@@ -1,5 +1,5 @@
 import React from "react";
-import AppointmentList from "./AppointmentList";
+import AppointmentList from "../AppointmentList";
 
 export default function DoctorMain() {
   return (

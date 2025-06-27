@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Datetime from "./Datetime";
-import ProfileCard from "./ProfileCard";
-import SidebarLink from "./SidebarLink";
+import Datetime from "../Datetime";
+import ProfileCard from "../ProfileCard";
+import SidebarLink from "../SidebarLink";
 
 export default function DoctorSidebar() {
   return (
