@@ -18,50 +18,50 @@ import PatientNewAppointmentPage from "./pages/patient/PatientNewAppointmentPage
 import PatientAppointmentsPage from "./pages/patient/PatientAppointmentsPage";
 import PatientHistoryPage from "./pages/patient/PatientHistoryPage";
 import PatientPrescriptionsPage from "./pages/patient/PatientPrescriptionsPage";
+import RoleRedirect from "./pages/RoleRedirect";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Overall Routes */}
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/profile" element={<Profile />} />
+    <Routes>
+      {/* Overall Routes */}
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/redirect" element={<RoleRedirect />} />
+      <Route path="/profile" element={<Profile />} />
 
-        {/* Doctor Routes */}
-        <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-        <Route path="/doctor-appointments" element={<Appointments />} />
-        <Route path="/new-appointment" element={<NewAppointmentPage />} />
-        <Route path="/new-medical-report" element={<NewMedicalReportPage />} />
-        <Route path="/new-prescription" element={<NewPrescriptionPage />} />
-        <Route path="/patient-search" element={<PatientSeach />} />
+      {/* Doctor Routes */}
+      <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+      <Route path="/doctor-appointments" element={<Appointments />} />
+      <Route path="/new-appointment" element={<NewAppointmentPage />} />
+      <Route path="/new-medical-report" element={<NewMedicalReportPage />} />
+      <Route path="/new-prescription" element={<NewPrescriptionPage />} />
+      <Route path="/patient-search" element={<PatientSeach />} />
 
-        {/* Patient Routes */}
-        <Route path="/patient-dashboard" element={<PatientDashboard />} />
-        <Route
-          path="/patient-new-appointment"
-          element={<PatientNewAppointmentPage />}
-        />
-        <Route
-          path="/patient-appointments"
-          element={<PatientAppointmentsPage />}
-        />
-        <Route path="/patient-history" element={<PatientHistoryPage />} />
-        <Route
-          path="/patient-prescriptions"
-          element={<PatientPrescriptionsPage />}
-        />
+      {/* Patient Routes */}
+      <Route path="/patient-dashboard" element={<PatientDashboard />} />
+      <Route
+        path="/patient-new-appointment"
+        element={<PatientNewAppointmentPage />}
+      />
+      <Route
+        path="/patient-appointments"
+        element={<PatientAppointmentsPage />}
+      />
+      <Route path="/patient-history" element={<PatientHistoryPage />} />
+      <Route
+        path="/patient-prescriptions"
+        element={<PatientPrescriptionsPage />}
+      />
 
-        {/* Pharmacist Routes */}
-        <Route path="/pharmacist-dashboard" element={<PharmacistDashboard />} />
-        <Route
-          path="/dispatch-prescription"
-          element={<DispatchPrescriptionPage />}
-        />
-        <Route path="/expiration-medicine" element={<ExpirationMedicine />} />
-        <Route path="/medicine-inventory" element={<MedicineInventory />} />
-        <Route path="/prescription-history" element={<PrescriptionHistory />} />
-      </Routes>
-    </BrowserRouter>
+      {/* Pharmacist Routes */}
+      <Route path="/pharmacist-dashboard" element={<PharmacistDashboard />} />
+      <Route
+        path="/dispatch-prescription"
+        element={<DispatchPrescriptionPage />}
+      />
+      <Route path="/expiration-medicine" element={<ExpirationMedicine />} />
+      <Route path="/medicine-inventory" element={<MedicineInventory />} />
+      <Route path="/prescription-history" element={<PrescriptionHistory />} />
+    </Routes>
   );
 }
 

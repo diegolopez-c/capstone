@@ -6,7 +6,7 @@ import { Button } from "@heroui/react";
 
 export default function LandingPage() {
   return (
-    <div className="border border-black flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen">
       <h1>LandingPage</h1>
       <LoginButton />
       <LogoutButton />

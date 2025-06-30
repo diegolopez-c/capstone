@@ -4,7 +4,7 @@ import DoctorMain from "../components/doctor/DoctorMain";
 
 export default function DoctorDashboard() {
   return (
-    <div className="border border-black min-h-screen flex">
+    <div className="min-h-screen flex">
       <DoctorSidebar />
       <DoctorMain />
     </div>

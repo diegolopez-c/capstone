@@ -3,7 +3,7 @@ import PatientSidebar from "../components/patient/PatientSidebar";
 
 export default function PatientDashboard() {
   return (
-    <div className="min-h-screen flex">
+    <div className="h-screen flex">
       <PatientSidebar />
     </div>
   );

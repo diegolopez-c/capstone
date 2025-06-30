@@ -3,7 +3,7 @@ import DoctorSidebar from "../../components/doctor/DoctorSidebar";
 
 export default function NewPrescriptionPage() {
   return (
-    <div className="border border-black min-h-screen flex">
+    <div className="h-screen flex">
       <DoctorSidebar />
     </div>
   );
