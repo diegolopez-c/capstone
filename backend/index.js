@@ -5,6 +5,9 @@ const { auth } = require("express-openid-connect");
 const { requiresAuth } = require("express-openid-connect");
 const port = process.env.PORT || 8080;
 
+//Cors
+const cors = require("cors");
+
 //Routes importation
 const appointmentRoutes = require("./routes/appointment");
 const medicalHistoryRoutes = require("./routes/medicalHistory");
@@ -12,6 +15,7 @@ const medicineRoutes = require("./routes/medicine");
 const prescriptionRoutes = require("./routes/prescription");
 const userRoutes = require("./routes/user");
 
+//Auth0 Config
 const config = {
   authRequired: false,
   auth0Logout: true,
@@ -27,6 +31,16 @@ app.use(express.json());
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
+
+//Configure cors
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
 
 //Routing
 app.use("/appointment", appointmentRoutes);

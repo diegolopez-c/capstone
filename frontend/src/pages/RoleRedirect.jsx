@@ -9,6 +9,25 @@ export default function RoleRedirect() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    async function createUser(params) {
+      let userInfo = {
+        name: user.given_name,
+        lastname: user.family_name,
+        email: user.email,
+        birthDate: new Date(),
+      };
+
+      await fetch(import.meta.env.VITE_BASE_URL + "/user/create-new-user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userInfo),
+      });
+    }
+
+    createUser();
+
     if (isAuthenticated) {
       const roleArr = user["https://hospitall.com/roles"];
 

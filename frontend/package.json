@@ -13,6 +13,7 @@
     "@auth0/auth0-react": "^2.3.0",
     "@heroui/react": "^2.8.0-beta.10",
     "@tailwindcss/vite": "^4.1.10",
+    "cors": "^2.8.5",
     "framer-motion": "^12.19.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

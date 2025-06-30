@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -20,7 +19,6 @@ model User {
   name                  String
   lastname              String
   birthDate             DateTime
-  role                  Role             @default(PATIENT)
   createdAt             DateTime         @default(now())
   updatedAt             DateTime         @default(now())
   doctorAppointments    Appointment[]    @relation("doctor_appointment")
@@ -113,10 +111,4 @@ enum AppointmentStatus {
 enum Gender {
   MALE
   FEMALE
-}
-
-enum Role {
-  PATIENT
-  DOCTOR
-  PHARMACIST
 }
