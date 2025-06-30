@@ -6,7 +6,7 @@ const AuthProviderWrapper = ({ children }) => {
 
   //Redirect to redirect page funciton
   const onRedirectCallback = (appState) => {
-    navigate(appState?.returnTo || "/redirect");
+    navigate(appState?.returnTo || "/user-creation");
   };
 
   return (
