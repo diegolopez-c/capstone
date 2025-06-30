@@ -1,4 +1,4 @@
-[![Logo](https://i.postimg.cc/Hx51YMYJ/1.png)](https://postimg.cc/vgQNXc6M)
+[![Clinic-All-Logo](https://i.postimg.cc/zB3rRfCN/Clinic-All-2.png)](https://postimg.cc/tZ0fKpvv)
 
 # MedicAll
 
