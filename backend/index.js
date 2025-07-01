@@ -33,7 +33,6 @@ app.use(express.json());
 app.use(auth(config));
 
 //Configure cors
-
 app.use(
   cors({
     origin: "http://localhost:5173",
