@@ -14,9 +14,9 @@ export default function LandingNav() {
   }
 
   return (
-    <div className="w-full h-1/5 flex items-center justify-center">
-      <nav className="w-4/5 h-4/5 min-h-5 flex items-center justify-between bg-ca-light-black px-4 rounded-3xl">
-        <img className="h-5/6" src={logo} alt="Clinic All Logo" />
+    <div className="w-full h-1/6 flex items-center justify-center">
+      <nav className="w-4/5 h-4/5 min-h-5 flex items-center justify-between px-6 rounded-full">
+        <img className="h-2/3" src={logo} alt="Clinic All Logo" />
 
         {!isAuthenticated ? (
           <ButtonGroup>
