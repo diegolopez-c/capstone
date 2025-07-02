@@ -4,10 +4,6 @@ const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-router.get("/", (req, res) => {
-  res.send("Aaaa");
-});
-
 //Get Patient Appointment History
 router.get("/get-all-patient-appointments/:patientId", async (req, res) => {
   const patientId = parseInt(req.params.patientId);
