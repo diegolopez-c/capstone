@@ -5,7 +5,6 @@
 Diego Lopez's Meta University 2025 capstone project repository
 
 
-
 ## Run Locally
 
 Clone the project
@@ -70,12 +69,15 @@ Start the server
 
 **Database:** PostgeSQL
 
+
 ## Documentation
 
 [Project Plan](https://docs.google.com/document/d/1qoJoXPJok7kwXCJf8AldgJLe2GkBrBhhVwUY3S81nwI/edit?usp=sharing)
 
 [Challenge Timeline](https://docs.google.com/document/d/1daAiCJdwR45KClxXHhtcAx46PyK93lW91kUE1lQ22-A/edit?usp=sharing)
 
+## DB Model
+[![capstone-db-v2.png](https://i.postimg.cc/KzxBHHDJ/capstone-db-v2.png)](https://postimg.cc/PLVCLKcw)
 
 ## API Reference
 
