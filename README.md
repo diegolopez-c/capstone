@@ -86,12 +86,12 @@ Start the server
 - Get user by email
 
 ```http
-  GET /get-user-by-email/:userEmail
+  GET /get-user-by-email/{userEmail}
 ```
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| - | user body | 200 + user body | The same user, any doctor & admin |
+| - | user email | 200 + user body | The same user, any doctor & admin |
 
 - Create User
 
@@ -195,3 +195,25 @@ Start the server
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
 | -  | patientId | 200 + appointment list | The patient, doctors & admin |
+
+### Medical History Entity
+
+- Get complete patient medical history
+
+```http
+  GET /get-patient-medical-history/{patientId}
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| - | user id | 200 + medical history list | The same user, any doctor & admin |
+
+- Create User
+
+```http
+  POST /create-medical-history
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| medical history body | - | 201 + medical history body | Any doctor & admin |
