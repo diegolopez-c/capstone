@@ -76,3 +76,50 @@ Start the server
 
 [Challenge Timeline](https://docs.google.com/document/d/1daAiCJdwR45KClxXHhtcAx46PyK93lW91kUE1lQ22-A/edit?usp=sharing)
 
+
+## API Reference
+
+### User Entity
+
+- Get user by email
+
+```http
+  GET /get-user-by-email/:userEmail
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| - | user body | 200 + user body | The same user, any doctor & admin |
+
+- Create User
+
+```http
+  POST /create-new-user
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| user body | - | 201 + user body | The same user & admin |
+
+- Update User Info
+
+```http
+  POST /update-user-info
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| user body | - | 200 + user body | The same user & admin |
+
+- Delete User
+
+```http
+  POST /delete-user
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| user email | - | 204 | The same user & admin |
+
+### Appointment Entity
+

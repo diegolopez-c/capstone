@@ -67,22 +67,16 @@ model Prescription {
   MedicalHistory   MedicalHistory?    @relation(fields: [medicalHistoryId], references: [id])
   medicalHistoryId Int?
   status           PrescriptionStatus @default(ISSUED)
-  medicineList     Json
-  /**
-   * MEDICINE LIST JSON EXAMPLE
-   * [{
-   * id: medicineId,
-   * dosage: string,
-   * frequency: string,
-   * duration: string,
-   * },
-   * {
-   * id: 4,
-   * dosage: 50mg,
-   * frequency: every 8 hours,
-   * duration: for 2 weeks,
-   * }]
-   */
+}
+
+model Prescription_Medicine {
+  id              Int     @id @default(autoincrement())
+  prescription_id Int
+  medicine_id     Int
+  dosage          String
+  frequency       String
+  duration        String
+  comments        String?
 }
 
 model Medicine {
