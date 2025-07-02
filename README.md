@@ -123,3 +123,73 @@ Start the server
 
 ### Appointment Entity
 
+- Create Appointment
+
+```http
+  POST /create-new-appointment
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| appointment body | - | 201 + appointment body | The same user & admin |
+
+
+- Change Appointment Status
+
+```http
+  PUT /change-appointment-status
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| id + new status | - | 200 + appointment body | The user and the doctor of the appointment admin |
+
+- Reschedule Appointment
+
+```http
+  PUT /reschedule-appointment
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| id + new schedule date | - | 200 + appointment body | The user and the doctor of the appointment admin |
+
+- Get All Doctor Appointments
+
+```http
+  GET /get-all-doctor-appointments/{doctorId}
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| -  | doctorId | 200 + appointment list | The doctor of the appointment admin |
+
+- Get Active Doctor Appointments (RESCHEDULED, CONFIRMED, PENDING)
+
+```http
+  GET /get-active-doctor-appointments/{doctorId}
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| -  | doctorId | 200 + appointment list | The doctor of the appointment admin |
+
+- Get All Patient Appointments
+
+```http
+  GET /get-all-patient-appointments/{patientId}
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| -  | patientId | 200 + appointment list | The patient, doctors & admin |
+
+- Get Active Patient Appointments (RESCHEDULED, CONFIRMED, PENDING)
+
+```http
+  GET /get-active-patient-appointments/{patientId}
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| -  | patientId | 200 + appointment list | The patient, doctors & admin |
