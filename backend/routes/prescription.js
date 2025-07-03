@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("Aaaa");
-});
+//Make new prescription
+router.post("create-prescription", async (req, res) => {});
+
+//Add medicine to prescription
 
 module.exports = router;
