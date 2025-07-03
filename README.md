@@ -208,7 +208,7 @@ Start the server
 | :-------- | :-------- | :------- | :------------------------- |
 | - | user id | 200 Medical History list & 500 Internal Server Error | The same user, any doctor & admin |
 
-- Create User
+- Create Medical History
 
 ```http
   POST /create-medical-history
