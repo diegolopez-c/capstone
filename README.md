@@ -81,7 +81,7 @@ Start the server
 
 ## API Reference
 
-### User Entity
+### User Entity (/user)
 
 - Get user by email
 
@@ -91,7 +91,7 @@ Start the server
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| - | user email | 200 + user body | The same user, any doctor & admin |
+| - | user email | 200 user body, 404 user not found & 500 Internal Server Error | The same user, any doctor & admin |
 
 - Create User
 
@@ -101,7 +101,7 @@ Start the server
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| user body | - | 201 + user body | The same user & admin |
+| user body | - | 201 user body, 409 the user already exists & 500 Internal Server Error | The same user & admin |
 
 - Update User Info
 
@@ -111,7 +111,7 @@ Start the server
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| user body | - | 200 + user body | The same user & admin |
+| user body | - | 200 user body & 500 Internal Server Error | The same user & admin |
 
 - Delete User
 
@@ -121,9 +121,9 @@ Start the server
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| user email | - | 204 | The same user & admin |
+| user email | - | 204 no body & 500 Internal Server Error | The same user & admin |
 
-### Appointment Entity
+### Appointment Entity (/appointment)
 
 - Create Appointment
 
@@ -133,7 +133,7 @@ Start the server
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| appointment body | - | 201 + appointment body | The same user & admin |
+| appointment body | - | 201 appointment body, 400 bad request, 409 the patient already has an appointment & 500 Internal Server Error | The same user & admin |
 
 
 - Change Appointment Status
@@ -144,7 +144,7 @@ Start the server
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| id + new status | - | 200 + appointment body | The user and the doctor of the appointment admin |
+| id + new status | - | 200 appointment body & 500 Internal Server Error | The user and the doctor of the appointment admin |
 
 - Reschedule Appointment
 
@@ -154,7 +154,7 @@ Start the server
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| id + new schedule date | - | 200 + appointment body | The user and the doctor of the appointment admin |
+| id + new schedule date | - | 200 appointment body, 400 date not valid & 500 Internal Server Error | The user and the doctor of the appointment admin |
 
 - Get All Doctor Appointments
 
@@ -164,7 +164,7 @@ Start the server
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| -  | doctorId | 200 + appointment list | The doctor of the appointment admin |
+| -  | doctorId | 200 appointment list & 500 Internal Server Error | The doctor of the appointment admin |
 
 - Get Active Doctor Appointments (RESCHEDULED, CONFIRMED, PENDING)
 
@@ -174,7 +174,7 @@ Start the server
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| -  | doctorId | 200 + appointment list | The doctor of the appointment admin |
+| -  | doctorId | 200 appointment list & 500 Internal Server Error | The doctor of the appointment admin |
 
 - Get All Patient Appointments
 
@@ -184,7 +184,7 @@ Start the server
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| -  | patientId | 200 + appointment list | The patient, doctors & admin |
+| -  | patientId | 200 appointment list & 500 Internal Server Error | The patient, doctors & admin |
 
 - Get Active Patient Appointments (RESCHEDULED, CONFIRMED, PENDING)
 
@@ -194,9 +194,9 @@ Start the server
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| -  | patientId | 200 + appointment list | The patient, doctors & admin |
+| -  | patientId | 200 appointment list & 500 Internal Server Error | The patient, doctors & admin |
 
-### Medical History Entity
+### Medical History Entity (/medical-history)
 
 - Get complete patient medical history
 
@@ -206,7 +206,7 @@ Start the server
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| - | user id | 200 + medical history list | The same user, any doctor & admin |
+| - | user id | 200 Medical History list & 500 Internal Server Error | The same user, any doctor & admin |
 
 - Create User
 
@@ -216,4 +216,98 @@ Start the server
 
 | Body      | Headers | Response     | Authorization                |
 | :-------- | :-------- | :------- | :------------------------- |
-| medical history body | - | 201 + medical history body | Any doctor & admin |
+| medical history body | - | 201 medical history body & 500 Internal Server Error | Any doctor & admin |
+
+### Medicine Entity (/medicine)
+
+- Get The Complete Medicine Inventory
+
+```http
+  GET /get-all-medicine
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| - | - | 200 Medicine list & 500 Internal Server Error | Doctor, Pharmacist and Admin |
+
+- Register New Medicine
+
+```http
+  POST /register-new-medicine
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| medicine body | - | 201 medicine body & 500 Internal Server Error | pharmacist & admin |
+
+- Restock Medicine
+
+```http
+  PUT /restock-medicine
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| medicine id & quantity | - | 200 medicine body, 400 Bad Quantity & 500 Internal Server Error | pharmacist & admin |
+
+### Prescription Entity (/prescription)
+
+- Get Prescriptions By Patient
+
+```http
+  GET /get-prescriptions-by-patient/{patientId}
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| - | patient id | 200 Prescription list & 500 Internal Server Error | The patient, Doctor, Pharmacist and Admin |
+
+- Get Prescriptions By Id
+
+```http
+  GET /get-prescriptions-by-id/{prescriptionId}
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| - | prescription id | 200 Prescription body, 404 The prescription doesn't exist & 500 Internal Server Error | The patient, Doctor, Pharmacist and Admin |
+
+- Get Medicine By Prescription Id
+
+```http
+  GET /get-medicine-by-prescription/{prescriptionId}
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| - | prescription id | 200 Medicine List & 500 Internal Server Error | The patient, Doctor, Pharmacist and Admin |
+
+- Create Prescription
+
+```http
+  POST /create-prescription
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| Prescription body | - | 201 Prescription body & 500 Internal Server Error | Doctors and Admin |
+
+- Add Medicine To Prescription
+
+```http
+  POST /add-medicine-to-prescription
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| Medicine_Prescription body | - | 201 Medicine_Prescription body & 500 Internal Server Error | Doctors and Admin |
+
+- Dispense Prescription
+
+```http
+  POST /dispense-prescription/{prescriptionId}
+```
+
+| Body      | Headers | Response     | Authorization                |
+| :-------- | :-------- | :------- | :------------------------- |
+| - | prescription id | 200 Prescription body & 500 Internal Server Error | Pharmacist and Admin |
