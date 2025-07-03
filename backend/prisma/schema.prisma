@@ -59,34 +59,38 @@ model MedicalHistory {
 }
 
 model Prescription {
-  id               Int                @id @default(autoincrement())
-  patient          User               @relation("patient_prescription", fields: [patientId], references: [id])
-  patientId        Int
-  doctor           User               @relation("doctor_prescription", fields: [doctorId], references: [id])
-  doctorId         Int
-  MedicalHistory   MedicalHistory?    @relation(fields: [medicalHistoryId], references: [id])
-  medicalHistoryId Int?
-  status           PrescriptionStatus @default(ISSUED)
+  id                   Int                     @id @default(autoincrement())
+  patient              User                    @relation("patient_prescription", fields: [patientId], references: [id])
+  patientId            Int
+  doctor               User                    @relation("doctor_prescription", fields: [doctorId], references: [id])
+  doctorId             Int
+  MedicalHistory       MedicalHistory?         @relation(fields: [medicalHistoryId], references: [id])
+  medicalHistoryId     Int?
+  prescriptionMedicine Prescription_Medicine[] @relation("prescription_prescription_medicine")
+  status               PrescriptionStatus      @default(ISSUED)
 }
 
 model Prescription_Medicine {
-  id              Int     @id @default(autoincrement())
-  prescription_id Int
-  medicine_id     Int
-  dosage          String
-  frequency       String
-  duration        String
-  comments        String?
+  id             Int          @id @default(autoincrement())
+  prescription   Prescription @relation("prescription_prescription_medicine", fields: [prescriptionId], references: [id])
+  prescriptionId Int
+  medicine       Medicine     @relation("medicine_prescription_medicine", fields: [medicineId], references: [id])
+  medicineId     Int
+  dosage         String
+  frequency      String
+  duration       String
+  comments       String?
 }
 
 model Medicine {
-  id                Int      @id @default(autoincrement())
-  name              String
-  quantity          Int
-  criticalThreshold Int
-  expiryDate        DateTime
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @default(now())
+  id                   Int                     @id @default(autoincrement())
+  name                 String
+  quantity             Int
+  criticalThreshold    Int
+  expiryDate           DateTime
+  prescriptionMedicine Prescription_Medicine[] @relation("medicine_prescription_medicine")
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime                @default(now())
 }
 
 enum PrescriptionStatus {
