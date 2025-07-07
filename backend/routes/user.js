@@ -28,7 +28,7 @@ router.get("/get-user-by-email/:userEmail", async (req, res) => {
 });
 
 router.post("/create-new-user", async (req, res) => {
-  const { name, lastname, email, birthDate } = req.body;
+  const { name, lastname, email, birthDate, role } = req.body;
 
   try {
     //If as user already exist it doesnt creates the user
@@ -47,6 +47,7 @@ router.post("/create-new-user", async (req, res) => {
         lastname,
         email,
         birthDate,
+        role,
       },
     });
 
