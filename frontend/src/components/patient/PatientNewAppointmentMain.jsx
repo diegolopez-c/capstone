@@ -5,7 +5,7 @@ import { useState } from "react";
 import ScheduleSelectionBody from "./ScheduleSelectionBody";
 import AppointmentDetails from "./AppointmentDetails";
 
-const tabSteps = ["docotor-selection", "schedule-selection", "confirmation"];
+const tabSteps = ["doctor-selection", "schedule-selection", "confirmation"];
 
 export default function PatientNewAppointmentMain() {
   //Set selected tab
@@ -14,26 +14,28 @@ export default function PatientNewAppointmentMain() {
   //Set New Appointment Body
   const [newAppointment, setNewAppointment] = useState({});
 
-  //Declare the disabled tabs
-  let disabledSteps = tabSteps.filter((key) => key !== selectedStep);
-
   //Select doctor function
   function selectDoctor(doctorBody) {
     if (!doctorBody) {
-      addToast({
-        color: "danger",
-        title: "Doctor Option Not Valid",
-        description: "You Must Choose A Doctor Option To Move Forward",
-        timeout: 3000,
-        shouldShowTimeoutProgress: true,
-      });
+      //TODO MAKE MESSAGE TOAST TO DISPLAY ERROR
 
       return;
     }
 
     setNewAppointment({ ...newAppointment, doctorId: doctorBody.id });
     setSelectedStep("schedule-selection");
-    disabledSteps = tabSteps.filter((key) => key !== selectedStep);
+  }
+
+  //Select schedule
+  function selectSchedule(scheduleDate) {
+    if (!scheduleDate) {
+      //TODO MAKE MESSAGE TOAST TO DISPLAY ERROR
+
+      return;
+    }
+
+    setNewAppointment({ ...newAppointment, scheduleDate });
+    setSelectedStep("confirmation");
   }
 
   //Body compponent depending the selected step
@@ -44,7 +46,7 @@ export default function PatientNewAppointmentMain() {
       break;
 
     case "schedule-selection":
-      body = <ScheduleSelectionBody />;
+      body = <ScheduleSelectionBody selectSchedule={selectSchedule} />;
       break;
 
     case "confirmation":
@@ -72,7 +74,7 @@ export default function PatientNewAppointmentMain() {
         }}
         selectedKey={selectedStep}
         onSelectionChange={setSelectedStep}
-        disabledKeys={disabledSteps}
+        disabledKeys={tabSteps.filter((key) => key !== selectedStep)}
       >
         {/**Doctor Selection Tab */}
         <Tab
@@ -84,12 +86,20 @@ export default function PatientNewAppointmentMain() {
             <CardBody className="w-full py-6">{body}</CardBody>
           </Card>
         </Tab>
-        <Tab key="schedule-selection" title="2.- Select Your Schedule">
-          <Card>
-            <CardBody>{body}</CardBody>
+        <Tab
+          key="schedule-selection"
+          title="2.- Select Your Schedule"
+          className="w-full flex items-center justify-center"
+        >
+          <Card className="w-4/5 flex items-center justify-center bg-ca-light-black">
+            <CardBody className="w-full py-6">{body}</CardBody>
           </Card>
         </Tab>
-        <Tab key="confirmation" title="3.- Finish Your Appointment">
+        <Tab
+          key="confirmation"
+          title="3.- Finish Your Appointment"
+          className="w-full flex items-center justify-center"
+        >
           <Card>
             <CardBody>{body}</CardBody>
           </Card>
