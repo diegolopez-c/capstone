@@ -1,6 +1,6 @@
 import React from "react";
 import DoctorSelectionBody from "./DoctorSelectionBody";
-import { Tabs, Tab, Card, CardBody, Spinner } from "@heroui/react";
+import { Tabs, Tab, Card, CardBody, Spinner, addToast } from "@heroui/react";
 import { useState } from "react";
 import ScheduleSelectionBody from "./ScheduleSelectionBody";
 import AppointmentDetails from "./AppointmentDetails";
@@ -86,12 +86,12 @@ export default function PatientNewAppointmentMain() {
         </Tab>
         <Tab key="schedule-selection" title="2.- Select Your Schedule">
           <Card>
-            <CardBody>Ut enim ad minim veniam</CardBody>
+            <CardBody>{body}</CardBody>
           </Card>
         </Tab>
         <Tab key="confirmation" title="3.- Finish Your Appointment">
           <Card>
-            <CardBody>Excepteur sint occaecat cupidatat non proident</CardBody>
+            <CardBody>{body}</CardBody>
           </Card>
         </Tab>
       </Tabs>
