@@ -23,11 +23,7 @@ export default function DoctorSelectionBody({ selectDoctor }) {
         const data = await response.json();
         setDoctorsAvailable(data);
       } catch (error) {
-        addToast({
-          title: "Error",
-          description: error.message,
-          type: "error",
-        });
+        console.error(error);
       } finally {
         setLoadingDoctors(false);
       }
@@ -48,9 +44,10 @@ export default function DoctorSelectionBody({ selectDoctor }) {
           trigger: "bg-ca-white",
           content: "text-ca-black text-white",
         }}
-        selectedKeys={selectedDoctor}
+        selectedKeys={selectedDoctor ? [selectedDoctor] : []}
         onSelectionChange={(doctor) => {
-          setSelectedDoctor(doctor);
+          const key = Array.from(doctor)[0];
+          setSelectedDoctor(key);
         }}
       >
         {doctorsAvailable.map((doc) => {

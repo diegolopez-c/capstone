@@ -15,14 +15,14 @@ export default function PatientNewAppointmentMain() {
   const [newAppointment, setNewAppointment] = useState({});
 
   //Select doctor function
-  function selectDoctor(doctorBody) {
-    if (!doctorBody) {
+  function selectDoctor(doctorId) {
+    if (!doctorId) {
       //TODO MAKE MESSAGE TOAST TO DISPLAY ERROR
 
       return;
     }
 
-    setNewAppointment({ ...newAppointment, doctorId: doctorBody.id });
+    setNewAppointment({ ...newAppointment, doctorId });
     setSelectedStep("schedule-selection");
   }
 
@@ -46,7 +46,12 @@ export default function PatientNewAppointmentMain() {
       break;
 
     case "schedule-selection":
-      body = <ScheduleSelectionBody selectSchedule={selectSchedule} />;
+      body = (
+        <ScheduleSelectionBody
+          selectSchedule={selectSchedule}
+          doctorId={newAppointment.doctorId}
+        />
+      );
       break;
 
     case "confirmation":
