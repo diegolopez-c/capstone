@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import React, { useCallback, useEffect } from "react";
 import {
   Table,
@@ -15,7 +15,7 @@ import jsonData from "../utils/mock-patients.json";
 
 export default function PatientList() {
   useEffect(() => {
-    console.log(jsonData);
+    // console.log(jsonData);
   }, []);
 
   // Appointment table columns

@@ -14,6 +14,7 @@ const medicalHistoryRoutes = require("./routes/medicalHistory");
 const medicineRoutes = require("./routes/medicine");
 const prescriptionRoutes = require("./routes/prescription");
 const userRoutes = require("./routes/user");
+const availabilityRoutes = require("./routes/availability");
 
 //Auth0 Config
 const config = {
@@ -45,10 +46,10 @@ app.use("/medical-history", medicalHistoryRoutes);
 app.use("/medicine", medicineRoutes);
 app.use("/prescription", prescriptionRoutes);
 app.use("/user", userRoutes);
+app.use("/availability", availabilityRoutes);
 
 // Authetntication
 app.get("/", (req, res) => {
-  console.log(JSON.stringify(req.oidc.isAuthenticated()));
   res.send(req.oidc.isAuthenticated());
 });
 

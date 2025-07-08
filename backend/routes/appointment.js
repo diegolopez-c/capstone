@@ -188,16 +188,4 @@ router.put("/change-appointment-status", async (req, res) => {
   }
 });
 
-//Return the doctors available for the next 2 weeks
-router.get("/get-doctors-available", async (req, res) => {
-  try {
-    //TODO add functionality to the endpoint
-  } catch (error) {
-    res.status(500).json({
-      error: "Internal server error returning the available doctors",
-      details: error.message,
-    });
-  }
-});
-
 module.exports = router;

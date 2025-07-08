@@ -96,12 +96,12 @@ model Medicine {
 }
 
 model DoctorAvailability {
-  id          Int      @id @default(autoincrement())
-  doctorId    Int
-  doctor      User     @relation("doctor_availability", fields: [doctorId], references: [id])
-  day_of_week String
-  start_time  DateTime
-  end_time    DateTime
+  id        Int      @id @default(autoincrement())
+  doctorId  Int
+  doctor    User     @relation("doctor_availability", fields: [doctorId], references: [id])
+  dayOfWeek Int
+  startTime DateTime
+  endTime   DateTime
 }
 
 enum Role {
