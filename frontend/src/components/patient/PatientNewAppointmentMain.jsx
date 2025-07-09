@@ -22,7 +22,7 @@ export default function PatientNewAppointmentMain() {
       return;
     }
 
-    setNewAppointment({ ...newAppointment, doctorId });
+    setNewAppointment({ ...newAppointment, doctorId: parseInt(doctorId) });
     setSelectedStep("schedule-selection");
   }
 
@@ -55,7 +55,12 @@ export default function PatientNewAppointmentMain() {
       break;
 
     case "confirmation":
-      body = <AppointmentDetails />;
+      body = (
+        <AppointmentDetails
+          newAppointment={newAppointment}
+          setNewAppointment={setNewAppointment}
+        />
+      );
       break;
 
     default:
@@ -105,8 +110,8 @@ export default function PatientNewAppointmentMain() {
           title="3.- Finish Your Appointment"
           className="w-full flex items-center justify-center"
         >
-          <Card>
-            <CardBody>{body}</CardBody>
+          <Card className="w-4/5 flex items-center justify-center bg-ca-light-black">
+            <CardBody className="w-full py-6">{body}</CardBody>
           </Card>
         </Tab>
       </Tabs>

@@ -126,9 +126,11 @@ export default function ScheduleSelectionBody({ selectSchedule, doctorId }) {
           {doctorsAvailableSchedules.map((daytime) => {
             return (
               <SelectItem className="bg-ca-light-black" key={daytime}>
-                {`${new Date(daytime).getUTCHours()}:${new Date(
-                  daytime
-                ).getUTCMinutes()}`}
+                {`${new Date(daytime).getUTCHours()}:${
+                  new Date(daytime).getUTCMinutes() < 10
+                    ? new Date(daytime).getUTCMinutes() + "0"
+                    : new Date(daytime).getUTCMinutes()
+                }`}
               </SelectItem>
             );
           })}
