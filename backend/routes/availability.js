@@ -107,12 +107,12 @@ router.get("/get-doctor-days-available/:doctorId", async (req, res) => {
   }
 });
 
-router.get("/get-doctor-available-hours-for-a-day", async (req, res) => {
+router.post("/get-doctor-available-hours-for-a-day", async (req, res) => {
   let { doctorId, day } = req.body;
   day = new Date(day);
   day.setUTCHours(0, 0, 0, 0);
   let dayAfter = new Date(day);
-  dayAfter.setDate(dayAfter.getDate() + 1);
+  dayAfter.setUTCDate(dayAfter.getUTCDate() + 1);
   dayAfter.setUTCHours(0, 0, 0, 0);
 
   try {
@@ -124,7 +124,7 @@ router.get("/get-doctor-available-hours-for-a-day", async (req, res) => {
       include: {
         doctorAvailability: {
           where: {
-            dayOfWeek: day.getDay(),
+            dayOfWeek: day.getUTCDay(),
           },
         },
         doctorAppointments: {
