@@ -66,7 +66,8 @@ export default function ScheduleSelectionBody({ selectSchedule, doctorId }) {
       const data = await response.json();
       setDoctorsAvailableSchedules(data);
     } catch (error) {
-      console.error("Esta mal: ", error);
+      setDoctorsAvailableSchedules([]);
+      console.error("Error fetching th doctor available schedules: ", error);
     }
   }
 
@@ -80,6 +81,7 @@ export default function ScheduleSelectionBody({ selectSchedule, doctorId }) {
 
       {/* Select for day */}
       <Select
+        isRequired
         className="w-4/5"
         label="Select your Appointment Day"
         classNames={{
@@ -88,8 +90,13 @@ export default function ScheduleSelectionBody({ selectSchedule, doctorId }) {
         }}
         selectedKeys={[selectedDay]}
         onChange={(day) => {
-          setSelectedDay(day.target.value);
-          fetchDoctorAvailableHours(day.target.value);
+          if (day.target.value) {
+            setSelectedDay(day.target.value);
+            fetchDoctorAvailableHours(day.target.value);
+          } else {
+            setSelectedDay();
+            setDoctorsAvailableSchedules([]);
+          }
         }}
       >
         {doctorsAvailableDays.map((daytime) => {
@@ -104,6 +111,7 @@ export default function ScheduleSelectionBody({ selectSchedule, doctorId }) {
       {/* Select four hour */}
       {doctorsAvailableSchedules.length > 0 && (
         <Select
+          isRequired
           className="w-4/5"
           label="Select your Appointment Day"
           classNames={{
