@@ -1,5 +1,10 @@
 import React from "react";
+import PatientSidebar from "../components/patient/PatientSidebar";
 
 export default function PatientDashboard() {
-  return <div>PatientDashboard</div>;
+  return (
+    <div className="h-screen flex">
+      <PatientSidebar />
+    </div>
+  );
 }
