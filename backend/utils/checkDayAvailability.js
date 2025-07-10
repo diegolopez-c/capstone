@@ -11,7 +11,7 @@ function checkDayAvailability(date, doctor) {
 
   //Finds the doctor Schedule that date
   const dayAvailability = doctorAvailability.find(
-    (a) => a.dayOfWeek === date.getDay()
+    (a) => a.dayOfWeek === date.getUTCDay()
   );
 
   //If theres no day availability it returns false since the doctor doesn't works that day

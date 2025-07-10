@@ -62,7 +62,7 @@ router.get("/get-doctor-days-available/:doctorId", async (req, res) => {
     //Set the Date from 2 weeks
     const currentDate = new Date();
     const twoWeeksFromNow = new Date();
-    twoWeeksFromNow.setDate(currentDate.getDate() + 14);
+    twoWeeksFromNow.setUTCDate(currentDate.getUTCDate() + 14);
 
     //Retrieve the doctors full object
     const doctor = await prisma.user.findUnique({
@@ -90,7 +90,7 @@ router.get("/get-doctor-days-available/:doctorId", async (req, res) => {
 
     for (let day = 0; day < 14; day++) {
       const curDate = new Date(currentDate);
-      curDate.setDate(currentDate.getDate() + day);
+      curDate.setUTCDate(currentDate.getUTCDate() + day);
 
       //Will Use Check Availability Util Function to check if the doctor is available that day
       if (checkDayAvailability(curDate, doctor)) {
