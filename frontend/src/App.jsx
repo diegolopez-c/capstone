@@ -19,12 +19,14 @@ import PatientAppointmentsPage from "./pages/patient/PatientAppointmentsPage";
 import PatientHistoryPage from "./pages/patient/PatientHistoryPage";
 import PatientPrescriptionsPage from "./pages/patient/PatientPrescriptionsPage";
 import RoleRedirect from "./pages/RoleRedirect";
+import CreatingUserPage from "./pages/CreatingUserPage";
 
 function App() {
   return (
     <Routes>
       {/* Overall Routes */}
       <Route path="/" element={<LandingPage />} />
+      <Route path="/user-creation" element={<CreatingUserPage />} />
       <Route path="/redirect" element={<RoleRedirect />} />
       <Route path="/profile" element={<Profile />} />
 

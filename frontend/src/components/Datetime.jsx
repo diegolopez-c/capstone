@@ -24,7 +24,7 @@ export default function Datetime() {
   }, []);
 
   return (
-    <div className="w-full flex items-center justify-between border border-blue-500 px-2 py-1">
+    <div className="w-full flex items-center justify-between px-2 py-1">
       <img src={logo} alt="Clinic All Logo" className="w-24" />
       <h4>{curentDate.toLocaleString(undefined, options)}</h4>
     </div>

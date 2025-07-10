@@ -3,7 +3,6 @@ import React from "react";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  console.log(user, isAuthenticated);
 
   if (isLoading) {
     return <div>Loading ...</div>;
@@ -15,7 +14,6 @@ const Profile = () => {
         <img src={user.picture} alt={user.name} />
         <h2>{user.name}</h2>
         <p>{user.email}</p>
-        <p>Roles: {user['https://hospitalapp/roles']?.join(', ')}</p>
       </div>
     )
   );

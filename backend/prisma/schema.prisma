@@ -14,23 +14,25 @@ datasource db {
 }
 
 model User {
-  id                    Int              @id @default(autoincrement())
-  email                 String           @unique
+  id                    Int                  @id @default(autoincrement())
+  email                 String               @unique
   name                  String
   lastname              String
   birthDate             DateTime
-  createdAt             DateTime         @default(now())
-  updatedAt             DateTime         @default(now())
-  doctorAppointments    Appointment[]    @relation("doctor_appointment")
-  patientAppointments   Appointment[]    @relation("patient_appointment")
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime             @default(now())
+  doctorAppointments    Appointment[]        @relation("doctor_appointment")
+  patientAppointments   Appointment[]        @relation("patient_appointment")
+  role                  Role                 @default(PATIENT)
   curp                  String?
   weight                Decimal?
   height                Decimal?
   gender                Gender?
-  doctorMedicalHistory  MedicalHistory[] @relation("doctor_medical_history")
-  patientMedicalHistory MedicalHistory[] @relation("patient_medical_history")
-  doctorPrescription    Prescription[]   @relation("doctor_prescription")
-  patientPrescription   Prescription[]   @relation("patient_prescription")
+  doctorMedicalHistory  MedicalHistory[]     @relation("doctor_medical_history")
+  patientMedicalHistory MedicalHistory[]     @relation("patient_medical_history")
+  doctorPrescription    Prescription[]       @relation("doctor_prescription")
+  patientPrescription   Prescription[]       @relation("patient_prescription")
+  doctorAvailability    DoctorAvailability[] @relation("doctor_availability")
 }
 
 model Appointment {
@@ -59,40 +61,54 @@ model MedicalHistory {
 }
 
 model Prescription {
-  id               Int                @id @default(autoincrement())
-  patient          User               @relation("patient_prescription", fields: [patientId], references: [id])
-  patientId        Int
-  doctor           User               @relation("doctor_prescription", fields: [doctorId], references: [id])
-  doctorId         Int
-  MedicalHistory   MedicalHistory?    @relation(fields: [medicalHistoryId], references: [id])
-  medicalHistoryId Int?
-  status           PrescriptionStatus @default(ISSUED)
-  medicineList     Json
-  /**
-   * MEDICINE LIST JSON EXAMPLE
-   * [{
-   * id: medicineId,
-   * dosage: string,
-   * frequency: string,
-   * duration: string,
-   * },
-   * {
-   * id: 4,
-   * dosage: 50mg,
-   * frequency: every 8 hours,
-   * duration: for 2 weeks,
-   * }]
-   */
+  id                   Int                     @id @default(autoincrement())
+  patient              User                    @relation("patient_prescription", fields: [patientId], references: [id])
+  patientId            Int
+  doctor               User                    @relation("doctor_prescription", fields: [doctorId], references: [id])
+  doctorId             Int
+  MedicalHistory       MedicalHistory?         @relation(fields: [medicalHistoryId], references: [id])
+  medicalHistoryId     Int?
+  prescriptionMedicine Prescription_Medicine[] @relation("prescription_prescription_medicine")
+  status               PrescriptionStatus      @default(ISSUED)
+}
+
+model Prescription_Medicine {
+  id             Int          @id @default(autoincrement())
+  prescription   Prescription @relation("prescription_prescription_medicine", fields: [prescriptionId], references: [id])
+  prescriptionId Int
+  medicine       Medicine     @relation("medicine_prescription_medicine", fields: [medicineId], references: [id])
+  medicineId     Int
+  dosage         String
+  frequency      String
+  duration       String
+  comments       String?
 }
 
 model Medicine {
-  id                Int      @id @default(autoincrement())
-  name              String
-  quantity          Int
-  criticalThreshold Int
-  expiryDate        DateTime
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @default(now())
+  id                   Int                     @id @default(autoincrement())
+  name                 String
+  quantity             Int
+  criticalThreshold    Int
+  expiryDate           DateTime
+  prescriptionMedicine Prescription_Medicine[] @relation("medicine_prescription_medicine")
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime                @default(now())
+}
+
+model DoctorAvailability {
+  id        Int      @id @default(autoincrement())
+  doctorId  Int
+  doctor    User     @relation("doctor_availability", fields: [doctorId], references: [id])
+  dayOfWeek Int
+  startTime DateTime
+  endTime   DateTime
+}
+
+enum Role {
+  ADMIN
+  DOCTOR
+  PHARMACIST
+  PATIENT
 }
 
 enum PrescriptionStatus {

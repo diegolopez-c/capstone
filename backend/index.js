@@ -14,14 +14,13 @@ const medicalHistoryRoutes = require("./routes/medicalHistory");
 const medicineRoutes = require("./routes/medicine");
 const prescriptionRoutes = require("./routes/prescription");
 const userRoutes = require("./routes/user");
+const availabilityRoutes = require("./routes/availability");
 
 //Auth0 Config
 const config = {
   authRequired: false,
   auth0Logout: true,
-  secret:
-    process.env.AUTH_SECRET ||
-    "a long, randomly-generated string stored in env",
+  secret: process.env.AUTH_SECRET,
   baseURL: process.env.BASE_URL,
   clientID: process.env.CLIENT_ID,
   issuerBaseURL: process.env.ISSUER_BASE_URL,
@@ -33,7 +32,6 @@ app.use(express.json());
 app.use(auth(config));
 
 //Configure cors
-
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -48,11 +46,11 @@ app.use("/medical-history", medicalHistoryRoutes);
 app.use("/medicine", medicineRoutes);
 app.use("/prescription", prescriptionRoutes);
 app.use("/user", userRoutes);
+app.use("/availability", availabilityRoutes);
 
 // Authetntication
 app.get("/", (req, res) => {
-  console.log(JSON.stringify(req.oidc.user));
-  res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
+  res.send(req.oidc.isAuthenticated());
 });
 
 app.get("/profile", requiresAuth(), (req, res) => {

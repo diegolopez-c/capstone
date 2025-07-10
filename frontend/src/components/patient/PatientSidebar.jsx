@@ -4,7 +4,7 @@ import SidebarLink from "../SidebarLink";
 
 export default function PatientSidebar() {
   return (
-    <aside className="min-w-min w-1/4 border border-blue h-screen">
+    <aside className="min-w-min w-1/4 h-screen bg-ca-light-black">
       <div className="h-1/2">
         <Datetime />
         <div className="flex flex-col gap-3 p-4">
