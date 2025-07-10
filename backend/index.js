@@ -4,6 +4,7 @@ require("dotenv").config();
 const { auth } = require("express-openid-connect");
 const { requiresAuth } = require("express-openid-connect");
 const port = process.env.PORT || 8080;
+const cron = require("node-cron");
 
 //Cors
 const cors = require("cors");
@@ -47,6 +48,10 @@ app.use("/medicine", medicineRoutes);
 app.use("/prescription", prescriptionRoutes);
 app.use("/user", userRoutes);
 app.use("/availability", availabilityRoutes);
+
+cron.schedule("* * * * *", () => {
+  console.log("Running a task every minute");
+});
 
 // Authetntication
 app.get("/", (req, res) => {
