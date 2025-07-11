@@ -32,7 +32,7 @@ class NotificationPriorityQueue {
         const notification = this.queue.dequeue();
 
         //If the notification is valid it'll be send trough the user Socket IO channel defined by his id
-        this.io.to(String(notification.userId)).emit("notification", {
+        this.io.to(notification.userId).emit("notification", {
           id: notification.id,
           message: notification.message,
           type: notification.type,
