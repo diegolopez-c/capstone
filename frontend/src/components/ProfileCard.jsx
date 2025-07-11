@@ -1,10 +1,27 @@
 import React from "react";
+import { useEffect } from "react";
 import { Avatar, Button, Spinner } from "@heroui/react";
 import placeholder from "../assets/images/download.png";
 import { useAuth0 } from "@auth0/auth0-react";
+import { io } from "socket.io-client";
+const socket = io("http://localhost:8080", {
+  withCredentials: true,
+});
 
 export default function ProfileCard() {
   const { user, isAuthenticated, isLoading } = useAuth0();
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Socket connected:", socket.id);
+    });
+
+    return () => socket.disconnect();
+  }, []);
+
+  const sendMessage = () => {
+    socket.emit("send_message", { message: "Hello" });
+  };
 
   if (isLoading) {
     return <Spinner />;
@@ -23,7 +40,13 @@ export default function ProfileCard() {
         <Button className="w-min bg-ca-mint border border-ca-dark-blue">
           View Profile
         </Button>
-        <Button>Send Message Socket IO</Button>
+        <Button
+          onPress={() => {
+            sendMessage();
+          }}
+        >
+          Send Message Socket IO
+        </Button>
       </div>
     </div>
   );
