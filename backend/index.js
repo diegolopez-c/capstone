@@ -5,6 +5,8 @@ const { auth } = require("express-openid-connect");
 const { requiresAuth } = require("express-openid-connect");
 const port = process.env.PORT || 8080;
 const cron = require("node-cron");
+const http = require("http");
+const { Server } = require("socket.io");
 
 //Cors
 const cors = require("cors");
@@ -49,9 +51,21 @@ app.use("/prescription", prescriptionRoutes);
 app.use("/user", userRoutes);
 app.use("/availability", availabilityRoutes);
 
+//Socket.io config
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  },
+});
+
 cron.schedule("* * * * *", () => {
   console.log("Running a task every minute");
 });
+
+//
 
 // Authetntication
 app.get("/", (req, res) => {
@@ -62,6 +76,6 @@ app.get("/profile", requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
