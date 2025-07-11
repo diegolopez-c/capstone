@@ -23,6 +23,7 @@ export default function ProfileCard() {
         <Button className="w-min bg-ca-mint border border-ca-dark-blue">
           View Profile
         </Button>
+        <Button>Send Message Socket IO</Button>
       </div>
     </div>
   );
