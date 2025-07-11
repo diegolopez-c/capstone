@@ -5,7 +5,9 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const calculatePriority = require("../utils/calculatePriority");
-const notificationQueue = require("../index");
+const {
+  getNotificationQueue,
+} = require("../notifications/notificationQueueInstance");
 
 //Get Patient Appointment History
 router.get("/get-all-patient-appointments/:patientId", async (req, res) => {
@@ -155,6 +157,7 @@ router.post("/create-new-appointment", async (req, res) => {
     });
 
     // Add to notification queue
+    const notificationQueue = getNotificationQueue();
     notificationQueue.add({
       ...notification,
       scheduledAt: new Date(notification.scheduledAt),

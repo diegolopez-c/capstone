@@ -7,8 +7,9 @@ const port = process.env.PORT || 8080;
 const cron = require("node-cron");
 const http = require("http");
 const { Server } = require("socket.io");
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const {
+  initNotificationQueue,
+} = require("./notifications/notificationQueueInstance");
 
 //Cors
 const cors = require("cors");
@@ -20,7 +21,6 @@ const medicineRoutes = require("./routes/medicine");
 const prescriptionRoutes = require("./routes/prescription");
 const userRoutes = require("./routes/user");
 const availabilityRoutes = require("./routes/availability");
-const NotificationPriorityQueue = require("./notifications/notificationPriorityQueue");
 
 //Auth0 Config
 const config = {
@@ -46,14 +46,6 @@ app.use(
   })
 );
 
-//Routing
-app.use("/appointment", appointmentRoutes);
-app.use("/medical-history", medicalHistoryRoutes);
-app.use("/medicine", medicineRoutes);
-app.use("/prescription", prescriptionRoutes);
-app.use("/user", userRoutes);
-app.use("/availability", availabilityRoutes);
-
 //Socket.io config
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -65,8 +57,15 @@ const io = new Server(server, {
 });
 
 //Notification Queue
-const notificationQueue = new NotificationPriorityQueue(io, prisma);
-module.exports = notificationQueue;
+const notificationQueue = initNotificationQueue(io);
+
+//Routing
+app.use("/appointment", appointmentRoutes);
+app.use("/medical-history", medicalHistoryRoutes);
+app.use("/medicine", medicineRoutes);
+app.use("/prescription", prescriptionRoutes);
+app.use("/user", userRoutes);
+app.use("/availability", availabilityRoutes);
 
 //Socket IO functionality
 io.on("connection", (socket) => {
