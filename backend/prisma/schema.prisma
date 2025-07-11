@@ -33,6 +33,7 @@ model User {
   doctorPrescription    Prescription[]       @relation("doctor_prescription")
   patientPrescription   Prescription[]       @relation("patient_prescription")
   doctorAvailability    DoctorAvailability[] @relation("doctor_availability")
+  notifications         Notification[]       @relation("user_notification")
 }
 
 model Appointment {
@@ -107,6 +108,7 @@ model DoctorAvailability {
 model Notification {
   id            Int      @id @default(autoincrement())
   userId        Int
+  user          User     @relation("user_notification", fields: [userId], references: [id])
   appointmentId Int
   message       String
   priority      Int
