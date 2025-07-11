@@ -12,9 +12,7 @@ export default function ProfileCard() {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   useEffect(() => {
-    socket.on("connect", () => {
-      // console.log("Socket connected:", socket.id);
-    });
+    socket.on("connect", () => {});
 
     return () => socket.disconnect();
   }, []);

@@ -14,10 +14,6 @@ import {
 import jsonData from "../utils/mock-patients.json";
 
 export default function PatientList() {
-  useEffect(() => {
-    // console.log(jsonData);
-  }, []);
-
   // Appointment table columns
   const columns = [
     {
