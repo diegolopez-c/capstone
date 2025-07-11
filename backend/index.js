@@ -64,15 +64,13 @@ const io = new Server(server, {
 
 //Socket IO functionality
 io.on("connection", (socket) => {
-  console.log(`User Connected ${socket.id}`);
-
   socket.on("send_message", (data) => {
-    console.log(data);
+    // console.log(data);
   });
 });
 
 cron.schedule("* * * * *", () => {
-  console.log("Running a task every minute");
+  // console.log("Running a task every minute");
 });
 
 // Authetntication

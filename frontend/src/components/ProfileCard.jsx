@@ -13,7 +13,7 @@ export default function ProfileCard() {
 
   useEffect(() => {
     socket.on("connect", () => {
-      console.log("Socket connected:", socket.id);
+      // console.log("Socket connected:", socket.id);
     });
 
     return () => socket.disconnect();
