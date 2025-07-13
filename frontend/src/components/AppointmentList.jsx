@@ -13,9 +13,7 @@ import {
 import jsonData from "../utils/mock-appointments.json";
 
 export default function AppointmentList() {
-  useEffect(() => {
-    // console.log(jsonData);
-  }, []);
+  useEffect(() => {}, []);
 
   // Appointment table columns
   const columns = [

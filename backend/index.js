@@ -4,6 +4,7 @@ require("dotenv").config();
 const { auth } = require("express-openid-connect");
 const { requiresAuth } = require("express-openid-connect");
 const port = process.env.PORT || 8080;
+const frontendURL = process.env.FRONTEND_URL;
 const cron = require("node-cron");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -40,7 +41,7 @@ app.use(auth(config));
 //Configure cors
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: frontendURL,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
@@ -69,8 +70,6 @@ app.use("/availability", availabilityRoutes);
 
 //Socket IO functionality
 io.on("connection", (socket) => {
-  console.log("New socket", socket.id);
-
   socket.on("join", (userId) => {
     socket.join(userId);
   });
