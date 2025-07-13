@@ -4,6 +4,7 @@ require("dotenv").config();
 const { auth } = require("express-openid-connect");
 const { requiresAuth } = require("express-openid-connect");
 const port = process.env.PORT || 8080;
+const frontendURL = process.env.FRONTEND_URL;
 const cron = require("node-cron");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -37,7 +38,7 @@ app.use(auth(config));
 //Configure cors
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: frontendURL,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
@@ -63,16 +64,10 @@ const io = new Server(server, {
 
 //Socket IO functionality
 io.on("connection", (socket) => {
-  console.log(`User Connected ${socket.id}`);
-
-  socket.on("send_message", (data) => {
-    console.log(data);
-  });
+  socket.on("send_message", (data) => {});
 });
 
-cron.schedule("* * * * *", () => {
-  console.log("Running a task every minute");
-});
+cron.schedule("* * * * *", () => {});
 
 // Authetntication
 app.get("/", (req, res) => {

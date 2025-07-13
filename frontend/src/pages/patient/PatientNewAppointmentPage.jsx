@@ -18,13 +18,6 @@ export default function PatientNewAppointmentPage() {
         patientId
       );
 
-      console.log(
-        isLoading,
-        patientHasAppointment,
-        patientId,
-        activeAppointments
-      );
-
       if (activeAppointments.length >= 1) {
         setPatientHasAppointment(true);
       }

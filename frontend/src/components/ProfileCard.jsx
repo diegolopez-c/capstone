@@ -4,7 +4,7 @@ import { Avatar, Button, Spinner } from "@heroui/react";
 import placeholder from "../assets/images/download.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import { io } from "socket.io-client";
-const socket = io("http://localhost:8080", {
+const socket = io(import.meta.env.VITE_BASE_URL, {
   withCredentials: true,
 });
 
@@ -12,9 +12,7 @@ export default function ProfileCard() {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Socket connected:", socket.id);
-    });
+    socket.on("connect", () => {});
 
     return () => socket.disconnect();
   }, []);
