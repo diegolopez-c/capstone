@@ -20,12 +20,12 @@ async function fetchUserId(email) {
     }
   );
   if (!response.ok) {
-    throw new Error("Failed to fetch doctor's name");
+    throw new Error("Failed to fetch user by id");
   }
 
   const app = await response.json();
 
-  return await app.id;
+  return app.id;
 }
 
 export { fetchUserName, fetchUserId };
