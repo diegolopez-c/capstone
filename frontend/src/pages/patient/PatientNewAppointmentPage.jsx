@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import PatientSidebar from "../../components/patient/PatientSidebar";
 import PatientNewAppointmentMain from "../../components/patient/PatientNewAppointmentMain";
 import { useAuth0 } from "@auth0/auth0-react";
-import { fetchUserId } from "../../functions/userFunctions";
-import { checkPatientActiveAppointments } from "../../functions/appointmentFunctions";
+import { fetchUserId } from "../../api/userFunctions";
+import { checkPatientActiveAppointments } from "../../api/appointmentFunctions";
 
 export default function PatientNewAppointmentPage() {
   const { user, isLoading } = useAuth0();
