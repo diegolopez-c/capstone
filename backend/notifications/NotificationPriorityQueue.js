@@ -39,10 +39,16 @@ class NotificationPriorityQueue {
         });
 
         // Edit the notification to mark it as sent
-        await this.prisma.notification.update({
-          where: { id: notification.id },
-          data: { sent: true },
-        });
+        try {
+          await this.prisma.notification.update({
+            where: { id: notification.id },
+            data: { sent: true },
+          });
+        } catch (error) {
+          console.error(
+            `The notification doesn't exist anymore in the database: ${error}`
+          );
+        }
       } else {
         //If its not time yet to send notification just ignore it
         break;
