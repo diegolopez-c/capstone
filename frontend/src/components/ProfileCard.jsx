@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { fetchUserId } from "../api/userFunctions";
 import { useEffect } from "react";
 import { useState } from "react";
+import LogoutButton from "./LogoutButton";
 
 export default function ProfileCard() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -34,6 +35,7 @@ export default function ProfileCard() {
         <Button className="w-min bg-ca-mint border border-ca-dark-blue">
           View Profile
         </Button>
+        <LogoutButton />
       </div>
     </div>
   );

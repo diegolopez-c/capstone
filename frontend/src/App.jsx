@@ -7,7 +7,6 @@ import LandingPage from "./pages/LandingPage";
 import Profile from "./components/Profile";
 import NewAppointmentPage from "./pages/doctor/NewAppointmentPage";
 import NewMedicalReportPage from "./pages/doctor/NewMedicalReportPage";
-import PatientSeach from "./pages/doctor/PatientSearch";
 import NewPrescriptionPage from "./pages/doctor/NewPrescriptionPage";
 import ExpirationMedicine from "./pages/pharmacist/ExpirationMedicine";
 import MedicineInventory from "./pages/pharmacist/MedicineInventory";
@@ -78,7 +77,6 @@ function App() {
       <Route path="/new-appointment" element={<NewAppointmentPage />} />
       <Route path="/new-medical-report" element={<NewMedicalReportPage />} />
       <Route path="/new-prescription" element={<NewPrescriptionPage />} />
-      <Route path="/patient-search" element={<PatientSeach />} />
 
       {/* Patient Routes */}
       <Route path="/patient-dashboard" element={<PatientDashboard />} />
