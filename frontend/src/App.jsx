@@ -49,7 +49,6 @@ function App() {
       socket.emit("join", userId);
 
       socket.on("notification", (data) => {
-        console.log(data);
         addToast({
           title: "You have an upcoming appointment",
           description: data.message,
