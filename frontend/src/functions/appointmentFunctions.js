@@ -20,7 +20,7 @@ async function checkPatientActiveAppointments(patientId) {
   const response = await fetch(
     `${
       import.meta.env.VITE_BASE_URL
-    }/appointment/get-active-patient-appointments/${patientId}}`,
+    }/appointment/get-active-patient-appointments/${patientId}`,
     {
       method: "GET",
     }

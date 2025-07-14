@@ -139,7 +139,9 @@ router.get("/get-doctors-available", async (req, res) => {
 
     //Set the Date from 2 weeks
     const currentDate = new Date();
-    const twoWeeksFromNow = new Date();
+    currentDate.setUTCHours(0, 0, 0, 0);
+
+    const twoWeeksFromNow = new Date(currentDate);
     twoWeeksFromNow.setUTCDate(currentDate.getUTCDate() + 14);
 
     //Retrieve all the doctors
@@ -169,6 +171,7 @@ router.get("/get-doctors-available", async (req, res) => {
         //Cur day will be the day checking for the availability
         const curDate = new Date(currentDate);
         curDate.setUTCDate(currentDate.getUTCDate() + day);
+        curDate.setUTCHours(0, 0, 0, 0);
 
         //First lets check if the doctor is available that day of the week
         let doctorSchedule;
