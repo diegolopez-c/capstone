@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Textarea, Button, addToast } from "@heroui/react";
 import formatFullDate from "../../utils/formatFullDate";
-import { fetchUserId, fetchUserName } from "../../functions/userFunctions";
-import { createAppointment } from "../../functions/appointmentFunctions";
+import { fetchUserId, fetchUserName } from "../../api/userFunctions";
+import { createAppointment } from "../../api/appointmentFunctions";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 

@@ -23,7 +23,7 @@ import CreatingUserPage from "./pages/CreatingUserPage";
 import { addToast } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { fetchUserId } from "./functions/userFunctions";
+import { fetchUserId } from "./api/userFunctions";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const socket = io("http://localhost:8080", { withCredentials: true });
