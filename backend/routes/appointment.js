@@ -219,6 +219,19 @@ router.put("/change-appointment-status", async (req, res) => {
       },
     });
 
+    if (
+      status === "CANCELLED" ||
+      status === "RESCHEDULED" ||
+      status === "COMPLETED"
+    ) {
+      const deletedNotifications = await prisma.notification.deleteMany({
+        where: {
+          appointmentId: id,
+          sent: false,
+        },
+      });
+    }
+
     res.status(200).json(updatedAppointment);
   } catch (error) {
     res.status(500).json({

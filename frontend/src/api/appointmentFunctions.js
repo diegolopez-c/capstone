@@ -56,8 +56,32 @@ async function fetchAllPatientAppointments(patientEmail) {
   return await appointmentList;
 }
 
+async function cancelAppointment(appointmentId) {
+  const response = await fetch(
+    `${import.meta.env.VITE_BASE_URL}/appointment/change-appointment-status`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: appointmentId,
+        status: "CANCELLED",
+      }),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to cancel the appointment");
+  }
+
+  const updatedAppointment = await response.json();
+
+  return updatedAppointment;
+}
+
 export {
   createAppointment,
   checkPatientActiveAppointments,
   fetchAllPatientAppointments,
+  cancelAppointment,
 };
