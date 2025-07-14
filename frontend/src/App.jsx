@@ -27,42 +27,43 @@ import { io } from "socket.io-client";
 import { fetchUserId } from "./functions/userFunctions";
 import { useAuth0 } from "@auth0/auth0-react";
 
-// const socket = io("http://localhost:8080", { withCredentials: true });
+const socket = io("http://localhost:8080", { withCredentials: true });
 
 function App() {
-  // const { user, isLoading } = useAuth0();
-  // const [notifications, setNotifications] = useState([]);
-  // const [userId, setUserId] = useState(null);
+  const { user, isLoading } = useAuth0();
+  const [notifications, setNotifications] = useState([]);
+  const [userId, setUserId] = useState(null);
 
-  // useEffect(() => {
-  //   if (!isLoading && user) {
-  //     const getUserId = async () => {
-  //       const id = await fetchUserId(user.email);
-  //       setUserId(id);
-  //     };
-  //     getUserId();
-  //   }
-  // }, [isLoading, user]);
+  useEffect(() => {
+    if (!isLoading && user) {
+      const getUserId = async () => {
+        const id = await fetchUserId(user.email);
+        setUserId(id);
+      };
+      getUserId();
+    }
+  }, [isLoading, user]);
 
-  // useEffect(() => {
-  //   if (userId) {
-  //     socket.emit("join", userId);
+  useEffect(() => {
+    if (userId) {
+      socket.emit("join", userId);
 
-  //     socket.on("notification", (data) => {
-  //       addToast({
-  //         title: "Toast title",
-  //         description: "Toast displayed successfully",
-  //         color: "primary",
-  //       });
-  //       setNotifications((prev) => [...prev, data]);
-  //     });
+      socket.on("notification", (data) => {
+        console.log(data);
+        addToast({
+          title: "You have an upcoming appointment",
+          description: data.message,
+          color: "primary",
+        });
+        setNotifications((prev) => [...prev, data]);
+      });
 
-  //     return () => {
-  //       socket.off("notification");
-  //       socket.disconnect();
-  //     };
-  //   }
-  // }, [userId]);
+      return () => {
+        socket.off("notification");
+        socket.disconnect();
+      };
+    }
+  }, [userId]);
 
   return (
     <Routes>

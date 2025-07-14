@@ -35,7 +35,6 @@ class NotificationPriorityQueue {
         this.io.to(notification.userId).emit("notification", {
           id: notification.id,
           message: notification.message,
-          type: notification.type,
           appointmentId: notification.appointmentId,
         });
 
