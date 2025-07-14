@@ -24,7 +24,7 @@ export default function AppointmentDetails({
         title: "Appointment Scheduled Successfully",
         description:
           "Your appointment has been scheduled successfully you will receive a notification 1 hour before the appointment hour",
-        color: "primary",
+        color: "success",
         timeout: 10000,
       });
     } catch (error) {
@@ -74,7 +74,6 @@ export default function AppointmentDetails({
         onChange={(e) => {
           setNewAppointment({ ...newAppointment, reason: e.target.value });
         }}
-        label=""
         placeholder="Enter your description here"
       />
       <Button
