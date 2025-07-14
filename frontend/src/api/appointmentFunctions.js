@@ -56,6 +56,26 @@ async function fetchAllPatientAppointments(patientEmail) {
   return await appointmentList;
 }
 
+async function fetchAllDoctorAppointments(doctorEmail) {
+  const doctorId = await fetchUserId(doctorEmail);
+
+  const response = await fetch(
+    `${
+      import.meta.env.VITE_BASE_URL
+    }/appointment/get-all-doctor-appointments/${doctorId}`,
+    {
+      method: "GET",
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch doctors appointments");
+  }
+
+  const appointmentList = await response.json();
+
+  return await appointmentList;
+}
+
 async function cancelAppointment(appointmentId) {
   const response = await fetch(
     `${import.meta.env.VITE_BASE_URL}/appointment/change-appointment-status`,
@@ -79,9 +99,58 @@ async function cancelAppointment(appointmentId) {
   return updatedAppointment;
 }
 
+async function confirmAppointment(appointmentId) {
+  const response = await fetch(
+    `${import.meta.env.VITE_BASE_URL}/appointment/change-appointment-status`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: appointmentId,
+        status: "CONFIRMED",
+      }),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to confirm the appointment");
+  }
+
+  const updatedAppointment = await response.json();
+
+  return updatedAppointment;
+}
+
+async function completeAppointment(appointmentId) {
+  const response = await fetch(
+    `${import.meta.env.VITE_BASE_URL}/appointment/change-appointment-status`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: appointmentId,
+        status: "COMPLETED",
+      }),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to complete the appointment");
+  }
+
+  const updatedAppointment = await response.json();
+
+  return updatedAppointment;
+}
+
 export {
   createAppointment,
   checkPatientActiveAppointments,
   fetchAllPatientAppointments,
   cancelAppointment,
+  fetchAllDoctorAppointments,
+  confirmAppointment,
+  completeAppointment,
 };
