@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Textarea, Button, useToast } from "@heroui/react";
+import { Textarea, Button, addToast } from "@heroui/react";
 import formatFullDate from "../../utils/formatFullDate";
 import { fetchUserId, fetchUserName } from "../../functions/userFunctions";
 import { createAppointment } from "../../functions/appointmentFunctions";
