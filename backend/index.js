@@ -77,7 +77,6 @@ io.on("connection", (socket) => {
 
 //Every minute the notification queue is updated
 cron.schedule("* * * * *", () => {
-  console.log("cicle");
   notificationQueue.processDueNotifications();
 });
 

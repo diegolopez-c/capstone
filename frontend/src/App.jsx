@@ -54,6 +54,7 @@ function App() {
           title: "You have an upcoming appointment",
           description: data.message,
           color: "primary",
+          timeout: 10000,
         });
         setNotifications((prev) => [...prev, data]);
       });
