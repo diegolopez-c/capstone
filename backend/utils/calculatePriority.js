@@ -11,7 +11,7 @@ function calculatePriority(scheduleTime) {
   if (difference < 60) return 1;
   if (difference < 180) return 2;
   if (difference < 480) return 3;
-  if (difference < 1440) return 3;
+  if (difference < 1440) return 4;
   return 5;
 }
 
