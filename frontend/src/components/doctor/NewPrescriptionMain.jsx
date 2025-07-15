@@ -65,6 +65,7 @@ export default function NewPrescriptionMain() {
           patientId={selectedPatient ? selectedPatient.id : null}
         />
       </div>
+      <Button>Next</Button>
     </div>
   );
 }
