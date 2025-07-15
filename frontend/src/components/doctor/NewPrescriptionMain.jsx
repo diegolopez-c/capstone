@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { NumberInput, Button, addToast } from "@heroui/react";
 import { fetchUserById } from "../../api/userFunctions";
 import PatientInfo from "./PatientInfo";
+import PastPrescriptions from "./PastPrescriptions";
+import PastMedicalRecords from "./PastMedicalRecords";
 
 export default function NewPrescriptionMain() {
   const [curPatientId, setCurPatientId] = useState();
@@ -55,6 +57,14 @@ export default function NewPrescriptionMain() {
         </Button>
       </div>
       <PatientInfo patientBody={selectedPatient} />
+      <div className="w-full flex gap-4 justify-around items-center">
+        <PastPrescriptions
+          patientId={selectedPatient ? selectedPatient.id : null}
+        />
+        <PastMedicalRecords
+          patientId={selectedPatient ? selectedPatient.id : null}
+        />
+      </div>
     </div>
   );
 }
