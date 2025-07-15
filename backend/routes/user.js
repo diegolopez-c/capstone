@@ -20,12 +20,12 @@ router.get("/get-user-by-email/:userEmail", async (req, res) => {
     });
 
     if (!getUser) {
-      res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: "User not found" });
     }
 
-    res.status(200).json(getUser);
+    return res.status(200).json(getUser);
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       error: "Internal server error searching for the user",
       details: error.message,
     });
@@ -56,7 +56,7 @@ router.post("/create-new-user", async (req, res) => {
       },
     });
 
-    res.status(201).json(newUser);
+    return res.status(201).json(newUser);
   } catch (error) {
     res
       .status(500)
@@ -76,7 +76,7 @@ router.put("/update-user-info", async (req, res) => {
 
     res.status(200).json(updateUser);
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       error: "Internal server error updating the user",
       details: error.message,
     });
@@ -92,9 +92,9 @@ router.delete("/delete-user", async (req, res) => {
       },
     });
 
-    res.status(204).json({ message: "User deleted correctly" });
+    return res.status(204).json({ message: "User deleted correctly" });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       error: "Internal server error deleting the user",
       details: error.message,
     });
@@ -117,13 +117,36 @@ router.get("/get-user-name-by-id/:userId", async (req, res) => {
     });
 
     if (!getUser) {
-      res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: "User not found" });
     }
 
-    res.status(200).json(getUser);
+    return res.status(200).json(getUser);
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       error: "Internal server error fetching the doctors name",
+      details: error.message,
+    });
+  }
+});
+
+router.get("/get-user-by-id/:userId", async (req, res) => {
+  try {
+    const userId = parseInt(req.params.userId);
+
+    const getUser = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!getUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    return res.status(200).json(getUser);
+  } catch (error) {
+    return res.status(500).json({
+      error: "Internal server error fetching the user info",
       details: error.message,
     });
   }

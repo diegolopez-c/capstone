@@ -20,6 +20,22 @@ async function fetchUserId(email) {
     }
   );
   if (!response.ok) {
+    throw new Error("Failed to fetch user by email");
+  }
+
+  const app = await response.json();
+
+  return app.id;
+}
+
+async function fetchUserById(id) {
+  const response = await fetch(
+    `${import.meta.env.VITE_BASE_URL}/user/get-user-by-id/${id}`,
+    {
+      method: "GET",
+    }
+  );
+  if (!response.ok) {
     throw new Error("Failed to fetch user by id");
   }
 
@@ -28,4 +44,4 @@ async function fetchUserId(email) {
   return app.id;
 }
 
-export { fetchUserName, fetchUserId };
+export { fetchUserName, fetchUserId, fetchUserById };
