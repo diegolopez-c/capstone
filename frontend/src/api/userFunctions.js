@@ -41,7 +41,7 @@ async function fetchUserById(id) {
 
   const app = await response.json();
 
-  return app.id;
+  return app;
 }
 
 export { fetchUserName, fetchUserId, fetchUserById };

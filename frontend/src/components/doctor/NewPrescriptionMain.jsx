@@ -1,10 +1,11 @@
-import React, { useState, addToast } from "react";
-import { NumberInput, Button } from "@heroui/react";
+import React, { useState } from "react";
+import { NumberInput, Button, addToast } from "@heroui/react";
 import { fetchUserById } from "../../api/userFunctions";
+import PatientInfo from "./PatientInfo";
 
 export default function NewPrescriptionMain() {
   const [curPatientId, setCurPatientId] = useState();
-  const [selectedPatient, setSelectedPatient] = useState({});
+  const [selectedPatient, setSelectedPatient] = useState();
 
   async function getPatientInfo() {
     try {
@@ -12,7 +13,10 @@ export default function NewPrescriptionMain() {
       if (patientInfo) {
         setSelectedPatient(patientInfo);
       }
+      console.log(patientInfo);
     } catch (error) {
+      setCurPatientId();
+      setSelectedPatient();
       addToast({
         title: "The Patient Wasn't Found",
         description: "The patient id provided is invalid, try another one",
@@ -37,9 +41,20 @@ export default function NewPrescriptionMain() {
           className="max-w-xs"
           label="Patient ID"
           placeholder="Enter the patient id"
+          value={curPatientId}
+          onChange={(e) => {
+            setCurPatientId(e.target.value);
+          }}
         />
-        <Button>Select Patient</Button>
+        <Button
+          onPress={() => {
+            getPatientInfo();
+          }}
+        >
+          Select Patient
+        </Button>
       </div>
+      <PatientInfo patientBody={selectedPatient} />
     </div>
   );
 }

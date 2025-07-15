@@ -1,6 +1,6 @@
 function calculateAgeWithBirthDate(birthDate) {
   const today = new Date();
-  const birthdate = new Date(birthdateString);
+  const birthdate = new Date(birthDate);
 
   let age = today.getFullYear() - birthdate.getFullYear();
 
