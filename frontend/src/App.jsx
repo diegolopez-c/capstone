@@ -20,6 +20,7 @@ import PatientHistoryPage from "./pages/patient/PatientHistoryPage";
 import PatientPrescriptionsPage from "./pages/patient/PatientPrescriptionsPage";
 import RoleRedirect from "./pages/RoleRedirect";
 import CreatingUserPage from "./pages/CreatingUserPage";
+import NotificationTester from "./pages/NotificationTester";
 
 function App() {
   return (
@@ -63,6 +64,9 @@ function App() {
       <Route path="/expiration-medicine" element={<ExpirationMedicine />} />
       <Route path="/medicine-inventory" element={<MedicineInventory />} />
       <Route path="/prescription-history" element={<PrescriptionHistory />} />
+
+      {/**Notification Routes */}
+      <Route path="/notifications" element={<NotificationTester />} />
     </Routes>
   );
 }
