@@ -143,7 +143,9 @@ router.post("/create-new-appointment", async (req, res) => {
     const message = `You got an appointment at ${scheduleDate}`;
 
     //schedule a notification an hour before
-    const scheduledAt = new Date(new Date(scheduleDate).getTime() - 3600000);
+    const scheduledAt = new Date(
+      new Date(scheduleDate).getTime() - 60 * 60 * 1000
+    );
 
     const notification = await prisma.notification.create({
       data: {
