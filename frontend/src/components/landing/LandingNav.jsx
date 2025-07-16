@@ -4,6 +4,7 @@ import { Button, ButtonGroup } from "@heroui/button";
 import { Spinner } from "@heroui/spinner";
 import { Avatar } from "@heroui/avatar";
 import { useAuth0 } from "@auth0/auth0-react";
+import LogoutButton from "../LogoutButton";
 
 export default function LandingNav() {
   const { loginWithRedirect, user, isAuthenticated, isLoading, logout } =
@@ -20,11 +21,11 @@ export default function LandingNav() {
 
         {!isAuthenticated ? (
           <ButtonGroup>
-            <Button onClick={() => loginWithRedirect()} className="bg-ca-mint">
+            <Button onPress={() => loginWithRedirect()} className="bg-ca-mint">
               LogIn
             </Button>
             <Button
-              onClick={() => {
+              onPress={() => {
                 loginWithRedirect({
                   screen_hint: "signup",
                 });
@@ -37,14 +38,7 @@ export default function LandingNav() {
         ) : (
           <div className="flex gap-2">
             <Avatar size="md" src={user.picture} />
-            <Button
-              className="bg-red-400"
-              onClick={() =>
-                logout({ logoutParams: { returnTo: window.location.origin } })
-              }
-            >
-              Logout
-            </Button>
+            <LogoutButton />
           </div>
         )}
       </nav>

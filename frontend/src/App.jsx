@@ -7,7 +7,6 @@ import LandingPage from "./pages/LandingPage";
 import Profile from "./components/Profile";
 import NewAppointmentPage from "./pages/doctor/NewAppointmentPage";
 import NewMedicalReportPage from "./pages/doctor/NewMedicalReportPage";
-import PatientSeach from "./pages/doctor/PatientSearch";
 import NewPrescriptionPage from "./pages/doctor/NewPrescriptionPage";
 import ExpirationMedicine from "./pages/pharmacist/ExpirationMedicine";
 import MedicineInventory from "./pages/pharmacist/MedicineInventory";
@@ -23,7 +22,7 @@ import CreatingUserPage from "./pages/CreatingUserPage";
 import { addToast } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { fetchUserId } from "./functions/userFunctions";
+import { fetchUserId } from "./api/userFunctions";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const socket = io("http://localhost:8080", { withCredentials: true });
@@ -78,7 +77,6 @@ function App() {
       <Route path="/new-appointment" element={<NewAppointmentPage />} />
       <Route path="/new-medical-report" element={<NewMedicalReportPage />} />
       <Route path="/new-prescription" element={<NewPrescriptionPage />} />
-      <Route path="/patient-search" element={<PatientSeach />} />
 
       {/* Patient Routes */}
       <Route path="/patient-dashboard" element={<PatientDashboard />} />

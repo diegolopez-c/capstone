@@ -1,8 +1,22 @@
 import { Avatar, Button, Spinner } from "@heroui/react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { fetchUserId } from "../api/userFunctions";
+import { useEffect } from "react";
+import { useState } from "react";
+import LogoutButton from "./LogoutButton";
 
 export default function ProfileCard() {
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const [userId, setUserId] = useState(0);
+
+  useEffect(() => {
+    const getUserId = async () => {
+      const id = await fetchUserId(user.email);
+      setUserId(id);
+    };
+
+    if (!isLoading && user) getUserId();
+  }, [user, isLoading]);
 
   if (isLoading) {
     return <Spinner />;
@@ -17,10 +31,11 @@ export default function ProfileCard() {
         />
         <h3>{isAuthenticated ? user.given_name : "Patient Name"}</h3>
         <h3>{isAuthenticated ? user.family_name : "Patient Lastname"}</h3>
-        <h3>Id</h3>
+        <h3>{userId}</h3>
         <Button className="w-min bg-ca-mint border border-ca-dark-blue">
           View Profile
         </Button>
+        <LogoutButton />
       </div>
     </div>
   );
