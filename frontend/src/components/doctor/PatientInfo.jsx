@@ -5,7 +5,7 @@ export default function PatientInfo({ patientBody }) {
   return (
     <>
       {patientBody ? (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 text-ca-white">
           <p>
             <span className="font-bold">Name: </span>
             {patientBody.name || "Not Provided"}
