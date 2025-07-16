@@ -10,7 +10,9 @@ const { MinPriorityQueue } = require("@datastructures-js/priority-queue");
 class NotificationPriorityQueue {
   //For the constructor you'll make 3 things: The Socket IO socket to send notis, the priority queue by itself and prisma
   constructor(io, prisma) {
-    this.queue = new MinPriorityQueue((notification) => notification.priority);
+    this.queue = new MinPriorityQueue(
+      (notification) => notification.scheduledAt
+    );
     this.io = io;
     this.prisma = prisma;
   }
@@ -25,11 +27,11 @@ class NotificationPriorityQueue {
     const now = new Date();
 
     //Take all the notifications of the list in the queue order
-    while (this.queue.front().scheduledAt < now) {
+    while (this.queue.front() && this.queue.front().scheduledAt < now) {
       const notification = this.queue.dequeue();
 
       //If the notification is valid it'll be send trough the user Socket IO channel defined by his id
-      this.io.to(String(notification.userId)).emit("notification", {
+      this.io.to(notification.userId).emit("notification", {
         id: notification.id,
         message: notification.message,
         type: notification.type,
@@ -41,10 +43,16 @@ class NotificationPriorityQueue {
       );
 
       // Edit the notification to mark it as sent
-      await this.prisma.notification.update({
-        where: { id: notification.id },
-        data: { sent: true },
-      });
+      try {
+        await this.prisma.notification.update({
+          where: { id: notification.id },
+          data: { sent: true },
+        });
+      } catch (error) {
+        console.error(
+          `The notification doesn't exist anymore in the database: ${error}`
+        );
+      }
     }
   }
 
