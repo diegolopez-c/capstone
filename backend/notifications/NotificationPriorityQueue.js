@@ -39,10 +39,6 @@ class NotificationPriorityQueue {
           appointmentId: notification.appointmentId,
         });
 
-        console.log(
-          `Notification sent ${notification.userId}, ${notification.message}`
-        );
-
         // Edit the notification to mark it as sent
         await this.prisma.notification.update({
           where: { id: notification.id },

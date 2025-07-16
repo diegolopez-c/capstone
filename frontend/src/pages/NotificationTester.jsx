@@ -25,7 +25,6 @@ export default function NotificationTester() {
       socket.emit("join", userId);
 
       socket.on("notification", (data) => {
-        console.log("New Notification:", data);
         setNotifications((prev) => [...prev, data]);
       });
 
