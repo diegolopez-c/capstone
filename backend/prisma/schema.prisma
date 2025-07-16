@@ -104,6 +104,17 @@ model DoctorAvailability {
   endTime   DateTime
 }
 
+model Notification {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  appointmentId Int
+  message       String
+  priority      Int
+  scheduledAt   DateTime
+  sent          Boolean  @default(false)
+  createdAt     DateTime @default(now())
+}
+
 enum Role {
   ADMIN
   DOCTOR
