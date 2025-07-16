@@ -6,7 +6,9 @@ function checkDayAvailability(date, doctor) {
 
   //Find the appointments of that date
   const dayAppointments = doctorAppointments.filter((app) => {
-    return app.scheduleDate.toDateString() === date.toDateString();
+    const appDate = new Date(app.scheduleDate).toISOString().split("T")[0];
+    const checkDate = date.toISOString().split("T")[0];
+    return appDate === checkDate;
   });
 
   //Finds the doctor Schedule that date
