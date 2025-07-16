@@ -5,7 +5,7 @@ import PatientInfo from "./PatientInfo";
 import PastPrescriptions from "./PastPrescriptions";
 import PastMedicalRecords from "./PastMedicalRecords";
 
-export default function NewPrescriptionMain() {
+export default function NewPrescriptionMain({ selectPatient }) {
   const [curPatientId, setCurPatientId] = useState();
   const [selectedPatient, setSelectedPatient] = useState();
 
@@ -64,7 +64,13 @@ export default function NewPrescriptionMain() {
           patientId={selectedPatient ? selectedPatient.id : null}
         />
       </div>
-      <Button>Next</Button>
+      <Button
+        onPress={() => {
+          selectPatient(selectedPatient);
+        }}
+      >
+        Next
+      </Button>
     </div>
   );
 }

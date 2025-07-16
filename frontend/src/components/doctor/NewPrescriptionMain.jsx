@@ -1,36 +1,54 @@
 import React from "react";
 import { Tabs, Tab, Card, CardBody, Spinner, addToast } from "@heroui/react";
 import { useState } from "react";
-import NewPrescriptionMain from "./PatientSelection";
+import PatientSelection from "./PatientSelection";
+import MedicineSelection from "./MedicineSelection";
+import PrescriptionConfirmation from "./PrescriptionConfirmation";
 
 const tabSteps = [
   "patient-selection",
-  "medicine-addition",
+  "medicine-selection",
   "confirm-prescription",
 ];
 
-export default function NewPrescriptionMain2() {
+export default function NewPrescriptionMain() {
   //Set selected tab
   const [selectedStep, setSelectedStep] = useState("patient-selection");
 
   //Set New Prescription an Medicine List of it Body
+  const [selectedPatient, setSelectedPatient] = useState();
   const [newPrescription, setNewPrescription] = useState({});
   const [prescriptionMedicineList, setPrescriptionMedicineList] = useState([]);
 
+  function selectPatient(patientBody) {
+    if (!patientBody) {
+      addToast({
+        title: "There was an error selecting the patient",
+        color: "danger",
+        timeout: 10000,
+      });
+      return;
+    }
+
+    setSelectedPatient(patientBody);
+    setNewPrescription({ ...newPrescription, patientId: patientBody.id });
+    setSelectedStep("medicine-selection");
+  }
+
   //Body compponent depending the selected step
-  let body = useState(<NewPrescriptionMain />);
+  let body;
 
   switch (selectedStep) {
     case "patient-selection":
-      body = <NewPrescriptionMain />;
+      body = <PatientSelection selectPatient={selectPatient} />;
       break;
 
     case "medicine-selection":
-      body = <NewPrescriptionMain />;
+      body = <MedicineSelection />;
       break;
 
     case "confirm-prescription":
-      body = <NewPrescriptionMain />;
+      body = <PrescriptionConfirmation />;
       break;
 
     default:
@@ -68,7 +86,7 @@ export default function NewPrescriptionMain2() {
           </Card>
         </Tab>
         <Tab
-          key="medicine-addition"
+          key="medicine-selection"
           title="2.- Add The Medicine For The Prescription"
           className="w-full flex items-center justify-center"
         >
