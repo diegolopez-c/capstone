@@ -25,33 +25,26 @@ class NotificationPriorityQueue {
     const now = new Date();
 
     //Take all the notifications of the list in the queue order
-    while (!this.queue.isEmpty()) {
-      const next = this.queue.front();
+    while (this.queue.front().scheduledAt < now) {
+      const notification = this.queue.dequeue();
 
-      if (next.scheduledAt <= now) {
-        const notification = this.queue.dequeue();
+      //If the notification is valid it'll be send trough the user Socket IO channel defined by his id
+      this.io.to(String(notification.userId)).emit("notification", {
+        id: notification.id,
+        message: notification.message,
+        type: notification.type,
+        appointmentId: notification.appointmentId,
+      });
 
-        //If the notification is valid it'll be send trough the user Socket IO channel defined by his id
-        this.io.to(String(notification.userId)).emit("notification", {
-          id: notification.id,
-          message: notification.message,
-          type: notification.type,
-          appointmentId: notification.appointmentId,
-        });
+      console.log(
+        `Notification sent ${notification.userId}, ${notification.message}`
+      );
 
-        console.log(
-          `Notification sent ${notification.userId}, ${notification.message}`
-        );
-
-        // Edit the notification to mark it as sent
-        await this.prisma.notification.update({
-          where: { id: notification.id },
-          data: { sent: true },
-        });
-      } else {
-        //If its not time yet to send notification just ignore it
-        break;
-      }
+      // Edit the notification to mark it as sent
+      await this.prisma.notification.update({
+        where: { id: notification.id },
+        data: { sent: true },
+      });
     }
   }
 
