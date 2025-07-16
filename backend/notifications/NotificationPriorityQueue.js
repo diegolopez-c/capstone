@@ -10,7 +10,9 @@ const { MinPriorityQueue } = require("@datastructures-js/priority-queue");
 class NotificationPriorityQueue {
   //For the constructor you'll make 3 things: The Socket IO socket to send notis, the priority queue by itself and prisma
   constructor(io, prisma) {
-    this.queue = new MinPriorityQueue((notification) => notification.priority);
+    this.queue = new MinPriorityQueue(
+      (notification) => notification.scheduledAt
+    );
     this.io = io;
     this.prisma = prisma;
   }
@@ -29,7 +31,7 @@ class NotificationPriorityQueue {
       const notification = this.queue.dequeue();
 
       //If the notification is valid it'll be send trough the user Socket IO channel defined by his id
-      this.io.to(String(notification.userId)).emit("notification", {
+      this.io.to(notification.userId).emit("notification", {
         id: notification.id,
         message: notification.message,
         type: notification.type,
