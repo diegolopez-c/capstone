@@ -25,7 +25,7 @@ class NotificationPriorityQueue {
     const now = new Date();
 
     //Take all the notifications of the list in the queue order
-    while (this.queue.front().scheduledAt < now) {
+    while (this.queue.front() && this.queue.front().scheduledAt < now) {
       const notification = this.queue.dequeue();
 
       //If the notification is valid it'll be send trough the user Socket IO channel defined by his id
