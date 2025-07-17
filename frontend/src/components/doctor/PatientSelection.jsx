@@ -15,7 +15,6 @@ export default function NewPrescriptionMain({ selectPatient }) {
       if (patientInfo) {
         setSelectedPatient(patientInfo);
       }
-      console.log(patientInfo);
     } catch (error) {
       setCurPatientId();
       setSelectedPatient();

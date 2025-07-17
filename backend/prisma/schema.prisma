@@ -71,6 +71,7 @@ model Prescription {
   medicalHistoryId     Int?
   prescriptionMedicine Prescription_Medicine[] @relation("prescription_prescription_medicine")
   status               PrescriptionStatus      @default(ISSUED)
+  createdAt            DateTime                @default(now())
 }
 
 model Prescription_Medicine {

@@ -35,6 +35,21 @@ export default function NewPrescriptionMain() {
     setSelectedStep("medicine-selection");
   }
 
+  function packPrescription() {
+    if (prescriptionMedicineList.length === 0) {
+      addToast({
+        title: "Add medicine to create the prescription",
+        color: "danger",
+        timeout: 10000,
+      });
+      return;
+    }
+
+    //TODO logic to make objects for the prescription and the prescription medicine
+
+    setSelectedStep("confirm-prescription");
+  }
+
   //Body compponent depending the selected step
   let body;
 
@@ -44,7 +59,13 @@ export default function NewPrescriptionMain() {
       break;
 
     case "medicine-selection":
-      body = <MedicineSelection />;
+      body = (
+        <MedicineSelection
+          prescriptionMedicineList={prescriptionMedicineList}
+          setPrescriptionMedicineList={setPrescriptionMedicineList}
+          packPrescription={packPrescription}
+        />
+      );
       break;
 
     case "confirm-prescription":
