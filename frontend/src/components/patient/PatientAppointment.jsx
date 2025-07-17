@@ -102,7 +102,7 @@ export default function PatientAppointment() {
   }, []);
 
   return (
-    <div className="w-3/4 h-screen flex flex-col items-center gap-4 py-8">
+    <div className="w-3/4 min-h-screen flex flex-col items-center gap-4 py-8 overflow-scroll">
       <h1 className="text-ca-white text-3xl font-bold">
         Your Appointments List
       </h1>
