@@ -11,19 +11,20 @@ import {
   TableHeader,
 } from "@heroui/react";
 import { useState } from "react";
+import MedicineTypeaheadSearchbar from "./MedicineTypeaheadSearchbar";
 
 export default function MedicineSelection({
   prescriptionMedicineList,
   setPrescriptionMedicineList,
   packPrescription,
 }) {
-  const [curMedicine, setCurMedicine] = useState();
+  const [curMedicine, setCurMedicine] = useState({});
 
   function addMedicineToMedicineList(specifications) {
     setPrescriptionMedicineList([
       ...prescriptionMedicineList,
       {
-        name: curMedicine,
+        name: curMedicine.brandName,
         frequency: specifications.frequency,
         duration: specifications.duration,
         dosage: specifications.dosage,
@@ -37,11 +38,9 @@ export default function MedicineSelection({
       <div className="flex flex-col w-full items-center justify-center gap-6">
         <h3 className="text-ca-white text-xl font-bold">Choose Medicine</h3>
         <div className="w-full">
-          <Input
-            label="Medicine"
-            type="text"
-            value={curMedicine}
-            onValueChange={setCurMedicine}
+          <MedicineTypeaheadSearchbar
+            setSelectedMedicine={setCurMedicine}
+            selectedMedicine={curMedicine}
           />
         </div>
         <div className="w-full flex">
