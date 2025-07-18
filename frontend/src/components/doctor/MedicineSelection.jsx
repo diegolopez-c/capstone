@@ -24,6 +24,7 @@ export default function MedicineSelection({
     setPrescriptionMedicineList([
       ...prescriptionMedicineList,
       {
+        medicineId: curMedicine.id,
         name: curMedicine.brandName,
         frequency: specifications.frequency,
         duration: specifications.duration,
