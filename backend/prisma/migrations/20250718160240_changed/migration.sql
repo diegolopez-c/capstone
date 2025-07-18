@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Medicine" ALTER COLUMN "fdaId" SET DATA TYPE TEXT;
