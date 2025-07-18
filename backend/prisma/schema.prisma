@@ -88,7 +88,7 @@ model Prescription_Medicine {
 
 model Medicine {
   id                   Int                     @id @default(autoincrement())
-  fdaId                Int?                    @unique
+  fdaId                String?                 @unique
   brandName            String                  @default("N/A")
   genericName          String                  @default("N/A")
   quantity             Int
