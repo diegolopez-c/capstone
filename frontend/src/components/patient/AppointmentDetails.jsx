@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Textarea, Button } from "@heroui/react";
+import { Textarea, Button, addToast } from "@heroui/react";
 import formatFullDate from "../../utils/formatFullDate";
-import { fetchUserId, fetchUserName } from "../../functions/userFunctions";
-import { createAppointment } from "../../functions/appointmentFunctions";
+import { fetchUserId, fetchUserName } from "../../api/userFunctions";
+import { createAppointment } from "../../api/appointmentFunctions";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +20,13 @@ export default function AppointmentDetails({
     try {
       const data = await createAppointment(newAppointment);
 
-      //TODO MAKE POPOUT FOR SUCCESSFUL APPOINTMENT CREATION
+      addToast({
+        title: "Appointment Scheduled Successfully",
+        description:
+          "Your appointment has been scheduled successfully you will receive a notification 1 hour before the appointment hour",
+        color: "success",
+        timeout: 10000,
+      });
     } catch (error) {
       console.error("Error creating the appointment: ", error);
     } finally {
@@ -68,7 +74,6 @@ export default function AppointmentDetails({
         onChange={(e) => {
           setNewAppointment({ ...newAppointment, reason: e.target.value });
         }}
-        label=""
         placeholder="Enter your description here"
       />
       <Button
