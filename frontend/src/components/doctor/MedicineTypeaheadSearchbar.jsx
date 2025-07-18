@@ -76,7 +76,7 @@ export default function MedicineTypeaheadSearchbar({ setSelectedMedicine }) {
           >
             {`${item.brandName || "N/A"} - ${
               item.genericName || "N/A"
-            }`.substring(0, 60 - 3) + "..."}
+            }`.substring(0, 60) + "..."}
           </AutocompleteItem>
         );
       }}
