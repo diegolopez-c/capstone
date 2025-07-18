@@ -9,9 +9,13 @@ import {
   TableColumn,
   TableBody,
   TableHeader,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
 } from "@heroui/react";
 import { useState } from "react";
 import MedicineTypeaheadSearchbar from "./MedicineTypeaheadSearchbar";
+import { fetchMedicineDetailedInfo } from "../../api/medicineFunctions";
 
 export default function MedicineSelection({
   prescriptionMedicineList,
@@ -20,11 +24,12 @@ export default function MedicineSelection({
 }) {
   const [curMedicine, setCurMedicine] = useState({});
 
-  function addMedicineToMedicineList(specifications) {
+  async function addMedicineToMedicineList(specifications) {
     setPrescriptionMedicineList([
       ...prescriptionMedicineList,
       {
         medicineId: curMedicine.id,
+        medicineDetails: await fetchMedicineDetailedInfo(curMedicine.fdaId),
         name: curMedicine.brandName,
         frequency: specifications.frequency,
         duration: specifications.duration,
@@ -91,6 +96,44 @@ export default function MedicineSelection({
                         >
                           Delete
                         </Button>
+                        <Popover
+                          placement="bottom"
+                          showArrow={true}
+                          className="text-ca-black"
+                        >
+                          <PopoverTrigger>
+                            <i className="fa-solid fa-circle-info text-xl text-ca-dark-blue hover:text-ca-mint" />
+                          </PopoverTrigger>
+                          <PopoverContent>
+                            <div className="px-1 py-2">
+                              <div className="text-small font-bold">
+                                {medicine.name} Info
+                              </div>
+                              <div className="text-tiny">
+                                {medicine.medicineDetails[0]}
+                              </div>
+                            </div>
+                          </PopoverContent>
+                        </Popover>
+                        <Popover
+                          placement="bottom"
+                          showArrow={true}
+                          className="text-ca-black"
+                        >
+                          <PopoverTrigger>
+                            <i className="fa-solid fa-triangle-exclamation text-xl text-yellow-500 hover:text-ca-yellow" />
+                          </PopoverTrigger>
+                          <PopoverContent>
+                            <div className="px-1 py-2">
+                              <div className="text-small font-bold">
+                                {medicine.name} Adverse Reactions
+                              </div>
+                              <div className="text-tiny">
+                                {medicine.medicineDetails[1]}
+                              </div>
+                            </div>
+                          </PopoverContent>
+                        </Popover>
                       </TableCell>
                     </TableRow>
                   );
