@@ -93,7 +93,6 @@ model Medicine {
   genericName          String                  @default("N/A")
   quantity             Int
   criticalThreshold    Int
-  expiryDate           DateTime
   prescriptionMedicine Prescription_Medicine[] @relation("medicine_prescription_medicine")
   createdAt            DateTime                @default(now())
   updatedAt            DateTime                @default(now())
