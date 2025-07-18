@@ -12,6 +12,7 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.3.0",
     "@heroui/react": "^2.8.0-beta.10",
+    "@react-aria/i18n": "^3.12.10",
     "@tailwindcss/vite": "^4.1.10",
     "cors": "^2.8.5",
     "framer-motion": "^12.19.1",

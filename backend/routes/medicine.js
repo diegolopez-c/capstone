@@ -4,6 +4,10 @@ const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+const fetchNonDiscontinuedDrugs = require("../utils/fetchNonDiscontinuedDrugs");
+const generateRandomNumber = require("../utils/generateRandomNumber");
+const generateRandomDate = require("../utils/generateRandomDate");
+
 //Get all of the medicine
 router.get("/get-all-medicine", async (req, res) => {
   try {
@@ -86,6 +90,32 @@ router.put("/restock-medicine", async (req, res) => {
   } catch (error) {
     res.status(500).json({
       error: "Internal server error changing the medicine stock",
+      details: error.message,
+    });
+  }
+});
+
+//Populate the db with the FDA Medicine
+router.post("/populate", async (req, res) => {
+  try {
+    const drugs = await fetchNonDiscontinuedDrugs();
+
+    const drugData = drugs.map((d) => ({
+      fdaId: d.fdaId,
+      brandName: d.brandName,
+      genericName: d.genericName,
+      criticalThreshold: generateRandomNumber(5, 30),
+      quantity: generateRandomNumber(3, 150),
+    }));
+
+    await prisma.medicine.createMany({
+      data: drugData,
+      skipDuplicates: true,
+    });
+    return res.status(201).json({ message: "Medicines created successfully" });
+  } catch (error) {
+    res.status(500).json({
+      error: "Internal server error creating the medicine instances",
       details: error.message,
     });
   }
