@@ -1,7 +1,7 @@
 async function fetchNonDiscontinuedDrugs() {
   try {
     const response = await fetch(
-      `https://api.fda.gov/drug/label.json?search=products.marketing_status=1&limit=999`
+      `https://api.fda.gov/drug/label.json?search=products.marketing_status=1&limit=1000&skip=7000`
     );
 
     if (!response.ok) {
