@@ -94,8 +94,30 @@ async function fetchAllPatientPrescriptionsByEmail(patientEmail) {
   return await prescriptionList;
 }
 
+async function fetchPrescriptionById(prescriptionId) {
+  prescriptionId = parseInt(prescriptionId);
+
+  const response = await fetch(
+    `${
+      import.meta.env.VITE_BASE_URL
+    }/prescription/get-prescription-by-id/${prescriptionId}`,
+    {
+      method: "GET",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch the prescription");
+  }
+
+  const prescription = await response.json();
+
+  return await prescription;
+}
+
 export {
   fetchAllPatientPrescriptions,
   createPrescription,
   fetchAllPatientPrescriptionsByEmail,
+  fetchPrescriptionById,
 };
