@@ -64,6 +64,7 @@ export default function NewPrescriptionMain({ selectPatient }) {
         />
       </div>
       <Button
+        color="success"
         onPress={() => {
           selectPatient(selectedPatient);
         }}
