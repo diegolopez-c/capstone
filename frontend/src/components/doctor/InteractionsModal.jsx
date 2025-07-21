@@ -46,7 +46,7 @@ export default function InteractionsModal({
           <>
             <h2 className="text-xl font-semibold mb-4">Drug Interactions</h2>
 
-            {interactionsList.length > 0 ? (
+            {interactionsList.length > 1 ? (
               <div>
                 {interactionsList.map((interaction, key) => (
                   <div key={key} className="text-gray-800">
