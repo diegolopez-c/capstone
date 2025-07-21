@@ -1,9 +1,5 @@
 import { useState, useCallback } from "react";
 import { useEffect } from "react";
-import {
-  cancelAppointment,
-  fetchAllPatientAppointments,
-} from "../../api/appointmentFunctions";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
   Table,
@@ -16,64 +12,38 @@ import {
   Chip,
   addToast,
 } from "@heroui/react";
-import { columns } from "../../utils/appointmentTableColumns";
+import { columns } from "../../utils/prescriptionTableColumns";
+import { fetchAllPatientPrescriptionsByEmail } from "../../api/prescriptionFunctions";
 import formatFullDate from "../../utils/formatFullDate";
 
 export default function MyPrescriptions() {
   const { user, isLoading } = useAuth0();
-  const [appointmentList, setAppointmentList] = useState([]);
+  const [prescriptionList, setPrescriptionList] = useState([]);
 
   useEffect(() => {
-    async function fetchAppointments(email) {
-      const list = await fetchAllPatientAppointments(email);
-      setAppointmentList(list);
+    async function fetchPrescriptions(email) {
+      const list = await fetchAllPatientPrescriptionsByEmail(email);
+      console.log(list);
+      setPrescriptionList(list);
     }
 
     if (!isLoading && user) {
-      fetchAppointments(user.email);
+      fetchPrescriptions(user.email);
     }
   }, [isLoading, user]);
 
-  const renderCell = useCallback((appointment, columnKey) => {
-    const cellValue = appointment[columnKey];
+  const renderCell = useCallback((prescription, columnKey) => {
+    const cellValue = prescription[columnKey];
     switch (columnKey) {
-      case "scheduleDate":
+      case "createdAt":
         return formatFullDate(new Date(cellValue));
       case "status":
         switch (cellValue) {
-          case "CANCELLED":
-            return <Chip color="danger">Cancelled</Chip>;
-          case "CONFIRMED":
-            return <Chip color="primary">Confirmed</Chip>;
-          case "RESCHEDULED":
-            return <Chip color="secondary">Rescheduled</Chip>;
-          case "COMPLETED":
-            return <Chip color="success">Completed</Chip>;
+          case "ISSUED":
+            return <Chip color="warning">Issued</Chip>;
           default:
-            return <Chip color="warning">Pending</Chip>;
+            return <Chip color="success">Dispensed</Chip>;
         }
-      case "actions":
-        return (
-          <div className="flex items-center justify-center w-full">
-            {appointment.status === "COMPLETED" ||
-            appointment.status === "CANCELLED" ? (
-              <p>No Actions Available</p>
-            ) : (
-              <Tooltip
-                className="capitalize"
-                color="danger"
-                content="Cancel Appointment"
-              >
-                <i
-                  onClick={() => {
-                    cancelAppointmentById(appointment.id);
-                  }}
-                  className="fa-solid fa-trash text-red-600 cursor-pointer"
-                />
-              </Tooltip>
-            )}
-          </div>
-        );
       default:
         return cellValue;
     }
@@ -82,15 +52,24 @@ export default function MyPrescriptions() {
   return (
     <div className="w-3/4 min-h-screen flex flex-col items-center gap-4 py-8 overflow-scroll">
       <h1 className="text-ca-white text-3xl font-bold">
-        Your Appointments List
+        Your Prescriptions List
       </h1>
-      <Table aria-label="Appointment Table" className=" w-4/5 text-black">
+      <Table
+        aria-label="Prescription Table"
+        className=" w-4/5 text-black"
+        onRowAction={(key) => {
+          console.log(key);
+        }}
+      >
         <TableHeader columns={columns}>
           {(column) => (
             <TableColumn key={column.key}>{column.label}</TableColumn>
           )}
         </TableHeader>
-        <TableBody items={appointmentList} emptyContent={"No rows to display."}>
+        <TableBody
+          items={prescriptionList}
+          emptyContent={"No rows to display."}
+        >
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => (

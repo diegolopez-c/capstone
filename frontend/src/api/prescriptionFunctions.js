@@ -1,3 +1,5 @@
+import { fetchUserId } from "./userFunctions";
+
 async function fetchAllPatientPrescriptions(patientId) {
   const response = await fetch(
     `${
@@ -71,4 +73,29 @@ async function createPrescription(medicineList, patientId, doctorId) {
   }
 }
 
-export { fetchAllPatientPrescriptions, createPrescription };
+async function fetchAllPatientPrescriptionsByEmail(patientEmail) {
+  const patientId = await fetchUserId(patientEmail);
+
+  const response = await fetch(
+    `${
+      import.meta.env.VITE_BASE_URL
+    }/prescription/get-prescriptions-by-patient/${patientId}`,
+    {
+      method: "GET",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch patients active prescriptions");
+  }
+
+  const prescriptionList = await response.json();
+
+  return await prescriptionList;
+}
+
+export {
+  fetchAllPatientPrescriptions,
+  createPrescription,
+  fetchAllPatientPrescriptionsByEmail,
+};
