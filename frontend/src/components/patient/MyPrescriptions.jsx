@@ -11,19 +11,25 @@ import {
   Tooltip,
   Chip,
   addToast,
+  Button,
 } from "@heroui/react";
 import { columns } from "../../utils/prescriptionTableColumns";
 import { fetchAllPatientPrescriptionsByEmail } from "../../api/prescriptionFunctions";
 import formatFullDate from "../../utils/formatFullDate";
+import { useDisclosure } from "@heroui/react";
+import PrescriptionModal from "./PrescriptionModal";
 
 export default function MyPrescriptions() {
   const { user, isLoading } = useAuth0();
   const [prescriptionList, setPrescriptionList] = useState([]);
 
+  //Modal Actions
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [selectedPrescription, setSelectedPrescription] = useState();
+
   useEffect(() => {
     async function fetchPrescriptions(email) {
       const list = await fetchAllPatientPrescriptionsByEmail(email);
-      console.log(list);
       setPrescriptionList(list);
     }
 
@@ -58,7 +64,11 @@ export default function MyPrescriptions() {
         aria-label="Prescription Table"
         className=" w-4/5 text-black"
         onRowAction={(key) => {
-          console.log(key);
+          setSelectedPrescription(key);
+          onOpen();
+        }}
+        classNames={{
+          tr: "hover:bg-ca-light-black hover:text-ca-white cursor-pointer",
         }}
       >
         <TableHeader columns={columns}>
@@ -79,6 +89,11 @@ export default function MyPrescriptions() {
           )}
         </TableBody>
       </Table>
+      <PrescriptionModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        selectedPrescription={selectedPrescription}
+      />
     </div>
   );
 }
