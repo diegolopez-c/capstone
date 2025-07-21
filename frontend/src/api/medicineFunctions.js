@@ -30,8 +30,8 @@ async function fetchMedicineDetailedInfo(medicineFdaId) {
   const results = medicineInfo.results;
   const drug = results[0];
   let purpose = drug.purpose ? drug.purpose.join(", ") : "Not available";
-  let adverseReactions = drug.adverse_reactions
-    ? drug.adverse_reactions.join(", ")
+  let adverseReactions = drug.warnings
+    ? drug.warnings.join(", ")
     : "Not available";
 
   return [
@@ -42,4 +42,25 @@ async function fetchMedicineDetailedInfo(medicineFdaId) {
   ];
 }
 
-export { fetchAllMedicine, fetchMedicineDetailedInfo };
+async function fetchMedicineInteractions(medicineFdaId) {
+  const response = await fetch(
+    `https://api.fda.gov/drug/label.json?search=id:${medicineFdaId}`,
+    {
+      method: "GET",
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch the medicine's detailed info");
+  }
+
+  const medicineInfo = await response.json();
+
+  //Return the drug_interactions field if existent
+  return medicineInfo.results[0]?.drug_interactions;
+}
+
+export {
+  fetchAllMedicine,
+  fetchMedicineDetailedInfo,
+  fetchMedicineInteractions,
+};
