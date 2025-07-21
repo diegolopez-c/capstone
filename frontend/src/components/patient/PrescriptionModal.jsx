@@ -34,8 +34,6 @@ export default function PrescriptionModal({
           selectedPrescription
         );
 
-        console.log(fetchedMedicineList, fetchedPrescription);
-
         setPrescriptionBody(fetchedPrescription);
         setMedicineList(fetchedMedicineList);
       } catch (error) {
