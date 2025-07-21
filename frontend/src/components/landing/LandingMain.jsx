@@ -13,7 +13,7 @@ export default function LandingMain() {
 
   return (
     <div className="w-full h-5/6 flex items-start justify-center gap-2">
-      <main className="w-4/5 h-full min-h-5 flex items-center flex-col px-4 rounded-3xl text-center gap-4">
+      <main className="w-4/5 h-full min-h-5 flex items-center flex-col px-4 rounded-3xl text-center gap-8">
         <h3 className="text-3xl">
           Introducing <span className="text-ca-mint">Clinic</span>
           <span className="text-ca-yellow">All</span>

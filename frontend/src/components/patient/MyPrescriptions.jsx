@@ -56,7 +56,7 @@ export default function MyPrescriptions() {
   }, []);
 
   return (
-    <div className="w-3/4 min-h-screen flex flex-col items-center gap-4 py-8 overflow-scroll">
+    <div className="w-3/4 min-h-screen flex flex-col items-center gap-8 py-8 overflow-scroll">
       <h1 className="text-ca-white text-3xl font-bold">
         Your Prescriptions List
       </h1>
