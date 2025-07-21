@@ -55,11 +55,14 @@ export default function PrescriptionModal({
                   ? formatFullDate(prescriptionBody.createdAt)
                   : "Prescription Body"}
               </h3>
-              {prescriptionBody.status &&
-              prescriptionBody.status === "ISSUED" ? (
-                <Chip color="warning">{prescriptionBody.status}</Chip>
+              {prescriptionBody && prescriptionBody.status ? (
+                prescriptionBody.status === "ISSUED" ? (
+                  <Chip color="warning">{prescriptionBody.status}</Chip>
+                ) : (
+                  <Chip color="success">{prescriptionBody.status}</Chip>
+                )
               ) : (
-                <Chip color="success">{prescriptionBody.status}</Chip>
+                <Chip color="default">No Status</Chip>
               )}
             </ModalHeader>
             <ModalBody className="max-h-96 overflow-scroll">
