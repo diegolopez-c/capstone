@@ -59,8 +59,29 @@ async function fetchMedicineInteractions(medicineFdaId) {
   return medicineInfo.results[0]?.drug_interactions;
 }
 
+async function getMedicineByPrescription(prescriptionId) {
+  prescriptionId = parseInt(prescriptionId);
+
+  const response = await fetch(
+    `${
+      import.meta.env.VITE_BASE_URL
+    }/prescription/get-medicine-by-prescription/${prescriptionId}`,
+    {
+      method: "GET",
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch medicine for that prescription");
+  }
+
+  const medicineList = await response.json();
+
+  return medicineList;
+}
+
 export {
   fetchAllMedicine,
   fetchMedicineDetailedInfo,
   fetchMedicineInteractions,
+  getMedicineByPrescription,
 };
