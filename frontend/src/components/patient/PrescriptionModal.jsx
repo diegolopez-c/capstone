@@ -13,6 +13,7 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
+  Chip,
 } from "@heroui/react";
 
 export default function PrescriptionModal({
@@ -56,6 +57,12 @@ export default function PrescriptionModal({
                   ? formatFullDate(prescriptionBody.createdAt)
                   : "Prescription Body"}
               </h3>
+              {prescriptionBody.status &&
+              prescriptionBody.status === "ISSUED" ? (
+                <Chip color="warning">{prescriptionBody.status}</Chip>
+              ) : (
+                <Chip color="success">{prescriptionBody.status}</Chip>
+              )}
             </ModalHeader>
             <ModalBody className="max-h-96 overflow-scroll">
               {medicineList &&
