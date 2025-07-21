@@ -16,4 +16,59 @@ async function fetchAllPatientPrescriptions(patientId) {
   return await prescriptionsList;
 }
 
-export { fetchAllPatientPrescriptions };
+//Given a medicine List and de doctors and patient id this function will:
+//1.- Create a new prescription register
+//2.- Using the id from the new prescription register it'll create an instance in the prescription_medicine table for each drug in the prescription
+async function createPrescription(medicineList, patientId, doctorId) {
+  const prescriptionBody = {
+    patientId,
+    doctorId,
+  };
+
+  //Create the prescription instance
+  const response = await fetch(
+    `${import.meta.env.VITE_BASE_URL}/prescription/create-prescription`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(prescriptionBody),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to create the new prescription");
+  }
+
+  const newPrescription = await response.json();
+  const prescriptionId = newPrescription.id;
+
+  for (let med of medicineList) {
+    const medBody = {
+      medicineId: parseInt(med.medicineId),
+      prescriptionId: prescriptionId,
+      frequency: med.frequency,
+      duration: med.duration,
+      dosage: med.dosage,
+      comments: med.dosage,
+    };
+
+    const newMedRes = await fetch(
+      `${
+        import.meta.env.VITE_BASE_URL
+      }/prescription/add-medicine-to-prescription`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(medBody),
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to add the medicine to the new prescription");
+    }
+  }
+}
+
+export { fetchAllPatientPrescriptions, createPrescription };
