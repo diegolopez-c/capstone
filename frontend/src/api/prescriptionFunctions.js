@@ -21,10 +21,16 @@ async function fetchAllPatientPrescriptions(patientId) {
 //Given a medicine List and de doctors and patient id this function will:
 //1.- Create a new prescription register
 //2.- Using the id from the new prescription register it'll create an instance in the prescription_medicine table for each drug in the prescription
-async function createPrescription(medicineList, patientId, doctorId) {
+async function createPrescription(
+  medicineList,
+  patientId,
+  doctorId,
+  medicalHistoryId
+) {
   const prescriptionBody = {
     patientId,
     doctorId,
+    medicalHistoryId,
   };
 
   //Create the prescription instance

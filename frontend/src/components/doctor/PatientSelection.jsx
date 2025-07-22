@@ -5,7 +5,11 @@ import PatientInfo from "./PatientInfo";
 import PastPrescriptions from "./PastPrescriptions";
 import PastMedicalRecords from "./PastMedicalRecords";
 
-export default function NewPrescriptionMain({ selectPatient }) {
+export default function NewPrescriptionMain({
+  selectPatient,
+  setSelectedRecord,
+  selectedRecord,
+}) {
   const [curPatientId, setCurPatientId] = useState();
   const [selectedPatient, setSelectedPatient] = useState();
 
@@ -56,11 +60,13 @@ export default function NewPrescriptionMain({ selectPatient }) {
         <PatientInfo patientBody={selectedPatient} />
       </div>
       <div className="w-full flex gap-4 justify-around items-center">
-        <PastPrescriptions
+        {/* <PastPrescriptions
           patientId={selectedPatient ? selectedPatient.id : null}
-        />
+        /> */}
         <PastMedicalRecords
           patientId={selectedPatient ? selectedPatient.id : null}
+          setSelectedRecord={setSelectedRecord}
+          selectedRecord={selectedRecord}
         />
       </div>
       <Button
