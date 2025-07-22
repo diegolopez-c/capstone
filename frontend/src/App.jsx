@@ -20,6 +20,7 @@ import PatientHistoryPage from "./pages/patient/PatientHistoryPage";
 import PatientPrescriptionsPage from "./pages/patient/PatientPrescriptionsPage";
 import RoleRedirect from "./pages/RoleRedirect";
 import CreatingUserPage from "./pages/CreatingUserPage";
+
 import NotificationTester from "./pages/NotificationTester";
 import { addToast } from "@heroui/react";
 import { useEffect, useState } from "react";
@@ -28,6 +29,7 @@ import { fetchUserId } from "./functions/userFunctions";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const socket = io("http://localhost:8080", { withCredentials: true });
+
 
 function App() {
   const { user, isLoading } = useAuth0();
@@ -106,9 +108,6 @@ function App() {
       <Route path="/expiration-medicine" element={<ExpirationMedicine />} />
       <Route path="/medicine-inventory" element={<MedicineInventory />} />
       <Route path="/prescription-history" element={<PrescriptionHistory />} />
-
-      {/**Notification Routes */}
-      <Route path="/notifications" element={<NotificationTester />} />
     </Routes>
   );
 }
