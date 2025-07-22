@@ -16,7 +16,7 @@ router.get("/get-all-symptoms", async (req, res) => {
   }
 });
 
-router.post("/create-symptom", async (req, res) => {
+router.post("/create-new-symptom", async (req, res) => {
   try {
     const { name, description } = req.body;
     const newSymptom = await prisma.symptom.create({
@@ -34,7 +34,7 @@ router.post("/create-symptom", async (req, res) => {
   }
 });
 
-router.post("/create-symptom-history", async (req, res) => {
+router.post("/create-new-symptom-history", async (req, res) => {
   try {
     const { medicalHistoryId, symptomId } = req.body;
     const newSymptomHistory = await prisma.symptomHistory.create({
@@ -52,7 +52,7 @@ router.post("/create-symptom-history", async (req, res) => {
   }
 });
 
-router.post("/create-symptom-medicine-interaction", async (req, res) => {
+router.post("/create-new-symptom-medicine-interaction", async (req, res) => {
   try {
     const { medicineId, symptomId, description } = req.body;
     const newInteraction = await prisma.symptomMedicineInteractions.create({

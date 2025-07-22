@@ -68,7 +68,7 @@ app.use("/medicine", medicineRoutes);
 app.use("/prescription", prescriptionRoutes);
 app.use("/user", userRoutes);
 app.use("/availability", availabilityRoutes);
-app.use("symptom", symptomRoutes);
+app.use("/symptom", symptomRoutes);
 
 //Socket IO functionality
 io.on("connection", (socket) => {
