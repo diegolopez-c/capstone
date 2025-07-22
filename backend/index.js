@@ -8,9 +8,6 @@ const frontendURL = process.env.FRONTEND_URL;
 const cron = require("node-cron");
 const http = require("http");
 const { Server } = require("socket.io");
-const {
-  initNotificationQueue,
-} = require("./notifications/notificationQueueInstance");
 
 //Cors
 const cors = require("cors");
@@ -47,6 +44,14 @@ app.use(
   })
 );
 
+//Routing
+app.use("/appointment", appointmentRoutes);
+app.use("/medical-history", medicalHistoryRoutes);
+app.use("/medicine", medicineRoutes);
+app.use("/prescription", prescriptionRoutes);
+app.use("/user", userRoutes);
+app.use("/availability", availabilityRoutes);
+
 //Socket.io config
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -57,28 +62,12 @@ const io = new Server(server, {
   },
 });
 
-//Notification Queue
-const notificationQueue = initNotificationQueue(io);
-
-//Routing
-app.use("/appointment", appointmentRoutes);
-app.use("/medical-history", medicalHistoryRoutes);
-app.use("/medicine", medicineRoutes);
-app.use("/prescription", prescriptionRoutes);
-app.use("/user", userRoutes);
-app.use("/availability", availabilityRoutes);
-
 //Socket IO functionality
 io.on("connection", (socket) => {
-  socket.on("join", (userId) => {
-    socket.join(userId);
-  });
+  socket.on("send_message", (data) => {});
 });
 
-//Every minute the notification queue is updated
-cron.schedule("* * * * *", () => {
-  notificationQueue.processDueNotifications();
-});
+cron.schedule("* * * * *", () => {});
 
 // Authetntication
 app.get("/", (req, res) => {
