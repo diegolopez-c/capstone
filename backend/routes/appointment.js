@@ -10,6 +10,7 @@ const {
 } = require("../notifications/notificationQueueInstance");
 const formatDateToReadableString = require("../utils/formatDateToReadableString");
 
+
 //Get Patient Appointment History
 router.get("/get-all-patient-appointments/:patientId", async (req, res) => {
   const patientId = parseInt(req.params.patientId);
@@ -101,10 +102,6 @@ router.post("/create-new-appointment", async (req, res) => {
   const { patientId, doctorId, status, reason, scheduleDate } = req.body;
 
   try {
-    /**
-     * Create Appointment
-     */
-
     //If a patient already has an appointment
     const existingAppointment = await prisma.appointment.findFirst({
       where: {
