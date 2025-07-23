@@ -40,6 +40,16 @@ router.get("/get-medical-history-by-id/:medicalHistoryId", async (req, res) => {
             lastname: true,
           },
         },
+        symptoms: {
+          include: {
+            symptom: {
+              select: {
+                name: true,
+                description: true,
+              },
+            },
+          },
+        },
       },
     });
 
