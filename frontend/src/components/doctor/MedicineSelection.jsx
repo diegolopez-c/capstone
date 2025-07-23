@@ -24,6 +24,7 @@ export default function MedicineSelection({
   prescriptionMedicineList,
   setPrescriptionMedicineList,
   packPrescription,
+  selectedRecord,
 }) {
   const [curMedicine, setCurMedicine] = useState({});
   const [isModalOpen, setModalOpen] = useState(false);
@@ -174,6 +175,7 @@ export default function MedicineSelection({
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         prescriptionMedicineList={prescriptionMedicineList}
+        selectedRecord={selectedRecord}
       />
     </div>
   );
