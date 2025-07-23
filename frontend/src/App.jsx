@@ -27,7 +27,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const socket = io("http://localhost:8080", { withCredentials: true });
 
-
 function App() {
   const { user, isLoading } = useAuth0();
   const [notifications, setNotifications] = useState([]);

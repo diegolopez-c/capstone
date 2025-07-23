@@ -4,7 +4,6 @@ const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const calculatePriority = require("../utils/calculatePriority");
 const {
   getNotificationQueue,
 } = require("../notifications/notificationQueueInstance");
@@ -136,7 +135,6 @@ router.post("/create-new-appointment", async (req, res) => {
       },
     });
 
-
     /**
      * Create new notification
      */
@@ -154,7 +152,6 @@ router.post("/create-new-appointment", async (req, res) => {
         message,
         scheduledAt,
         sent: false,
-        priority: calculatePriority(scheduledAt),
       },
     });
 

@@ -30,12 +30,12 @@ class NotificationPriorityQueue {
     while (this.queue.front() && this.queue.front().scheduledAt < now) {
       const notification = this.queue.dequeue();
 
-        //If the notification is valid it'll be send trough the user Socket IO channel defined by his id
-        this.io.to(notification.userId).emit("notification", {
-          id: notification.id,
-          message: notification.message,
-          appointmentId: notification.appointmentId,
-        });
+      //If the notification is valid it'll be send trough the user Socket IO channel defined by his id
+      this.io.to(notification.userId).emit("notification", {
+        id: notification.id,
+        message: notification.message,
+        appointmentId: notification.appointmentId,
+      });
 
       // Edit the notification to mark it as sent
       try {
