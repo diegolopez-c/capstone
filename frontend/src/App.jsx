@@ -28,6 +28,16 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const socket = io("http://localhost:8080", { withCredentials: true });
 
+import NotificationTester from "./pages/NotificationTester";
+import { addToast } from "@heroui/react";
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
+import { fetchUserId } from "./functions/userFunctions";
+import { useAuth0 } from "@auth0/auth0-react";
+
+const socket = io("http://localhost:8080", { withCredentials: true });
+
+
 function App() {
   const { user, isLoading } = useAuth0();
   const [notifications, setNotifications] = useState([]);
