@@ -25,6 +25,7 @@ import { io } from "socket.io-client";
 import { fetchUserId } from "./api/userFunctions";
 import { useAuth0 } from "@auth0/auth0-react";
 import NewSymptomPage from "./pages/doctor/NewSymptomPage";
+import NewInteractionPage from "./pages/doctor/NewInteractionPage";
 
 const socket = io("http://localhost:8080", { withCredentials: true });
 
@@ -79,6 +80,7 @@ function App() {
       <Route path="/new-medical-report" element={<NewMedicalReportPage />} />
       <Route path="/new-prescription" element={<NewPrescriptionPage />} />
       <Route path="/new-symptom" element={<NewSymptomPage />} />
+      <Route path="/new-interaction" element={<NewInteractionPage />} />
 
       {/* Patient Routes */}
       <Route path="/patient-dashboard" element={<PatientDashboard />} />
