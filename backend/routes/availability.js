@@ -61,7 +61,9 @@ router.get("/get-doctor-days-available/:doctorId", async (req, res) => {
 
     //Set the Date from 2 weeks
     const currentDate = new Date();
-    const twoWeeksFromNow = new Date();
+    currentDate.setUTCHours(0, 0, 0, 0);
+
+    const twoWeeksFromNow = new Date(currentDate);
     twoWeeksFromNow.setUTCDate(currentDate.getUTCDate() + 14);
 
     //Retrieve the doctors full object
@@ -91,6 +93,7 @@ router.get("/get-doctor-days-available/:doctorId", async (req, res) => {
     for (let day = 0; day < 14; day++) {
       const curDate = new Date(currentDate);
       curDate.setUTCDate(currentDate.getUTCDate() + day);
+      curDate.setUTCHours(0, 0, 0, 0);
 
       //Will Use Check Availability Util Function to check if the doctor is available that day
       if (checkDayAvailability(curDate, doctor)) {

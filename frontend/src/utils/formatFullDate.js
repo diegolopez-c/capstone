@@ -1,8 +1,25 @@
 export default function formatFullDate(date) {
-  let dateType = new Date(date);
-  let dayInfo = dateType.toDateString();
-  let hours = dateType.getUTCHours();
-  let minutes = dateType.getUTCMinutes();
+  const dateObj = new Date(date);
 
-  return `${dayInfo} at ${hours}:${minutes < 10 ? minutes + "0" : minutes}`;
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const dayName = weekdays[dateObj.getUTCDay()];
+
+  const day = dateObj.getUTCDate();
+  const month = dateObj.toLocaleString("en-US", {
+    month: "long",
+    timeZone: "UTC",
+  });
+  const year = dateObj.getUTCFullYear();
+  const hours = dateObj.getUTCHours();
+  const minutes = dateObj.getUTCMinutes().toString().padStart(2, "0");
+
+  return `${dayName}, ${month} ${day}, ${year} at ${hours}:${minutes} UTC`;
 }

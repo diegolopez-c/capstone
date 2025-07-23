@@ -132,7 +132,7 @@ router.post("/create-new-appointment", async (req, res) => {
         doctorId,
         status: status || "PENDING",
         reason,
-        scheduleDate,
+        scheduleDate: new Date(scheduleDate).toISOString(),
       },
     });
 
@@ -188,7 +188,7 @@ router.put("/reschedule-appointment", async (req, res) => {
         id: id,
       },
       data: {
-        scheduleDate: scheduleDate,
+        scheduleDate: new Date(scheduleDate).toISOString(),
         status: "RESCHEDULED",
       },
     });
