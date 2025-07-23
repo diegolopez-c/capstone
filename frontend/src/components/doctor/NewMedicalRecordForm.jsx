@@ -107,7 +107,7 @@ export default function NewMedicalRecordForm({
           minRows={4}
         />
         <SymptomTypeaheadSearchbar setSelectedSymptom={setCurSymptom} />
-        <div className="w-full border flex items-center justify-between max-h-22 h-20">
+        <div className="w-full flex items-center justify-between max-h-22 h-20">
           <div className="w-5/8 bg-ca-white rounded-xl h-full flex flex-col overflow-scroll">
             {symptomList.map((s) => {
               return (
