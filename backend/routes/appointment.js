@@ -4,6 +4,12 @@ const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+const calculatePriority = require("../utils/calculatePriority");
+const {
+  getNotificationQueue,
+} = require("../notifications/notificationQueueInstance");
+const formatDateToReadableString = require("../utils/formatDateToReadableString");
+
 //Get Patient Appointment History
 router.get("/get-all-patient-appointments/:patientId", async (req, res) => {
   const patientId = parseInt(req.params.patientId);
@@ -108,7 +114,9 @@ router.post("/create-new-appointment", async (req, res) => {
     //If the schedule date is invalid (in the past or bad format)
     //Check if the date is valid
     if (new Date(scheduleDate) < new Date()) {
-      res.status(400).json({ error: "The date for the schedule is not valid" });
+      return res
+        .status(400)
+        .json({ error: "The date for the schedule is not valid" });
     }
 
     if (existingAppointment) {
@@ -126,6 +134,34 @@ router.post("/create-new-appointment", async (req, res) => {
         reason,
         scheduleDate,
       },
+    });
+
+    /**
+     * Create new notification
+     */
+    const message = `You got an appointment at ${formatDateToReadableString(
+      scheduleDate
+    )}`;
+
+    //schedule a notification an hour before
+    const scheduledAt = new Date(new Date(scheduleDate).getTime() - 3600000);
+
+    const notification = await prisma.notification.create({
+      data: {
+        userId: patientId,
+        appointmentId: newAppointment.id,
+        message,
+        scheduledAt,
+        sent: false,
+        priority: calculatePriority(scheduledAt),
+      },
+    });
+
+    // Add to notification queue
+    const notificationQueue = getNotificationQueue();
+    notificationQueue.add({
+      ...notification,
+      scheduledAt: new Date(notification.scheduledAt),
     });
 
     res.status(201).json(newAppointment);
