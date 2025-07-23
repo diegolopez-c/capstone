@@ -100,9 +100,15 @@ export default function ScheduleSelectionBody({ selectSchedule, doctorId }) {
         }}
       >
         {doctorsAvailableDays.map((daytime) => {
+          const date = new Date(daytime);
+          const year = date.getUTCFullYear();
+          const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+          const day = String(date.getUTCDate()).padStart(2, "0");
+          const formattedDate = `${year}-${month}-${day}`;
+
           return (
             <SelectItem className="bg-ca-light-black" key={daytime}>
-              {new Date(daytime).toDateString()}
+              {formattedDate}
             </SelectItem>
           );
         })}
@@ -126,11 +132,10 @@ export default function ScheduleSelectionBody({ selectSchedule, doctorId }) {
           {doctorsAvailableSchedules.map((daytime) => {
             return (
               <SelectItem className="bg-ca-light-black" key={daytime}>
-                {`${new Date(daytime).getUTCHours()}:${
-                  new Date(daytime).getUTCMinutes() < 10
-                    ? new Date(daytime).getUTCMinutes() + "0"
-                    : new Date(daytime).getUTCMinutes()
-                }`}
+                {`${new Date(daytime).getUTCHours()}:${new Date(daytime)
+                  .getUTCMinutes()
+                  .toString()
+                  .padStart(2, "0")}`}
               </SelectItem>
             );
           })}

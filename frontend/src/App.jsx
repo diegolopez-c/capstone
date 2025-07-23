@@ -20,8 +20,60 @@ import PatientHistoryPage from "./pages/patient/PatientHistoryPage";
 import PatientPrescriptionsPage from "./pages/patient/PatientPrescriptionsPage";
 import RoleRedirect from "./pages/RoleRedirect";
 import CreatingUserPage from "./pages/CreatingUserPage";
+import { addToast } from "@heroui/react";
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
+import { fetchUserId } from "./functions/userFunctions";
+import { useAuth0 } from "@auth0/auth0-react";
+
+const socket = io("http://localhost:8080", { withCredentials: true });
+
+import NotificationTester from "./pages/NotificationTester";
+import { addToast } from "@heroui/react";
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
+import { fetchUserId } from "./functions/userFunctions";
+import { useAuth0 } from "@auth0/auth0-react";
+
+const socket = io("http://localhost:8080", { withCredentials: true });
+
 
 function App() {
+  const { user, isLoading } = useAuth0();
+  const [notifications, setNotifications] = useState([]);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    if (!isLoading && user) {
+      const getUserId = async () => {
+        const id = await fetchUserId(user.email);
+        setUserId(id);
+      };
+      getUserId();
+    }
+  }, [isLoading, user]);
+
+  useEffect(() => {
+    if (userId) {
+      socket.emit("join", userId);
+
+      socket.on("notification", (data) => {
+        addToast({
+          title: "You have an upcoming appointment",
+          description: data.message,
+          color: "primary",
+          timeout: 10000,
+        });
+        setNotifications((prev) => [...prev, data]);
+      });
+
+      return () => {
+        socket.off("notification");
+        socket.disconnect();
+      };
+    }
+  }, [userId]);
+
   return (
     <Routes>
       {/* Overall Routes */}
