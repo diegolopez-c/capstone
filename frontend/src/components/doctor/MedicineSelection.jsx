@@ -16,6 +16,8 @@ import {
 import { useState } from "react";
 import MedicineTypeaheadSearchbar from "./MedicineTypeaheadSearchbar";
 import { fetchMedicineDetailedInfo } from "../../api/medicineFunctions";
+import checkPairOfDrugsInteraction from "../../utils/checkPairOfDrugsInteraction";
+import InteractionsModal from "./InteractionsModal";
 
 export default function MedicineSelection({
   prescriptionMedicineList,
@@ -23,12 +25,14 @@ export default function MedicineSelection({
   packPrescription,
 }) {
   const [curMedicine, setCurMedicine] = useState({});
+  const [isModalOpen, setModalOpen] = useState(false);
 
   async function addMedicineToMedicineList(specifications) {
     setPrescriptionMedicineList([
       ...prescriptionMedicineList,
       {
         medicineId: curMedicine.id,
+        medicineFdaId: curMedicine.fdaId,
         medicineDetails: await fetchMedicineDetailedInfo(curMedicine.fdaId),
         name: curMedicine.brandName,
         frequency: specifications.frequency,
@@ -63,7 +67,9 @@ export default function MedicineSelection({
             <Input name="duration" label="Duration" />
             <Input name="dosage" label="Dosage" />
             <Textarea className="max-h-xs" label="Comments" />
-            <Button type="submit">Add Medicine</Button>
+            <Button type="submit" className="bg-ca-mint">
+              Add Medicine
+            </Button>
           </form>
           <div className="w-1/2 p-4">
             <Table
@@ -126,7 +132,7 @@ export default function MedicineSelection({
                           <PopoverContent>
                             <div className="px-1 py-2">
                               <div className="text-small font-bold">
-                                {medicine.name} Adverse Reactions
+                                {medicine.name} Adverse Reactions and Warnings
                               </div>
                               <div className="text-tiny">
                                 {medicine.medicineDetails[1]}
@@ -143,14 +149,33 @@ export default function MedicineSelection({
           </div>
         </div>
 
-        <Button
-          onPress={() => {
-            packPrescription();
-          }}
-        >
-          Next
-        </Button>
+        <div className="w-full flex items-center justify-center gap-8">
+          <Button color="danger" onPress={() => {}}>
+            Cancel
+          </Button>
+          <Button
+            className="bg-ca-yellow"
+            onPress={() => {
+              setModalOpen(true);
+            }}
+          >
+            Interactions
+          </Button>
+          <Button
+            color="success"
+            onPress={() => {
+              packPrescription();
+            }}
+          >
+            Next
+          </Button>
+        </div>
       </div>
+      <InteractionsModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        prescriptionMedicineList={prescriptionMedicineList}
+      />
     </div>
   );
 }
