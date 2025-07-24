@@ -8,6 +8,7 @@ function formatDateToReadableString(date) {
     minute: "2-digit",
     second: "2-digit",
     timeZone: "UTC",
+
   };
 
   return date.toLocaleString(undefined, options);

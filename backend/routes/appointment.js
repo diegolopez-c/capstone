@@ -4,7 +4,6 @@ const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const calculatePriority = require("../utils/calculatePriority");
 const {
   getNotificationQueue,
 } = require("../notifications/notificationQueueInstance");
@@ -101,10 +100,6 @@ router.post("/create-new-appointment", async (req, res) => {
   const { patientId, doctorId, status, reason, scheduleDate } = req.body;
 
   try {
-    /**
-     * Create Appointment
-     */
-
     //If a patient already has an appointment
     const existingAppointment = await prisma.appointment.findFirst({
       where: {
@@ -157,7 +152,6 @@ router.post("/create-new-appointment", async (req, res) => {
         message,
         scheduledAt,
         sent: false,
-        priority: calculatePriority(scheduledAt),
       },
     });
 
