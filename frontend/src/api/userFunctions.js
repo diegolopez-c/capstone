@@ -9,7 +9,7 @@ async function fetchUserName(userId) {
     throw new Error("Failed to fetch doctor's name");
   }
 
-  return response.json();
+  return await response.json();
 }
 
 async function fetchUserId(email) {
