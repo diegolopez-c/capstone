@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import checkDrugInteractions from "../../utils/checkDrugInteractions";
 import { Spinner, Divider, Button } from "@heroui/react";
 import { fetchInteractionsCall } from "../../api/interactions";
+import { fetchMedicineInteractionsCall } from "../../api/interactions";
 
 export default function InteractionsModal({
   isOpen,
@@ -16,16 +17,23 @@ export default function InteractionsModal({
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingAI, setIsLoadingAI] = useState(false);
   const [interactionsList, setInteractionsList] = useState([]);
+  const [medicineInteractionsList, setMedicineInteractionsList] = useState([]);
   const [aiInteractions, setAiInteractions] = useState([]);
 
   useEffect(() => {
     async function fetchDrugInteractions() {
       setIsLoading(true);
-      const interactions = await fetchInteractionsCall(
-        selectedRecord,
+      if (selectedRecord) {
+        const interactions = await fetchInteractionsCall(
+          selectedRecord,
+          prescriptionMedicineList
+        );
+        setInteractionsList(interactions);
+      }
+      const medicineInteractions = await fetchMedicineInteractionsCall(
         prescriptionMedicineList
       );
-      setInteractionsList(interactions);
+      setMedicineInteractionsList(medicineInteractions);
       setIsLoading(false);
     }
 
@@ -61,10 +69,10 @@ export default function InteractionsModal({
         ) : (
           <>
             <h2 className="text-xl font-semibold mb-4">
-              Drug / Symptoms Interactions
+              Medicine / Symptoms Interactions
             </h2>
 
-            {interactionsList.length > 1 ? (
+            {interactionsList.length > 0 ? (
               <div>
                 {interactionsList.map((interaction, key) => (
                   <div key={key} className="text-gray-800">
@@ -84,6 +92,35 @@ export default function InteractionsModal({
               <h3 className="text-ca-light-black text-center">
                 We couldn't find interactions between any pair of drug -
                 symptoms in the current prescription.
+              </h3>
+            )}
+
+            <Divider className="my-4" />
+
+            <h2 className="text-xl font-semibold my-4">
+              Medicine / Medicine Interactions
+            </h2>
+
+            {medicineInteractionsList.length > 0 ? (
+              <div>
+                {medicineInteractionsList.map((interaction, key) => (
+                  <div key={key} className="text-gray-800">
+                    <h3>
+                      <span className="font-bold">Medicine A:</span>{" "}
+                      {interaction.medicineA.brandName}{" "}
+                      <span className="text-red-500">x </span>
+                      <span className="font-bold">Medicine B:</span>{" "}
+                      {interaction.medicineB.brandName}
+                    </h3>
+                    <p>{interaction.description}</p>
+                    <Divider className="my-4" />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <h3 className="text-ca-light-black text-center">
+                We couldn't find interactions between any pair of drug - drug in
+                the current prescription.
               </h3>
             )}
           </>
