@@ -1,9 +1,13 @@
 import React from "react";
 import { Tabs, Tab, Card, CardBody, Spinner, addToast } from "@heroui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PatientSelection from "./PatientSelection";
 import MedicineSelection from "./MedicineSelection";
 import PrescriptionConfirmation from "./PrescriptionConfirmation";
+import { fetchUserId } from "../../api/userFunctions";
+import { createPrescription } from "../../api/prescriptionFunctions";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 
 const tabSteps = [
   "patient-selection",
@@ -12,14 +16,30 @@ const tabSteps = [
 ];
 
 export default function NewPrescriptionMain() {
+  const { user, isLoading } = useAuth0();
+  const navigate = useNavigate();
+
   //Set selected tab
   const [selectedStep, setSelectedStep] = useState("patient-selection");
 
   //Set New Prescription an Medicine List of it Body
   const [selectedPatient, setSelectedPatient] = useState();
+  const [doctorId, setDoctorId] = useState();
   const [newPrescription, setNewPrescription] = useState({});
   const [prescriptionMedicineList, setPrescriptionMedicineList] = useState([]);
 
+  //Gets the doctors id
+  useEffect(() => {
+    if (!isLoading && user) {
+      const getUserId = async () => {
+        const id = await fetchUserId(user.email);
+        setDoctorId(id);
+      };
+      getUserId();
+    }
+  }, [isLoading, user]);
+
+  //Select patient function
   function selectPatient(patientBody) {
     if (!patientBody) {
       addToast({
@@ -45,9 +65,49 @@ export default function NewPrescriptionMain() {
       return;
     }
 
-    //TODO logic to make objects for the prescription and the prescription medicine
-
     setSelectedStep("confirm-prescription");
+  }
+
+  async function createNewPrescription() {
+    if (
+      !doctorId ||
+      !selectedPatient ||
+      prescriptionMedicineList.length === 0
+    ) {
+      addToast({
+        title: "There's not enough information to create the prescription",
+        description: "Please start again",
+        color: "danger",
+        timeout: 10000,
+      });
+
+      return;
+    }
+
+    try {
+      await createPrescription(
+        prescriptionMedicineList,
+        selectedPatient.id,
+        doctorId
+      );
+
+      addToast({
+        title: "Success!",
+        description: "The prescription was created successfully",
+        color: "success",
+        timeout: 10000,
+      });
+    } catch (error) {
+      console.error(error);
+      addToast({
+        title: "Something went wrong creating the new prescription",
+        description: "Please start again",
+        color: "danger",
+        timeout: 10000,
+      });
+    } finally {
+      navigate("/doctor-dashboard");
+    }
   }
 
   //Body compponent depending the selected step
@@ -69,7 +129,12 @@ export default function NewPrescriptionMain() {
       break;
 
     case "confirm-prescription":
-      body = <PrescriptionConfirmation />;
+      body = (
+        <PrescriptionConfirmation
+          prescriptionMedicineList={prescriptionMedicineList}
+          createNewPrescription={createNewPrescription}
+        />
+      );
       break;
 
     default:

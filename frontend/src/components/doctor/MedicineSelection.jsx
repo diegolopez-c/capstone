@@ -18,6 +18,7 @@ import MedicineTypeaheadSearchbar from "./MedicineTypeaheadSearchbar";
 import { fetchMedicineDetailedInfo } from "../../api/medicineFunctions";
 import checkPairOfDrugsInteraction from "../../utils/checkPairOfDrugsInteraction";
 import InteractionsModal from "./InteractionsModal";
+import CancelButton from "./CancelButton";
 
 export default function MedicineSelection({
   prescriptionMedicineList,
@@ -150,9 +151,7 @@ export default function MedicineSelection({
         </div>
 
         <div className="w-full flex items-center justify-center gap-8">
-          <Button color="danger" onPress={() => {}}>
-            Cancel
-          </Button>
+          <CancelButton />
           <Button
             className="bg-ca-yellow"
             onPress={() => {
