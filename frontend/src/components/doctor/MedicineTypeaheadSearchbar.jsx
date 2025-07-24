@@ -39,13 +39,8 @@ export default function MedicineTypeaheadSearchbar({ setSelectedMedicine }) {
   }, []);
 
   const myFilter = (textValue, inputValue) => {
-    if (inputValue.length === 0) {
-      return true;
-    }
-
-    inputValue = inputValue.toLowerCase();
-
-    return textValue.includes(inputValue);
+    if (!inputValue) return true;
+    return textValue.toLowerCase().includes(inputValue.toLowerCase());
   };
 
   if (isLoadingMedicine) {
@@ -72,7 +67,7 @@ export default function MedicineTypeaheadSearchbar({ setSelectedMedicine }) {
           <AutocompleteItem
             className="text-ca-light-black override-dropdown-item"
             key={item.id}
-            textValue={`${item?.brandName} ${item?.genericName}`}
+            textValue={`${item?.brandName || ""} ${item?.genericName || ""}`}
           >
             {`${item.brandName || "N/A"} - ${
               item.genericName || "N/A"
