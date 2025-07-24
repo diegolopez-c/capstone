@@ -84,4 +84,39 @@ async function createMedicineInteraction(
   return interaction;
 }
 
-export { fetchInteractionsCall, createMedicineInteraction };
+//this function will be key to fetch the interaction within a list of medicine
+async function fetchMedicineInteractionsCall(medicineList) {
+  //Extract Medicine Ids from the medicine list
+  const medicineIdList = medicineList.map((m) => {
+    return m.medicineId;
+  });
+
+  const interactionListResponse = await fetch(
+    `${import.meta.env.VITE_BASE_URL}/interaction/find-medicine-interactions`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        medicineIds: medicineIdList,
+      }),
+    }
+  );
+
+  if (!interactionListResponse.ok) {
+    throw new Error("Failed to fetch interactions");
+  }
+
+  const interactionList = await interactionListResponse.json();
+
+  console.log(interactionList);
+
+  return interactionList;
+}
+
+export {
+  fetchInteractionsCall,
+  createMedicineInteraction,
+  fetchMedicineInteractionsCall,
+};
