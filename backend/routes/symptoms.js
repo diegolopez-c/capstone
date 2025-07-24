@@ -36,14 +36,11 @@ router.post("/create-new-symptom", async (req, res) => {
 
 router.post("/create-new-symptom-history", async (req, res) => {
   try {
-    const { medicalHistoryId, symptomId } = req.body;
-    const newSymptomHistory = await prisma.symptomHistory.create({
-      data: {
-        medicalHistoryId,
-        symptomId,
-      },
+    const symptomList = req.body;
+    const newSymptomHistories = await prisma.symptomHistory.createMany({
+      data: symptomList,
     });
-    res.status(201).json(newSymptomHistory);
+    res.status(201).json(newSymptomHistories);
   } catch (error) {
     res.status(500).json({
       error: "Internal server error creating the symptom history",
