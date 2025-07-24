@@ -62,6 +62,14 @@ router.get(
         where: {
           prescriptionId: prescriptionId,
         },
+        include: {
+          medicine: {
+            select: {
+              brandName: true,
+              genericName: true,
+            },
+          },
+        },
       });
 
       res.status(200).json(medicineList);
