@@ -52,11 +52,6 @@ export default function NewMedicalRecordForm({
         timeout: 10000,
       });
     } finally {
-      addToast({
-        title: "The medical record was added successfully",
-        color: "success",
-        timeout: 10000,
-      });
       navigate("/doctor-dashboard");
     }
   }

@@ -17,6 +17,10 @@ export default function DoctorSidebar() {
           <SidebarLink text="New Medical Report" path="/new-medical-report" />
           <SidebarLink text="New Symptom" path="/new-symptom" />
           <SidebarLink text="New Interaction" path="/new-interaction" />
+          <SidebarLink
+            text="New Medicine Interaction"
+            path="/new-medicine-interaction"
+          />
         </div>
       </div>
       <ProfileCard />

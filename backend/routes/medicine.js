@@ -112,6 +112,7 @@ router.post("/populate", async (req, res) => {
       data: drugData,
       skipDuplicates: true,
     });
+
     return res.status(201).json({ message: "Medicines created successfully" });
   } catch (error) {
     res.status(500).json({

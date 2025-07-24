@@ -96,6 +96,8 @@ model Medicine {
   criticalThreshold    Int
   prescriptionMedicine Prescription_Medicine[]       @relation("medicine_prescription_medicine")
   symptomes            SymptomMedicineInteractions[] @relation("medicine_symptom")
+  interactionsAsA      MedicineInteraction[]         @relation("MedicineA")
+  interactionsAsB      MedicineInteraction[]         @relation("MedicineB")
   createdAt            DateTime                      @default(now())
   updatedAt            DateTime                      @default(now())
 }
@@ -144,6 +146,16 @@ model SymptomMedicineInteractions {
   symptom     Symptom  @relation("symptom_medicine", fields: [symptomId], references: [id])
   symptomId   Int
   description String
+}
+
+model MedicineInteraction {
+  id          Int      @id @default(autoincrement())
+  medicineA   Medicine @relation("MedicineA", fields: [medicineAId], references: [id])
+  medicineAId Int
+  medicineB   Medicine @relation("MedicineB", fields: [medicineBId], references: [id])
+  medicineBId Int
+  description String
+  createdAt   DateTime @default(now())
 }
 
 enum Role {

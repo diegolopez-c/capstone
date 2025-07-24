@@ -27,6 +27,11 @@ export default function NewSymptomMain() {
         name: symptomName,
         description: symptomDescription,
       });
+      addToast({
+        title: "The symptom was added successfully",
+        color: "success",
+        timeout: 10000,
+      });
     } catch (error) {
       console.error(error);
       addToast({
@@ -36,11 +41,6 @@ export default function NewSymptomMain() {
         timeout: 10000,
       });
     } finally {
-      addToast({
-        title: "The symptom was added successfully",
-        color: "success",
-        timeout: 10000,
-      });
       navigate("/doctor-dashboard");
     }
   }

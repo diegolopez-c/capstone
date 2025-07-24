@@ -34,4 +34,59 @@ router.post("/find-medicine-symptom-interactions", async (req, res) => {
   }
 });
 
+router.post("/create-new-medicine-interaction", async (req, res) => {
+  try {
+    const { medicineAId, medicineBId, description } = req.body;
+    const newInteraction = await prisma.medicineInteraction.create({
+      data: {
+        medicineAId,
+        medicineBId,
+        description,
+      },
+    });
+    res.status(201).json(newInteraction);
+  } catch (error) {
+    res.status(500).json({
+      error: "Internal server error creating the symptom-medicine interaction",
+      details: error.message,
+    });
+  }
+});
+
+router.post("/find-medicine-interactions", async (req, res) => {
+  const { medicineIds } = req.body;
+
+  if (!Array.isArray(medicineIds)) {
+    return res.status(400).json({ error: "medicineIds must be arrays" });
+  }
+
+  try {
+    const interactions = await prisma.medicineInteraction.findMany({
+      where: {
+        OR: [
+          {
+            medicineAId: { in: medicineIds },
+            medicineBId: { in: medicineIds },
+          },
+          {
+            medicineBId: { in: medicineIds },
+            medicineAId: { in: medicineIds },
+          },
+        ],
+      },
+      include: {
+        medicineA: true,
+        medicineB: true,
+      },
+    });
+
+    res.status(200).json(interactions);
+  } catch (error) {
+    res.status(500).json({
+      error: "Internal server error fetching interactions",
+      details: error.message,
+    });
+  }
+});
+
 module.exports = router;

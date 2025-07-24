@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import MedicineTypeaheadSearchbar from "./MedicineTypeaheadSearchbar";
-import SymptomTypeaheadSearchbar from "./SymptomTypeaheadSearchbar";
 import { Button, Textarea, addToast } from "@heroui/react";
-import { createInteractionCall } from "../../api/symptomFunctions";
 import { useNavigate } from "react-router-dom";
+import { createMedicineInteraction } from "../../api/interactions";
 
-export default function NewInteractionMain() {
-  const [selectedMedicine, setSelectedMedicine] = useState();
-  const [selectedSymptom, setSelectedSymptom] = useState();
+export default function NewMedicineInteractionMain() {
+  const [selectedMedicineA, setSelectedMedicineA] = useState();
+  const [selectedMedicineB, setSelectedMedicineB] = useState();
   const [interactionDescription, setInteractionDescription] = useState();
 
   const navigate = useNavigate();
 
   async function createInteraction() {
-    if (!selectedMedicine || !selectedSymptom) {
+    if (!selectedMedicineA || !selectedMedicineB) {
       addToast({
         title: "There was an error creating the new interaction",
         description:
@@ -25,11 +24,11 @@ export default function NewInteractionMain() {
     }
 
     try {
-      const newInteraction = await createInteractionCall({
-        symptomId: selectedSymptom.id,
-        medicineId: selectedMedicine.id,
-        description: interactionDescription,
-      });
+      const newInteraction = await createMedicineInteraction(
+        selectedMedicineB.id,
+        selectedMedicineA.id,
+        interactionDescription
+      );
       addToast({
         title: "The interaction was created successfully",
         color: "success",
@@ -51,15 +50,17 @@ export default function NewInteractionMain() {
   return (
     <div className="w-3/4 min-h-screen flex flex-col items-center gap-8 py-8 overflow-scroll">
       <h1 className="text-ca-white text-3xl font-bold">
-        Create a New Symptom - Medicine Interaction
+        Create a New Medicine - Medicine Interaction
       </h1>
       <div className="rounded-xl bg-ca-light-black py-8 w-3/4 flex flex-col justify-center items-center gap-4">
         <div className="w-3/4 flex gap-4 flex-col items-center">
           <MedicineTypeaheadSearchbar
-            setSelectedMedicine={setSelectedMedicine}
+            setSelectedMedicine={setSelectedMedicineA}
           />
           <i className="fa-solid fa-xmark text-red-500 text-5xl" />
-          <SymptomTypeaheadSearchbar setSelectedSymptom={setSelectedSymptom} />
+          <MedicineTypeaheadSearchbar
+            setSelectedMedicine={setSelectedMedicineB}
+          />
           <Textarea
             label="Interaction Description"
             placeholder="Enter the new interaction description"
