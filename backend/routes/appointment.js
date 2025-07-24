@@ -63,6 +63,9 @@ router.get("/get-active-doctor-appointments/:doctorId", async (req, res) => {
         doctorId: doctorId,
         status: { in: ["PENDING", "CONFIRMED", "RESCHEDULED"] },
       },
+      orderBy: {
+        scheduledDate: "desc",
+      },
     });
 
     res.status(200).json(appointmentList);

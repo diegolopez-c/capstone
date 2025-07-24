@@ -28,6 +28,9 @@ export default function NewPrescriptionMain() {
   const [newPrescription, setNewPrescription] = useState({});
   const [prescriptionMedicineList, setPrescriptionMedicineList] = useState([]);
 
+  //Selected Record For Prescription
+  const [selectedRecord, setSelectedRecord] = useState();
+
   //Gets the doctors id
   useEffect(() => {
     if (!isLoading && user) {
@@ -88,7 +91,8 @@ export default function NewPrescriptionMain() {
       await createPrescription(
         prescriptionMedicineList,
         selectedPatient.id,
-        doctorId
+        doctorId,
+        selectedRecord
       );
 
       addToast({
@@ -115,7 +119,13 @@ export default function NewPrescriptionMain() {
 
   switch (selectedStep) {
     case "patient-selection":
-      body = <PatientSelection selectPatient={selectPatient} />;
+      body = (
+        <PatientSelection
+          selectPatient={selectPatient}
+          setSelectedRecord={setSelectedRecord}
+          selectedRecord={selectedRecord}
+        />
+      );
       break;
 
     case "medicine-selection":
