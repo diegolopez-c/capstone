@@ -47,7 +47,7 @@ export default function NewSymptomMain() {
 
   return (
     <div className="w-3/4 min-h-screen flex flex-col items-center gap-8 py-8 overflow-scroll">
-      <h1 className="text-ca-white text-3xl font-bold">Create a New Symptom</h1>
+      <h1 className="text-ca-white text-3xl font-bold">New Symptom</h1>
       <div className="rounded-xl bg-ca-light-black py-8 w-3/4 flex flex-col gap-4 justify-center items-center">
         <form
           className="w-5/8 flex flex-col gap-4 justify-center items-center"
