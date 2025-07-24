@@ -34,4 +34,23 @@ router.post("/find-medicine-symptom-interactions", async (req, res) => {
   }
 });
 
+router.post("/create-new-medicine-interaction", async (req, res) => {
+  try {
+    const { medicineAId, medicineBId, description } = req.body;
+    const newInteraction = await prisma.medicineInteraction.create({
+      data: {
+        medicineAId,
+        medicineBId,
+        description,
+      },
+    });
+    res.status(201).json(newInteraction);
+  } catch (error) {
+    res.status(500).json({
+      error: "Internal server error creating the symptom-medicine interaction",
+      details: error.message,
+    });
+  }
+});
+
 module.exports = router;
