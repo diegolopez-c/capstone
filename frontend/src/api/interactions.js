@@ -53,4 +53,35 @@ async function fetchInteractionsCall(medicalRecordId, medicineList) {
   return interactionList;
 }
 
-export { fetchInteractionsCall };
+async function createMedicineInteraction(
+  medicineAId,
+  medicineBId,
+  description
+) {
+  const interactionResponse = await fetch(
+    `${
+      import.meta.env.VITE_BASE_URL
+    }/interaction/create-new-medicine-interaction`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        medicineAId,
+        medicineBId,
+        description,
+      }),
+    }
+  );
+
+  if (!interactionResponse.ok) {
+    throw new Error("Failed to fetch interactions");
+  }
+
+  const interaction = await interactionResponse.json();
+
+  return interaction;
+}
+
+export { fetchInteractionsCall, createMedicineInteraction };
