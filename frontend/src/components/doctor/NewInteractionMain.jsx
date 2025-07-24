@@ -30,6 +30,11 @@ export default function NewInteractionMain() {
         medicineId: selectedMedicine.id,
         description: interactionDescription,
       });
+      addToast({
+        title: "The interaction was created successfully",
+        color: "success",
+        timeout: 10000,
+      });
     } catch (error) {
       console.error(error);
       addToast({
@@ -39,11 +44,6 @@ export default function NewInteractionMain() {
         timeout: 10000,
       });
     } finally {
-      addToast({
-        title: "The interaction was created successfully",
-        color: "success",
-        timeout: 10000,
-      });
       navigate("/doctor-dashboard");
     }
   }
