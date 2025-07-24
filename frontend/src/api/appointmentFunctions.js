@@ -1,3 +1,5 @@
+import { fetchUserId } from "./userFunctions";
+
 async function createAppointment(newAppointment) {
   const response = await fetch(
     `${import.meta.env.VITE_BASE_URL}/appointment/create-new-appointment`,
@@ -34,4 +36,52 @@ async function checkPatientActiveAppointments(patientId) {
   return await appointmentList;
 }
 
-export { createAppointment, checkPatientActiveAppointments };
+async function fetchAllPatientAppointments(patientEmail) {
+  const patientId = await fetchUserId(patientEmail);
+
+  const response = await fetch(
+    `${
+      import.meta.env.VITE_BASE_URL
+    }/appointment/get-all-patient-appointments/${patientId}`,
+    {
+      method: "GET",
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch patients active appointments");
+  }
+
+  const appointmentList = await response.json();
+
+  return await appointmentList;
+}
+
+async function cancelAppointment(appointmentId) {
+  const response = await fetch(
+    `${import.meta.env.VITE_BASE_URL}/appointment/change-appointment-status`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: appointmentId,
+        status: "CANCELLED",
+      }),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to cancel the appointment");
+  }
+
+  const updatedAppointment = await response.json();
+
+  return updatedAppointment;
+}
+
+export {
+  createAppointment,
+  checkPatientActiveAppointments,
+  fetchAllPatientAppointments,
+  cancelAppointment,
+};
