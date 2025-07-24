@@ -26,6 +26,7 @@ import { fetchUserId } from "./api/userFunctions";
 import { useAuth0 } from "@auth0/auth0-react";
 import NewSymptomPage from "./pages/doctor/NewSymptomPage";
 import NewInteractionPage from "./pages/doctor/NewInteractionPage";
+import NewMedicineInteractionPage from "./pages/doctor/NewMedicineInteractionPage";
 
 const socket = io("http://localhost:8080", { withCredentials: true });
 
@@ -81,6 +82,10 @@ function App() {
       <Route path="/new-prescription" element={<NewPrescriptionPage />} />
       <Route path="/new-symptom" element={<NewSymptomPage />} />
       <Route path="/new-interaction" element={<NewInteractionPage />} />
+      <Route
+        path="/new-medicine-interaction"
+        element={<NewMedicineInteractionPage />}
+      />
 
       {/* Patient Routes */}
       <Route path="/patient-dashboard" element={<PatientDashboard />} />
