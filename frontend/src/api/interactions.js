@@ -110,8 +110,6 @@ async function fetchMedicineInteractionsCall(medicineList) {
 
   const interactionList = await interactionListResponse.json();
 
-  console.log(interactionList);
-
   return interactionList;
 }
 

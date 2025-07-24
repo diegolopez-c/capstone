@@ -60,8 +60,6 @@ router.post("/find-medicine-interactions", async (req, res) => {
     return res.status(400).json({ error: "medicineIds must be arrays" });
   }
 
-  console.log(medicineIds);
-
   try {
     const interactions = await prisma.medicineInteraction.findMany({
       where: {
