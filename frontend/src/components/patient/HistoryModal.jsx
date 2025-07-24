@@ -75,6 +75,20 @@ export default function HistoryModal({
               ) : (
                 <></>
               )}
+              {selectedHistoryBody && selectedHistoryBody.symptoms ? (
+                <>
+                  <p className="text-sm">
+                    <span className="font-bold">Symptoms:</span>
+                  </p>
+                  <ul>
+                    {selectedHistoryBody.symptoms.map((s, key) => {
+                      return <li key={key}>- {s.symptom.name}</li>;
+                    })}
+                  </ul>
+                </>
+              ) : (
+                <></>
+              )}
             </ModalBody>
             <ModalFooter>
               <Button color="danger" onPress={onClose}>

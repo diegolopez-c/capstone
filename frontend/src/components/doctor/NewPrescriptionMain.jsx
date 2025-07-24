@@ -134,6 +134,7 @@ export default function NewPrescriptionMain() {
           prescriptionMedicineList={prescriptionMedicineList}
           setPrescriptionMedicineList={setPrescriptionMedicineList}
           packPrescription={packPrescription}
+          selectedRecord={selectedRecord}
         />
       );
       break;
