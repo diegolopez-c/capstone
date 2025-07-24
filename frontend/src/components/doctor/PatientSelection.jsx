@@ -5,7 +5,7 @@ import PatientInfo from "./PatientInfo";
 import PastPrescriptions from "./PastPrescriptions";
 import PastMedicalRecords from "./PastMedicalRecords";
 
-export default function NewPrescriptionMain({
+export default function PatientSelection({
   selectPatient,
   setSelectedRecord,
   selectedRecord,
@@ -60,9 +60,6 @@ export default function NewPrescriptionMain({
         <PatientInfo patientBody={selectedPatient} />
       </div>
       <div className="w-full flex gap-4 justify-around items-center">
-        {/* <PastPrescriptions
-          patientId={selectedPatient ? selectedPatient.id : null}
-        /> */}
         <PastMedicalRecords
           patientId={selectedPatient ? selectedPatient.id : null}
           setSelectedRecord={setSelectedRecord}
