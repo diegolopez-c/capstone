@@ -53,4 +53,42 @@ router.post("/create-new-medicine-interaction", async (req, res) => {
   }
 });
 
+router.post("/find-medicine-interactions", async (req, res) => {
+  const { medicineIds } = req.body;
+
+  if (!Array.isArray(medicineIds)) {
+    return res.status(400).json({ error: "medicineIds must be arrays" });
+  }
+
+  console.log(medicineIds);
+
+  try {
+    const interactions = await prisma.medicineInteraction.findMany({
+      where: {
+        OR: [
+          {
+            medicineAId: { in: medicineIds },
+            medicineBId: { in: medicineIds },
+          },
+          {
+            medicineBId: { in: medicineIds },
+            medicineAId: { in: medicineIds },
+          },
+        ],
+      },
+      include: {
+        medicineA: true,
+        medicineB: true,
+      },
+    });
+
+    res.status(200).json(interactions);
+  } catch (error) {
+    res.status(500).json({
+      error: "Internal server error fetching interactions",
+      details: error.message,
+    });
+  }
+});
+
 module.exports = router;
