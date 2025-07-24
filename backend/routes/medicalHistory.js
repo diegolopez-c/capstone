@@ -24,6 +24,34 @@ router.get("/get-patient-medical-history/:patientId", async (req, res) => {
   }
 });
 
+//Get medical history by id
+router.get("/get-medical-history-by-id/:medicalHistoryId", async (req, res) => {
+  const medicalHistoryId = parseInt(req.params.medicalHistoryId);
+
+  try {
+    const medicalHistory = await prisma.medicalHistory.findUnique({
+      where: {
+        id: medicalHistoryId,
+      },
+      include: {
+        doctor: {
+          select: {
+            name: true,
+            lastname: true,
+          },
+        },
+      },
+    });
+
+    res.status(200).json(medicalHistory);
+  } catch (error) {
+    res.status(500).json({
+      error: "Internal server error retrieving the medical record",
+      details: error.message,
+    });
+  }
+});
+
 //Create a new register in the medical history
 router.post("/create-medical-history", async (req, res) => {
   const { patientId, doctorId, diagnosis, notes } = req.body;

@@ -1,3 +1,5 @@
+import { fetchUserId } from "./userFunctions";
+
 async function fetchAllPatientMedicalRecords(patientId) {
   const response = await fetch(
     `${
@@ -14,6 +16,27 @@ async function fetchAllPatientMedicalRecords(patientId) {
   const medicalRecordList = await response.json();
 
   return medicalRecordList;
+}
+
+async function fetchAllPatientHistoryByEmail(patientEmail) {
+  const patientId = await fetchUserId(patientEmail);
+
+  const response = await fetch(
+    `${
+      import.meta.env.VITE_BASE_URL
+    }/medical-history/get-patient-medical-history/${patientId}`,
+    {
+      method: "GET",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch patient medical history");
+  }
+
+  const medicalHistoryList = await response.json();
+
+  return medicalHistoryList;
 }
 
 async function createMedicalRecord(medicalRecordBody) {
@@ -38,4 +61,28 @@ async function createMedicalRecord(medicalRecordBody) {
   return medicalRecord;
 }
 
-export { fetchAllPatientMedicalRecords, createMedicalRecord };
+async function fetchHistoryById(medicalRecordId) {
+  const response = await fetch(
+    `${
+      import.meta.env.VITE_BASE_URL
+    }/medical-history/get-medical-history-by-id/${medicalRecordId}`,
+    {
+      method: "GET",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch medical history");
+  }
+
+  const medicalHistory = await response.json();
+
+  return medicalHistory;
+}
+
+export {
+  fetchAllPatientMedicalRecords,
+  createMedicalRecord,
+  fetchAllPatientHistoryByEmail,
+  fetchHistoryById,
+};
