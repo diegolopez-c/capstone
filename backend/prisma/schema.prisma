@@ -50,15 +50,16 @@ model Appointment {
 }
 
 model MedicalHistory {
-  id            Int            @id @default(autoincrement())
-  patient       User           @relation("patient_medical_history", fields: [patientId], references: [id])
+  id            Int              @id @default(autoincrement())
+  patient       User             @relation("patient_medical_history", fields: [patientId], references: [id])
   patientId     Int
-  doctor        User           @relation("doctor_medical_history", fields: [doctorId], references: [id])
+  doctor        User             @relation("doctor_medical_history", fields: [doctorId], references: [id])
   doctorId      Int
   diagnosis     String
   notes         String?
   prescriptions Prescription[]
-  createdAt     DateTime       @default(now())
+  symptoms      SymptomHistory[] @relation("medical_history_symptom")
+  createdAt     DateTime         @default(now())
 }
 
 model Prescription {
@@ -87,15 +88,16 @@ model Prescription_Medicine {
 }
 
 model Medicine {
-  id                   Int                     @id @default(autoincrement())
-  fdaId                String?                 @unique
-  brandName            String                  @default("N/A")
-  genericName          String                  @default("N/A")
+  id                   Int                           @id @default(autoincrement())
+  fdaId                String?                       @unique
+  brandName            String                        @default("N/A")
+  genericName          String                        @default("N/A")
   quantity             Int
   criticalThreshold    Int
-  prescriptionMedicine Prescription_Medicine[] @relation("medicine_prescription_medicine")
-  createdAt            DateTime                @default(now())
-  updatedAt            DateTime                @default(now())
+  prescriptionMedicine Prescription_Medicine[]       @relation("medicine_prescription_medicine")
+  symptomes            SymptomMedicineInteractions[] @relation("medicine_symptom")
+  createdAt            DateTime                      @default(now())
+  updatedAt            DateTime                      @default(now())
 }
 
 model DoctorAvailability {
@@ -117,6 +119,31 @@ model Notification {
   scheduledAt   DateTime
   sent          Boolean  @default(false)
   createdAt     DateTime @default(now())
+}
+
+model Symptom {
+  id               Int                           @id @default(autoincrement())
+  name             String
+  description      String
+  medicalHistories SymptomHistory[]              @relation("symptom_medical_history")
+  medicines        SymptomMedicineInteractions[] @relation("symptom_medicine")
+}
+
+model SymptomHistory {
+  id               Int            @id @default(autoincrement())
+  medicalHistory   MedicalHistory @relation("medical_history_symptom", fields: [medicalHistoryId], references: [id])
+  medicalHistoryId Int
+  symptom          Symptom        @relation("symptom_medical_history", fields: [symptomId], references: [id])
+  symptomId        Int
+}
+
+model SymptomMedicineInteractions {
+  id          Int      @id @default(autoincrement())
+  medicine    Medicine @relation("medicine_symptom", fields: [medicineId], references: [id])
+  medicineId  Int
+  symptom     Symptom  @relation("symptom_medicine", fields: [symptomId], references: [id])
+  symptomId   Int
+  description String
 }
 
 enum Role {

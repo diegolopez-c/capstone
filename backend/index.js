@@ -22,6 +22,7 @@ const medicineRoutes = require("./routes/medicine");
 const prescriptionRoutes = require("./routes/prescription");
 const userRoutes = require("./routes/user");
 const availabilityRoutes = require("./routes/availability");
+const symptomRoutes = require("./routes/symptoms");
 
 //Auth0 Config
 const config = {
@@ -67,6 +68,7 @@ app.use("/medicine", medicineRoutes);
 app.use("/prescription", prescriptionRoutes);
 app.use("/user", userRoutes);
 app.use("/availability", availabilityRoutes);
+app.use("/symptom", symptomRoutes);
 
 //Socket IO functionality
 io.on("connection", (socket) => {
