@@ -4,12 +4,10 @@ const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const calculatePriority = require("../utils/calculatePriority");
 const {
   getNotificationQueue,
 } = require("../notifications/notificationQueueInstance");
 const formatDateToReadableString = require("../utils/formatDateToReadableString");
-
 
 //Get Patient Appointment History
 router.get("/get-all-patient-appointments/:patientId", async (req, res) => {
@@ -154,7 +152,6 @@ router.post("/create-new-appointment", async (req, res) => {
         message,
         scheduledAt,
         sent: false,
-        priority: calculatePriority(scheduledAt),
       },
     });
 
