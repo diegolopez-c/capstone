@@ -76,8 +76,8 @@ Start the server
 
 [Challenge Timeline](https://docs.google.com/document/d/1daAiCJdwR45KClxXHhtcAx46PyK93lW91kUE1lQ22-A/edit?usp=sharing)
 
-## DB Model (v3)
-[![capstone-db-v3.png](https://i.postimg.cc/Yqr9JZS2/capstone-db-v3.png)](https://postimg.cc/6TPtZHRF)
+## DB Model (v7)
+[![capstone-db-v7.png](https://i.postimg.cc/Jn3pjJrB/Screenshot-2025-07-25-at-2-47-06-PM.png)](https://postimg.cc/dk1RYhTq)
 
 ## API Reference
 
