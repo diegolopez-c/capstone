@@ -27,6 +27,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import NewSymptomPage from "./pages/doctor/NewSymptomPage";
 import NewInteractionPage from "./pages/doctor/NewInteractionPage";
 import NewMedicineInteractionPage from "./pages/doctor/NewMedicineInteractionPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Unauthorized from "./pages/Unauthorized";
 
 const socket = io("http://localhost:8080", { withCredentials: true });
 
@@ -38,6 +40,7 @@ function App() {
   useEffect(() => {
     if (!isLoading && user) {
       const getUserId = async () => {
+        console.log(user["https://hospitall.com/roles"]);
         const id = await fetchUserId(user.email);
         setUserId(id);
       };
@@ -73,18 +76,72 @@ function App() {
       <Route path="/user-creation" element={<CreatingUserPage />} />
       <Route path="/redirect" element={<RoleRedirect />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/unauthorized" element={<Unauthorized />}></Route>
 
       {/* Doctor Routes */}
-      <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-      <Route path="/doctor-appointments" element={<Appointments />} />
-      <Route path="/new-appointment" element={<NewAppointmentPage />} />
-      <Route path="/new-medical-report" element={<NewMedicalReportPage />} />
-      <Route path="/new-prescription" element={<NewPrescriptionPage />} />
-      <Route path="/new-symptom" element={<NewSymptomPage />} />
-      <Route path="/new-interaction" element={<NewInteractionPage />} />
+      <Route
+        path="/doctor-dashboard"
+        element={
+          <ProtectedRoute requiredRoles={["doctor"]}>
+            <DoctorDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/doctor-appointments"
+        element={
+          <ProtectedRoute requiredRoles={["doctor"]}>
+            <Appointments />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/new-appointment"
+        element={
+          <ProtectedRoute requiredRoles={["doctor"]}>
+            <NewAppointmentPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/new-medical-report"
+        element={
+          <ProtectedRoute requiredRoles={["doctor"]}>
+            <NewMedicalReportPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/new-prescription"
+        element={
+          <ProtectedRoute requiredRoles={["doctor"]}>
+            <NewPrescriptionPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/new-symptom"
+        element={
+          <ProtectedRoute requiredRoles={["doctor"]}>
+            <NewSymptomPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/new-interaction"
+        element={
+          <ProtectedRoute requiredRoles={["doctor"]}>
+            <NewInteractionPage />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/new-medicine-interaction"
-        element={<NewMedicineInteractionPage />}
+        element={
+          <ProtectedRoute requiredRoles={["doctor"]}>
+            <NewMedicineInteractionPage />
+          </ProtectedRoute>
+        }
       />
 
       {/* Patient Routes */}
