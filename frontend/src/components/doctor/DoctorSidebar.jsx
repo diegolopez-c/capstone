@@ -8,7 +8,7 @@ export default function DoctorSidebar() {
       <div className="h-1/2">
         <Datetime />
         <div className="flex flex-col gap-3 p-4">
-          <SidebarLink text="Doctor Dashboard" path="/doctor-dashboard" />
+          <SidebarLink text="Home" path="/doctor-dashboard" />
           <SidebarLink
             text="Appointment History List"
             path="/doctor-appointments"
