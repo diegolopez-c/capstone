@@ -19,6 +19,9 @@ router.get("/get-all-patient-appointments/:patientId", async (req, res) => {
       where: {
         patientId: patientId,
       },
+      orderBy: {
+        scheduleDate: "desc",
+      },
     });
 
     res.status(200).json(appointmentList);
@@ -40,6 +43,9 @@ router.get("/get-active-patient-appointments/:patientId", async (req, res) => {
       where: {
         patientId: patientId,
         status: { in: ["PENDING", "CONFIRMED", "RESCHEDULED"] },
+      },
+      orderBy: {
+        scheduleDate: "desc",
       },
     });
 
@@ -86,6 +92,9 @@ router.get("/get-all-doctor-appointments/:doctorId", async (req, res) => {
     const appointmentList = await prisma.appointment.findMany({
       where: {
         doctorId: doctorId,
+      },
+      orderBy: {
+        scheduleDate: "desc",
       },
     });
 
