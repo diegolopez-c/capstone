@@ -4,6 +4,7 @@ import PatientNewAppointmentMain from "../../components/patient/PatientNewAppoin
 import { useAuth0 } from "@auth0/auth0-react";
 import { fetchUserId } from "../../api/userFunctions";
 import { checkPatientActiveAppointments } from "../../api/appointmentFunctions";
+import AlreadyAppointmentMain from "../../components/patient/AlreadyAppointmentMain";
 
 export default function PatientNewAppointmentPage() {
   const { user, isLoading } = useAuth0();
@@ -34,7 +35,7 @@ export default function PatientNewAppointmentPage() {
 
       {/* TODO Make a  */}
       {patientHasAppointment ? (
-        <h1>You already have an appointment</h1>
+        <AlreadyAppointmentMain />
       ) : (
         <PatientNewAppointmentMain />
       )}
