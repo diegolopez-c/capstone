@@ -82,7 +82,7 @@ Start the server
 ## API Reference
 
 ### User Entity (/user)
-- Get User by Email
+### Get User by Email
 
 - **Endpoint:** GET /get-user-by-email/{userEmail}
 - **Response:** 200 user body, 404 User not found, 500 Internal Server Error
@@ -92,7 +92,7 @@ Start the server
 
 curl -X GET "http://localhost:8080.com/get-user-by-email/{userEmail}" -H 
 
-- Create New User
+### Create New User
 
 - **Endpoint:** POST /create-new-user
 - **Body:** name, lastname, email, birthDate, role
@@ -103,7 +103,7 @@ curl -X GET "http://localhost:8080.com/get-user-by-email/{userEmail}" -H
 
 curl -X POST "http://localhost:8080.com/create-new-user" -H "Content-Type: application/json" -d '{"name":"John","lastname":"Doe","email":"john.doe@example.com","birthDate":"1990-01-01","role":"USER"}'
 
-- Update User Info
+### Update User Info
 
 - **Endpoint:** PUT /update-user-info
 - **Body:** email, other fields to update
@@ -114,7 +114,7 @@ curl -X POST "http://localhost:8080.com/create-new-user" -H "Content-Type: appli
 
 curl -X PUT "http://localhost:8080.com/update-user-info" -H "Content-Type: application/json" -d '{"email":"john.doe@example.com","name":"Johnathan"}'
 
-- Delete User
+### Delete User
 
 - **Endpoint:** DELETE /delete-user
 - **Body:** email
@@ -125,7 +125,7 @@ curl -X PUT "http://localhost:8080.com/update-user-info" -H "Content-Type: appli
 
 curl -X DELETE "http://localhost:8080.com/delete-user" -H "Content-Type: application/json" -d '{"email":"john.doe@example.com"}'
 
-- Get User Name by ID
+### Get User Name by ID
 
 - **Endpoint:** GET /get-user-name-by-id/{userId}
 - **Response:** 200 user name, 404 User not found, 500 Internal Server Error
@@ -135,7 +135,7 @@ curl -X DELETE "http://localhost:8080.com/delete-user" -H "Content-Type: applica
 
 curl -X GET "http://localhost:8080.com/get-user-name-by-id/{userId}" -H 
 
-- Get User by ID
+### Get User by ID
 
 - **Endpoint:** GET /get-user-by-id/{userId}
 - **Response:** 200 user body, 404 User not found, 500 Internal Server Error
@@ -145,7 +145,7 @@ curl -X GET "http://localhost:8080.com/get-user-name-by-id/{userId}" -H
 
 curl -X GET "http://localhost:8080.com/get-user-by-id/{userId}" -H 
 
-- Get Doctors Available
+### Get Doctors Available
 
 - **Endpoint:** GET /get-doctors-available
 - **Response:** 200 list of available doctors, 500 Internal Server Error
@@ -157,7 +157,7 @@ curl -X GET "http://localhost:8080.com/get-doctors-available" -H
 
 
 ### Appointment Entity (/appointment)
-- Get All Patient Appointments
+### Get All Patient Appointments
 
 - **Endpoint:** GET /get-all-patient-appointments/{patientId}
 - **Response:** 200 appointment list, 500 Internal Server Error
@@ -167,7 +167,7 @@ curl -X GET "http://localhost:8080.com/get-doctors-available" -H
 
 curl -X GET "http://localhost:8080.com/get-all-patient-appointments/{patientId}" -H 
 
-- Get Active Patient Appointments
+### Get Active Patient Appointments
 
 - **Endpoint:** GET /get-active-patient-appointments/{patientId}
 - **Response:** 200 appointment list, 500 Internal Server Error
@@ -177,7 +177,7 @@ curl -X GET "http://localhost:8080.com/get-all-patient-appointments/{patientId}"
 
 curl -X GET "http://localhost:8080.com/get-active-patient-appointments/{patientId}" -H 
 
-- Get Active Doctor Appointments
+### Get Active Doctor Appointments
 
 - **Endpoint:** GET /get-active-doctor-appointments/{doctorId}
 - **Response:** 200 appointment list, 500 Internal Server Error
@@ -187,7 +187,7 @@ curl -X GET "http://localhost:8080.com/get-active-patient-appointments/{patientI
 
 curl -X GET "http://localhost:8080.com/get-active-doctor-appointments/{doctorId}" -H 
 
-- Get All Doctor Appointments
+### Get All Doctor Appointments
 
 - **Endpoint:** GET /get-all-doctor-appointments/{doctorId}
 - **Response:** 200 appointment list, 500 Internal Server Error
@@ -197,7 +197,7 @@ curl -X GET "http://localhost:8080.com/get-active-doctor-appointments/{doctorId}
 
 curl -X GET "http://localhost:8080.com/get-all-doctor-appointments/{doctorId}" -H 
 
-- Create a New Appointment
+### Create a New Appointment
 
 - **Endpoint:** POST /create-new-appointment
 - **Body:** patientId, doctorId, status, reason, scheduleDate
@@ -208,7 +208,7 @@ curl -X GET "http://localhost:8080.com/get-all-doctor-appointments/{doctorId}" -
 
 curl -X POST "http://localhost:8080.com/create-new-appointment" -H "Content-Type: application/json" -d '{"patientId":1,"doctorId":2,"status":"PENDING","reason":"Checkup","scheduleDate":"2023-12-01T10:00:00Z"}'
 
-- Reschedule an Appointment
+### Reschedule an Appointment
 
 - **Endpoint:** PUT /reschedule-appointment
 - **Body:** id, scheduleDate
@@ -219,7 +219,7 @@ curl -X POST "http://localhost:8080.com/create-new-appointment" -H "Content-Type
 
 curl -X PUT "http://localhost:8080.com/reschedule-appointment" -H "Content-Type: application/json" -d '{"id":1,"scheduleDate":"2023-12-01T10:00:00Z"}'
 
-- Change Appointment Status
+### Change Appointment Status
 
 - **Endpoint:** PUT /change-appointment-status
 - **Body:** id, status
@@ -233,7 +233,7 @@ curl -X PUT "http://localhost:8080.com/change-appointment-status" -H "Content-Ty
 
 ### Medical History Entity (/medical-history)
 
-- Get Patient Medical History
+### Get Patient Medical History
 
 - **Endpoint:** GET /get-patient-medical-history/{patientId}
 - **Response:** 200 patient medical history, 500 Internal Server Error
@@ -243,7 +243,7 @@ curl -X PUT "http://localhost:8080.com/change-appointment-status" -H "Content-Ty
 
 curl -X GET "http://localhost:8080.com/get-patient-medical-history/{patientId}" -H 
 
-- Get Medical History by ID
+### Get Medical History by ID
 
 - **Endpoint:** GET /get-medical-history-by-id/{medicalHistoryId}
 - **Response:** 200 medical history, 500 Internal Server Error
@@ -253,7 +253,7 @@ curl -X GET "http://localhost:8080.com/get-patient-medical-history/{patientId}" 
 
 curl -X GET "http://localhost:8080.com/get-medical-history-by-id/{medicalHistoryId}" -H 
 
-- Create Medical History
+### Create Medical History
 
 - **Endpoint:** POST /create-medical-history
 - **Body:** patientId, doctorId, diagnosis, notes
@@ -265,7 +265,7 @@ curl -X GET "http://localhost:8080.com/get-medical-history-by-id/{medicalHistory
 curl -X POST "http://localhost:8080.com/create-medical-history" -H "Content-Type: application/json" -d '{"patientId":1,"doctorId":2,"diagnosis":"Flu","notes":"Patient has mild symptoms."}'
 
 ### Medicine Entity (/medicine)
-- Get All Medicine
+### Get All Medicine
 
 - **Endpoint:** GET /get-all-medicine
 - **Response:** 200 list of all medicines, 500 Internal Server Error
@@ -275,7 +275,7 @@ curl -X POST "http://localhost:8080.com/create-medical-history" -H "Content-Type
 
 curl -X GET "http://localhost:8080.com/get-all-medicine" -H 
 
-- Register New Medicine
+### Register New Medicine
 
 - **Endpoint:** POST /register-new-medicine
 - **Body:** name, criticalThreshold, quantity, expiryDate
@@ -286,7 +286,7 @@ curl -X GET "http://localhost:8080.com/get-all-medicine" -H
 
 curl -X POST "http://localhost:8080.com/register-new-medicine" -H "Content-Type: application/json" -d '{"name":"Aspirin","criticalThreshold":10,"quantity":50,"expiryDate":"2024-12-31"}'
 
-- Restock Medicine
+### Restock Medicine
 
 - **Endpoint:** PUT /restock-medicine
 - **Body:** id, quantity
@@ -297,7 +297,7 @@ curl -X POST "http://localhost:8080.com/register-new-medicine" -H "Content-Type:
 
 curl -X PUT "http://localhost:8080.com/restock-medicine" -H "Content-Type: application/json" -d '{"id":1,"quantity":20}'
 
-- Populate Database with FDA Medicine
+### Populate Database with FDA Medicine
 
 - **Endpoint:** POST /populate
 - **Response:** 201 Medicines created successfully, 500 Internal Server Error
@@ -309,7 +309,7 @@ curl -X POST "http://localhost:8080.com/populate" -H
 
 
 ### Prescription Entity (/prescription)
-- Get Prescriptions by Patient
+### Get Prescriptions by Patient
 
 - **Endpoint:** GET /get-prescriptions-by-patient/{patientId}
 - **Response:** 200 list of prescriptions, 500 Internal Server Error
@@ -319,7 +319,7 @@ curl -X POST "http://localhost:8080.com/populate" -H
 
 curl -X GET "http://localhost:8080.com/get-prescriptions-by-patient/{patientId}" -H 
 
-- Get Prescription by ID
+### Get Prescription by ID
 
 - **Endpoint:** GET /get-prescription-by-id/{prescriptionId}
 - **Response:** 200 prescription, 404 Prescription not found, 500 Internal Server Error
@@ -329,7 +329,7 @@ curl -X GET "http://localhost:8080.com/get-prescriptions-by-patient/{patientId}"
 
 curl -X GET "http://localhost:8080.com/get-prescription-by-id/{prescriptionId}" -H 
 
-- Get Medicine by Prescription
+### Get Medicine by Prescription
 
 - **Endpoint:** GET /get-medicine-by-prescription/{prescriptionId}
 - **Response:** 200 list of medicines, 500 Internal Server Error
@@ -339,7 +339,7 @@ curl -X GET "http://localhost:8080.com/get-prescription-by-id/{prescriptionId}" 
 
 curl -X GET "http://localhost:8080.com/get-medicine-by-prescription/{prescriptionId}" -H 
 
-- Create Prescription
+### Create Prescription
 
 - **Endpoint:** POST /create-prescription
 - **Body:** patientId, doctorId, medicalHistoryId, status
@@ -350,7 +350,7 @@ curl -X GET "http://localhost:8080.com/get-medicine-by-prescription/{prescriptio
 
 curl -X POST "http://localhost:8080.com/create-prescription" -H "Content-Type: application/json" -d '{"patientId":1,"doctorId":2,"medicalHistoryId":3,"status":"ISSUED"}'
 
-- Add Medicine to Prescription
+### Add Medicine to Prescription
 
 - **Endpoint:** POST /add-medicine-to-prescription
 - **Body:** medicineId, prescriptionId, dosage, frequency, duration, comments
@@ -361,7 +361,7 @@ curl -X POST "http://localhost:8080.com/create-prescription" -H "Content-Type: a
 
 curl -X POST "http://localhost:8080.com/add-medicine-to-prescription" -H "Content-Type: application/json" -d '{"medicineId":1,"prescriptionId":2,"dosage":"500mg","frequency":"twice a day","duration":"7 days","comments":"Take with food"}'
 
-- Dispense Prescription
+### Dispense Prescription
 
 - **Endpoint:** PUT /dispense-prescription/{prescriptionId}
 - **Response:** 200 updated prescription, 500 Internal Server Error
@@ -373,7 +373,7 @@ curl -X PUT "http://localhost:8080.com/dispense-prescription/{prescriptionId}" -
 
 
 ### Symptom Entity (/symptom)
-- Get All Symptoms
+### Get All Symptoms
 
 - **Endpoint:** GET /get-all-symptoms
 - **Response:** 200 list of symptoms, 500 Internal Server Error
@@ -383,7 +383,7 @@ curl -X PUT "http://localhost:8080.com/dispense-prescription/{prescriptionId}" -
 
 curl -X GET "http://localhost:8080.com/get-all-symptoms" -H 
 
-- Create New Symptom
+### Create New Symptom
 
 - **Endpoint:** POST /create-new-symptom
 - **Body:** name, description
@@ -394,7 +394,7 @@ curl -X GET "http://localhost:8080.com/get-all-symptoms" -H
 
 curl -X POST "http://localhost:8080.com/create-new-symptom" -H "Content-Type: application/json" -d '{"name":"Headache","description":"Pain in the head"}'
 
-- Create New Symptom History
+### Create New Symptom History
 
 - **Endpoint:** POST /create-new-symptom-history
 - **Body:** Array of symptom history objects
@@ -405,7 +405,7 @@ curl -X POST "http://localhost:8080.com/create-new-symptom" -H "Content-Type: ap
 
 curl -X POST "http://localhost:8080.com/create-new-symptom-history" -H "Content-Type: application/json" -d '[{"symptomId":1,"patientId":2,"date":"2023-12-01"}]'
 
-- Create New Symptom-Medicine Interaction
+### Create New Symptom-Medicine Interaction
 
 - **Endpoint:** POST /create-new-symptom-medicine-interaction
 - **Body:** medicineId, symptomId, description
@@ -417,7 +417,7 @@ curl -X POST "http://localhost:8080.com/create-new-symptom-history" -H "Content-
 curl -X POST "http://localhost:8080.com/create-new-symptom-medicine-interaction" -H "Content-Type: application/json" -d '{"medicineId":1,"symptomId":2,"description":"May cause dizziness"}'
 
 ### Interactions Entities (/interaction)
-- Find Medicine-Symptom Interactions
+### Find Medicine-Symptom Interactions
 
 - **Endpoint:** POST /find-medicine-symptom-interactions
 - **Body:** medicineIds (array), symptomIds (array)
@@ -428,7 +428,7 @@ curl -X POST "http://localhost:8080.com/create-new-symptom-medicine-interaction"
 
 curl -X POST "http://localhost:8080.com/find-medicine-symptom-interactions" -H "Content-Type: application/json" -d '{"medicineIds":[1,2],"symptomIds":[3,4]}'
 
-- Create New Medicine Interaction
+### Create New Medicine Interaction
 
 - **Endpoint:** POST /create-new-medicine-interaction
 - **Body:** medicineAId, medicineBId, description
@@ -439,7 +439,7 @@ curl -X POST "http://localhost:8080.com/find-medicine-symptom-interactions" -H "
 
 curl -X POST "http://localhost:8080.com/create-new-medicine-interaction" -H "Content-Type: application/json" -d '{"medicineAId":1,"medicineBId":2,"description":"Interaction description"}'
 
-- Find Medicine Interactions
+### Find Medicine Interactions
 
 - **Endpoint:** POST /find-medicine-interactions
 - **Body:** medicineIds (array)
@@ -450,9 +450,8 @@ curl -X POST "http://localhost:8080.com/create-new-medicine-interaction" -H "Con
 
 curl -X POST "http://localhost:8080.com/find-medicine-interactions" -H "Content-Type: application/json" -d '{"medicineIds":[1,2,3]}'
 
-
 ### Availability Entity (/availability)
-- Create or Update Doctor Schedule
+### Create or Update Doctor Schedule
 
 - **Endpoint:** POST /create-doctor-schedule
 - **Body:** doctorId, dayOfWeek, startTime, endTime
@@ -463,7 +462,7 @@ curl -X POST "http://localhost:8080.com/find-medicine-interactions" -H "Content-
 
 curl -X POST "http://localhost:8080.com/create-doctor-schedule" -H "Content-Type: application/json" -d '{"doctorId":1,"dayOfWeek":1,"startTime":"09:00","endTime":"17:00"}'
 
-- Get Doctor Days Available
+### Get Doctor Days Available
 
 - **Endpoint:** GET /get-doctor-days-available/{doctorId}
 - **Response:** 200 list of available days, 500 Internal Server Error
@@ -473,7 +472,7 @@ curl -X POST "http://localhost:8080.com/create-doctor-schedule" -H "Content-Type
 
 curl -X GET "http://localhost:8080.com/get-doctor-days-available/{doctorId}" -H 
 
-- Get Doctor Available Hours for a Day
+### Get Doctor Available Hours for a Day
 
 - **Endpoint:** POST /get-doctor-available-hours-for-a-day
 - **Body:** doctorId, day
