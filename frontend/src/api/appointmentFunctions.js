@@ -76,6 +76,26 @@ async function fetchAllDoctorAppointments(doctorEmail) {
   return appointmentList;
 }
 
+async function fetchActiveDoctorAppointments(doctorEmail) {
+  const doctorId = await fetchUserId(doctorEmail);
+
+  const response = await fetch(
+    `${
+      import.meta.env.VITE_BASE_URL
+    }/appointment/get-active-doctor-appointments/${doctorId}`,
+    {
+      method: "GET",
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch doctors appointments");
+  }
+
+  const appointmentList = await response.json();
+
+  return appointmentList;
+}
+
 async function cancelAppointment(appointmentId) {
   const response = await fetch(
     `${import.meta.env.VITE_BASE_URL}/appointment/change-appointment-status`,
@@ -153,4 +173,5 @@ export {
   fetchAllDoctorAppointments,
   confirmAppointment,
   completeAppointment,
+  fetchActiveDoctorAppointments,
 };
