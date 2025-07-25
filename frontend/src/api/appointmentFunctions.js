@@ -33,7 +33,7 @@ async function checkPatientActiveAppointments(patientId) {
 
   const appointmentList = await response.json();
 
-  return await appointmentList;
+  return appointmentList;
 }
 
 async function fetchAllPatientAppointments(patientEmail) {
@@ -53,7 +53,7 @@ async function fetchAllPatientAppointments(patientEmail) {
 
   const appointmentList = await response.json();
 
-  return await appointmentList;
+  return appointmentList;
 }
 
 async function fetchAllDoctorAppointments(doctorEmail) {
@@ -73,7 +73,7 @@ async function fetchAllDoctorAppointments(doctorEmail) {
 
   const appointmentList = await response.json();
 
-  return await appointmentList;
+  return appointmentList;
 }
 
 async function cancelAppointment(appointmentId) {

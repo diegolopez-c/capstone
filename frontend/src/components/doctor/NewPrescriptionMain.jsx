@@ -155,9 +155,7 @@ export default function NewPrescriptionMain() {
 
   return (
     <div className="w-3/4 min-h-screen flex flex-col items-center gap-8 py-8 overflow-scroll">
-      <h1 className="text-ca-white text-3xl font-bold">
-        Make New Prescription
-      </h1>
+      <h1 className="text-ca-white text-3xl font-bold">New Prescription</h1>
 
       {/** Tab Navigation */}
       <Tabs

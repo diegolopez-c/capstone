@@ -18,7 +18,7 @@ async function createSymptomCall(newSymptomBody) {
     throw new Error("Failed to create the symptom");
   }
 
-  return response.json();
+  return await response.json();
 }
 
 async function createInteractionCall(interactionBody) {
@@ -38,7 +38,7 @@ async function createInteractionCall(interactionBody) {
     throw new Error("Failed to create the symptom");
   }
 
-  return response.json();
+  return await response.json();
 }
 
 async function createSymptomRecordsCall(symptomsList, historyId) {
@@ -65,7 +65,7 @@ async function createSymptomRecordsCall(symptomsList, historyId) {
     throw new Error("Failed to create the symptom");
   }
 
-  return response.json();
+  return await response.json();
 }
 
 async function fetchAllSymptom() {

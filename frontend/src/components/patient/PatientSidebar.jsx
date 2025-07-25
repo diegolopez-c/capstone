@@ -14,7 +14,7 @@ export default function PatientSidebar() {
             path="/patient-new-appointment"
           />
           <SidebarLink text="My Appointments" path="/patient-appointments" />
-          <SidebarLink text="My History" path="/patient-history" />
+          <SidebarLink text="My Medical History" path="/patient-history" />
           <SidebarLink text="My Prescriptions" path="/patient-prescriptions" />
         </div>
       </div>

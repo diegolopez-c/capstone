@@ -50,45 +50,33 @@ export default function HistoryModal({
             </ModalHeader>
             <ModalBody className="max-h-96 overflow-scroll text-ca-black">
               {selectedHistoryBody ? (
-                <p className="text-sm">
-                  <span className="font-bold">Doctor:</span>{" "}
-                  {selectedHistoryBody.doctor.name +
-                    " " +
-                    selectedHistoryBody.doctor.lastname}
-                </p>
-              ) : (
-                <></>
-              )}
-              {selectedHistoryBody ? (
-                <p className="text-sm">
-                  <span className="font-bold">Diagnosis:</span>{" "}
-                  {selectedHistoryBody.diagnosis}
-                </p>
-              ) : (
-                <></>
-              )}
-              {selectedHistoryBody ? (
-                <p className="text-sm">
-                  <span className="font-bold">Notes:</span>{" "}
-                  {selectedHistoryBody.notes}
-                </p>
-              ) : (
-                <></>
-              )}
-              {selectedHistoryBody && selectedHistoryBody.symptoms ? (
                 <>
                   <p className="text-sm">
-                    <span className="font-bold">Symptoms:</span>
+                    <span className="font-bold">Doctor:</span>{" "}
+                    {`${selectedHistoryBody.doctor.name} ${selectedHistoryBody.doctor.lastname}`}
                   </p>
-                  <ul>
-                    {selectedHistoryBody.symptoms.map((s, key) => {
-                      return <li key={key}>- {s.symptom.name}</li>;
-                    })}
-                  </ul>
+                  <p className="text-sm">
+                    <span className="font-bold">Diagnosis:</span>{" "}
+                    {selectedHistoryBody.diagnosis}
+                  </p>
+                  <p className="text-sm">
+                    <span className="font-bold">Notes:</span>{" "}
+                    {selectedHistoryBody.notes}
+                  </p>
+                  {selectedHistoryBody.symptoms?.length > 0 && (
+                    <>
+                      <p className="text-sm">
+                        <span className="font-bold">Symptoms:</span>
+                      </p>
+                      <ul>
+                        {selectedHistoryBody.symptoms.map((s, index) => (
+                          <li key={index}>- {s.symptom.name}</li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
                 </>
-              ) : (
-                <></>
-              )}
+              ) : null}
             </ModalBody>
             <ModalFooter>
               <Button color="danger" onPress={onClose}>

@@ -187,7 +187,7 @@ export default function DoctorAppointments() {
   return (
     <div className="w-3/4 min-h-screen flex flex-col items-center gap-8 py-8 overflow-scroll">
       <h1 className="text-ca-white text-3xl font-bold">
-        Your Appointments History List
+        Appointment History List
       </h1>
       <Table aria-label="Appointment Table" className=" w-4/5 text-black">
         <TableHeader columns={columns}>

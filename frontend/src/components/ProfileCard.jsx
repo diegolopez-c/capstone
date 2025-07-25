@@ -31,7 +31,7 @@ export default function ProfileCard() {
         />
         <h3>{isAuthenticated ? user.given_name : "Patient Name"}</h3>
         <h3>{isAuthenticated ? user.family_name : "Patient Lastname"}</h3>
-        <h3>{userId}</h3>
+        <h3>ID: {userId}</h3>
         <Button className="w-min bg-ca-mint border border-ca-dark-blue">
           View Profile
         </Button>

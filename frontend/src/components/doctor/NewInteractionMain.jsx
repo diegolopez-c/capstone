@@ -51,7 +51,7 @@ export default function NewInteractionMain() {
   return (
     <div className="w-3/4 min-h-screen flex flex-col items-center gap-8 py-8 overflow-scroll">
       <h1 className="text-ca-white text-3xl font-bold">
-        Create a New Symptom - Medicine Interaction
+        New Symptom<span className="text-ca-yellow">/</span>Medicine Interaction
       </h1>
       <div className="rounded-xl bg-ca-light-black py-8 w-3/4 flex flex-col justify-center items-center gap-4">
         <div className="w-3/4 flex gap-4 flex-col items-center">

@@ -71,9 +71,7 @@ export default function PatientNewAppointmentMain() {
   return (
     <div className="w-3/4 min-h-screen flex flex-col items-center gap-8 py-8 overflow-scroll">
       {/** Create New Appointment Title */}
-      <h1 className="text-ca-white text-3xl font-bold">
-        Create New Appointment
-      </h1>
+      <h1 className="text-ca-white text-3xl font-bold">Make New Appointment</h1>
 
       {/** Tab Navigation */}
       <Tabs

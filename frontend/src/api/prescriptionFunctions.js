@@ -15,7 +15,7 @@ async function fetchAllPatientPrescriptions(patientId) {
 
   const prescriptionsList = await response.json();
 
-  return await prescriptionsList;
+  return prescriptionsList;
 }
 
 //Given a medicine List and de doctors and patient id this function will:
@@ -97,7 +97,7 @@ async function fetchAllPatientPrescriptionsByEmail(patientEmail) {
 
   const prescriptionList = await response.json();
 
-  return await prescriptionList;
+  return prescriptionList;
 }
 
 async function fetchPrescriptionById(prescriptionId) {
@@ -118,7 +118,7 @@ async function fetchPrescriptionById(prescriptionId) {
 
   const prescription = await response.json();
 
-  return await prescription;
+  return prescription;
 }
 
 export {
