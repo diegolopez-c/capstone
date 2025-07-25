@@ -56,6 +56,26 @@ async function fetchAllPatientAppointments(patientEmail) {
   return appointmentList;
 }
 
+async function fetchActivePatientAppointments(patientEmail) {
+  const patientId = await fetchUserId(patientEmail);
+
+  const response = await fetch(
+    `${
+      import.meta.env.VITE_BASE_URL
+    }/appointment/get-active-patient-appointments/${patientId}`,
+    {
+      method: "GET",
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch patients active appointments");
+  }
+
+  const appointmentList = await response.json();
+
+  return appointmentList;
+}
+
 async function fetchAllDoctorAppointments(doctorEmail) {
   const doctorId = await fetchUserId(doctorEmail);
 
@@ -174,4 +194,5 @@ export {
   confirmAppointment,
   completeAppointment,
   fetchActiveDoctorAppointments,
+  fetchActivePatientAppointments,
 };
