@@ -1,6 +1,6 @@
 [![Clinic-All-Logo](https://i.postimg.cc/zB3rRfCN/Clinic-All-2.png)](https://postimg.cc/tZ0fKpvv)
 
-# ClinicAll
+# ClinicAl
 
 Diego Lopez's Meta University 2025 capstone project repository
 
