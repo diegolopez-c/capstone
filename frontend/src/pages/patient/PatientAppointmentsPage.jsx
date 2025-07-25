@@ -6,7 +6,7 @@ export default function PatientAppointmentsPage() {
   return (
     <div className="h-screen flex">
       <PatientSidebar />
-      <PatientAppointment />
+      <PatientAppointment active={false} />
     </div>
   );
 }
