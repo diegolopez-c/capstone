@@ -125,76 +125,80 @@ Start the server
 
 ### Appointment Entity (/appointment)
 
-- Create Appointment
+- Get All Patient Appointments
 
-```http
-  POST /create-new-appointment
-```
+GET /get-all-patient-appointments/{patientId}
+| Body | Headers | Response | Authorization |
+| :--- | :------ | :------- | :------------ |
+| - | patientId (path param) | 200 appointment list, 500 Internal Server Error | The patient, doctors & admin |
+Curl:
+curl -X GET "https://your-api-domain/appointment/get-all-patient-appointments/{patientId}" -H "Authorization: Bearer <token>"
 
-| Body      | Headers | Response     | Authorization                |
-| :-------- | :-------- | :------- | :------------------------- |
-| appointment body | - | 201 appointment body, 400 bad request, 409 the patient already has an appointment & 500 Internal Server Error | The same user & admin |
+---
 
+- Get Active Patient Appointments
 
-- Change Appointment Status
+GET /get-active-patient-appointments/{patientId}
+| Body | Headers | Response | Authorization |
+| :--- | :------ | :------- | :------------ |
+| - | patientId (path param) | 200 appointment list, 500 Internal Server Error | The patient, doctors & admin |
+Curl:
+curl -X GET "https://your-api-domain/appointment/get-active-patient-appointments/{patientId}" -H "Authorization: Bearer <token>"
 
-```http
-  PUT /change-appointment-status
-```
+---
 
-| Body      | Headers | Response     | Authorization                |
-| :-------- | :-------- | :------- | :------------------------- |
-| id + new status | - | 200 appointment body & 500 Internal Server Error | The user and the doctor of the appointment admin |
+- Get Active Doctor Appointments
 
-- Reschedule Appointment
+GET /get-active-doctor-appointments/{doctorId}
+| Body | Headers | Response | Authorization |
+| :--- | :------ | :------- | :------------ |
+| - | doctorId (path param) | 200 appointment list, 500 Internal Server Error | The doctor of the appointment, admin |
+Curl:
+curl -X GET "https://your-api-domain/appointment/get-active-doctor-appointments/{doctorId}" -H "Authorization: Bearer <token>"
 
-```http
-  PUT /reschedule-appointment
-```
-
-| Body      | Headers | Response     | Authorization                |
-| :-------- | :-------- | :------- | :------------------------- |
-| id + new schedule date | - | 200 appointment body, 400 date not valid & 500 Internal Server Error | The user and the doctor of the appointment admin |
+---
 
 - Get All Doctor Appointments
 
-```http
-  GET /get-all-doctor-appointments/{doctorId}
-```
+GET /get-all-doctor-appointments/{doctorId}
+| Body | Headers | Response | Authorization |
+| :--- | :------ | :------- | :------------ |
+| - | doctorId (path param) | 200 appointment list, 500 Internal Server Error | The doctor of the appointment, admin |
+Curl:
+curl -X GET "https://your-api-domain/appointment/get-all-doctor-appointments/{doctorId}" -H "Authorization: Bearer <token>"
 
-| Body      | Headers | Response     | Authorization                |
-| :-------- | :-------- | :------- | :------------------------- |
-| -  | doctorId | 200 appointment list & 500 Internal Server Error | The doctor of the appointment admin |
+---
 
-- Get Active Doctor Appointments (RESCHEDULED, CONFIRMED, PENDING)
+- Create a New Appointment
 
-```http
-  GET /get-active-doctor-appointments/{doctorId}
-```
+POST /create-new-appointment
+| Body | Headers | Response | Authorization |
+| :--- | :------ | :------- | :------------ |
+| { patientId, doctorId, status (optional), reason, scheduleDate } | - | 201 appointment body, 400 bad request (invalid date), 409 patient already has appointment, 500 Internal Server Error | The same user & admin |
+Curl:
+curl -X POST "https://your-api-domain/appointment/create-new-appointment" -H "Content-Type: application/json" -H "Authorization: Bearer <token>" -d '{"patientId":123,"doctorId":456,"status":"PENDING","reason":"Checkup","scheduleDate":"2025-08-01T10:00:00Z"}'
 
-| Body      | Headers | Response     | Authorization                |
-| :-------- | :-------- | :------- | :------------------------- |
-| -  | doctorId | 200 appointment list & 500 Internal Server Error | The doctor of the appointment admin |
+---
 
-- Get All Patient Appointments
+- Reschedule an Appointment
 
-```http
-  GET /get-all-patient-appointments/{patientId}
-```
+PUT /reschedule-appointment
+| Body | Headers | Response | Authorization |
+| :--- | :------ | :------- | :------------ |
+| { id, scheduleDate } | - | 200 updated appointment body, 400 bad request (invalid date), 500 Internal Server Error | The user and the doctor of the appointment, admin |
+Curl:
+curl -X PUT "https://your-api-domain/appointment/reschedule-appointment" -H "Content-Type: application/json" -H "Authorization: Bearer <token>" -d '{"id":789,"scheduleDate":"2025-08-05T14:00:00Z"}'
 
-| Body      | Headers | Response     | Authorization                |
-| :-------- | :-------- | :------- | :------------------------- |
-| -  | patientId | 200 appointment list & 500 Internal Server Error | The patient, doctors & admin |
+---
 
-- Get Active Patient Appointments (RESCHEDULED, CONFIRMED, PENDING)
+- Change Appointment Status
 
-```http
-  GET /get-active-patient-appointments/{patientId}
-```
-
-| Body      | Headers | Response     | Authorization                |
-| :-------- | :-------- | :------- | :------------------------- |
-| -  | patientId | 200 appointment list & 500 Internal Server Error | The patient, doctors & admin |
+PUT /change-appointment-status
+| Body | Headers | Response | Authorization |
+| :--- | :------ | :------- | :------------ |
+| { id, status } | - | 200 updated appointment body, 500 Internal Server Error | The user and the doctor of the appointment, admin |
+Curl:
+curl -X PUT "https://your-api-domain/appointment/change-appointment-status" -H "Content-Type: application/json" -H "Authorization: Bearer <token>" -d '{"id":789,"status":"CANCELLED"}'
 
 ### Medical History Entity (/medical-history)
 
