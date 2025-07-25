@@ -124,7 +124,13 @@ export default function DoctorActiveAppointments() {
           <div className="flex items-center justify-around w-full">
             {appointment.status === "COMPLETED" ||
             appointment.status === "CANCELLED" ? (
-              <p>No Actions Available</p>
+              <Tooltip
+                className="capitalize text-ca-black"
+                color="default"
+                content="No Actions Available"
+              >
+                <i className="fa-solid fa-ban text-gray-300 cursor-pointer" />
+              </Tooltip>
             ) : (
               <>
                 {/* Check In Appointment Button */}
