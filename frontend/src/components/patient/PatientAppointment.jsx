@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import {
   cancelAppointment,
   fetchAllPatientAppointments,
+  fetchActivePatientAppointments,
 } from "../../api/appointmentFunctions";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
@@ -20,13 +21,18 @@ import {
 import { columns } from "../../utils/appointmentTableColumns";
 import formatFullDate from "../../utils/formatFullDate";
 
-export default function PatientAppointment() {
+export default function PatientAppointment({ active }) {
   const { user, isLoading } = useAuth0();
   const [appointmentList, setAppointmentList] = useState([]);
 
   useEffect(() => {
     async function fetchAppointments(email) {
-      const list = await fetchAllPatientAppointments(email);
+      let list;
+      if (!active) {
+        list = await fetchAllPatientAppointments(email);
+      } else {
+        list = await fetchActivePatientAppointments(email);
+      }
       setAppointmentList(list);
     }
 
@@ -79,7 +85,13 @@ export default function PatientAppointment() {
           <div className="flex items-center justify-center w-full">
             {appointment.status === "COMPLETED" ||
             appointment.status === "CANCELLED" ? (
-              <p>No Actions Available</p>
+              <Tooltip
+                className="capitalize text-ca-black"
+                color="default"
+                content="No Actions Available"
+              >
+                <i className="fa-solid fa-ban text-gray-300 cursor-pointer" />
+              </Tooltip>
             ) : (
               <Tooltip
                 className="capitalize"
@@ -103,9 +115,14 @@ export default function PatientAppointment() {
 
   return (
     <div className="w-3/4 min-h-screen flex flex-col items-center gap-8 py-8 overflow-scroll">
-      <h1 className="text-ca-white text-3xl font-bold">
-        Your Appointments List
-      </h1>
+      {active ? (
+        <></>
+      ) : (
+        <h1 className="text-ca-white text-3xl font-bold">
+          Your Appointments List
+        </h1>
+      )}
+
       <Table aria-label="Appointment Table" className=" w-4/5 text-black">
         <TableHeader columns={columns}>
           {(column) => (
